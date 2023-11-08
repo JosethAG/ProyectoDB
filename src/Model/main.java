@@ -1,6 +1,6 @@
-package voler;
+package Model;
 
-public class Voler {
+public class main {
 
     /**
      * @param args the command line arguments
