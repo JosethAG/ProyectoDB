@@ -1,58 +1,42 @@
 package Controller;
 
+import Model.Conexion;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import Model.ConexionDB;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class LoginController {
 
-    public static void main(String[] args) {
-     //   ConexionDB conexion = new ConexionDB();
-      //  Connection  con = conexion.obtenerConexion();
-        /*
-        // Nombre del procedimiento almacenado
-        String nombreProcedimiento = "nombre_del_procedimiento";
-
-        // Valores a pasar al procedimiento
-        String parametro1 = "valor1";
-        int parametro2 = 123;
-
-       try {
-            // Establecer la conexión
-            Connection  con = conexion.obtenerConexion();
-
-            // Consulta SQL
-            String consulta = "SELECT * FROM TB_USERS";
-
-            // Preparar la declaración
-            try (PreparedStatement statement = con.prepareStatement(consulta)) {
-                // Configurar parámetros, si es necesario
-                statement.setString(1, "valorCondicion");
-
-                // Ejecutar la consulta
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    // Procesar los resultados
-                    while (resultSet.next()) {
-                        // Acceder a los valores de las columnas
-                        String valorColumna1 = resultSet.getString("columna1");
-                        int valorColumna2 = resultSet.getInt("columna2");
-
-                        // Hacer algo con los valores, por ejemplo, imprimirlos
-                        System.out.println("Columna1: " + valorColumna1 + ", Columna2: " + valorColumna2);
-                    }
-                }
+ 
+    public static void main(String[] args) throws IOException, SQLException {
+        // TODO code application logic here
+//        Planilla plan = new Planilla();
+//        Funciones fun = new Funciones();
+//        plan.setId_planilla(1);
+//        plan.setAnho(2022);
+//        plan.setMes("mes");
+//        plan.setId_planilla(1);
+//        //fun.guarda(plan);
+//        //fun.guardaArchivo(plan);
+//        fun.leer();
+        //
+        ArrayList<String> lista = new ArrayList<String>();
+        try{
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall(" SELECT * FROM TB_USERS ");
+            ResultSet resultado = procedimiento.executeQuery();
+            while(resultado.next()){
+                //System.out.println("sss"+resultado.getInt("NOMBRE"));
+                lista.add(resultado.getString("NAME_USERS"));
             }
-
-            // Cerrar la conexión
-            con.close();
-
-        } catch (SQLException e) {
-            // Manejar excepciones de SQL
+        }catch(Exception e){
             e.printStackTrace();
         }
-*/
+        //PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("Select codigoCategoria,descripcion from Categorias  WHERE ESTADO<>0");
     }
-
+    
 }
+
+
