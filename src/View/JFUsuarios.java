@@ -15,6 +15,8 @@ public class JFUsuarios extends javax.swing.JFrame {
      */
     public JFUsuarios() {
         initComponents();
+          this.setLocationRelativeTo(null);
+     
     }
 
     /**
@@ -38,9 +40,11 @@ public class JFUsuarios extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         bntCita = new javax.swing.JButton();
-        Especialistas = new javax.swing.JButton();
-        Especialistas1 = new javax.swing.JButton();
-        Especialistas2 = new javax.swing.JButton();
+        btnEspecialistas = new javax.swing.JButton();
+        btnAuditoria = new javax.swing.JButton();
+        btnUsuarios = new javax.swing.JButton();
+        btnClientes = new javax.swing.JButton();
+        Especialistas4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPasswordField1 = new javax.swing.JPasswordField();
@@ -48,30 +52,40 @@ public class JFUsuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.white);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEliminar.setText("Eliminar");
         btnEliminar.setName("bntEliminar"); // NOI18N
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(653, 348, 110, 48));
 
         btnGuardar.setText("Guardar");
         btnGuardar.setName("bntGuardar"); // NOI18N
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 348, 120, 48));
 
         txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCedula.setText("Cédula");
+        getContentPane().add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 54, -1, -1));
 
         lblCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lblCedulaActionPerformed(evt);
             }
         });
+        getContentPane().add(lblCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 80, 249, 34));
 
         txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNombre.setText("Nombre");
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 126, -1, -1));
+        getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 152, 249, 34));
 
         txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCorreo.setText("Correo");
+        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 198, -1, -1));
+        getContentPane().add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 224, 249, 34));
 
         txtContraseña.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtContraseña.setText("Contraseña");
+        getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 270, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
         jPanel1.setForeground(new java.awt.Color(51, 51, 0));
@@ -96,28 +110,50 @@ public class JFUsuarios extends javax.swing.JFrame {
             }
         });
 
-        Especialistas.setForeground(new java.awt.Color(255, 255, 255));
-        Especialistas.setText("ESPECIALISTAS");
-        Especialistas.setBorder(null);
-        Especialistas.setContentAreaFilled(false);
+        btnEspecialistas.setForeground(new java.awt.Color(255, 255, 255));
+        btnEspecialistas.setText("ESPECIALISTAS");
+        btnEspecialistas.setBorder(null);
+        btnEspecialistas.setContentAreaFilled(false);
 
-        Especialistas1.setForeground(new java.awt.Color(255, 255, 255));
-        Especialistas1.setText("AUDITORIA");
-        Especialistas1.setBorder(null);
-        Especialistas1.setContentAreaFilled(false);
-        Especialistas1.addActionListener(new java.awt.event.ActionListener() {
+        btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
+        btnAuditoria.setText("AUDITORIA");
+        btnAuditoria.setBorder(null);
+        btnAuditoria.setContentAreaFilled(false);
+        btnAuditoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Especialistas1ActionPerformed(evt);
+                btnAuditoriaActionPerformed(evt);
             }
         });
 
-        Especialistas2.setForeground(new java.awt.Color(255, 255, 255));
-        Especialistas2.setText("USUARIOS");
-        Especialistas2.setBorder(null);
-        Especialistas2.setContentAreaFilled(false);
-        Especialistas2.addActionListener(new java.awt.event.ActionListener() {
+        btnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnUsuarios.setText("USUARIOS");
+        btnUsuarios.setBorder(null);
+        btnUsuarios.setContentAreaFilled(false);
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Especialistas2ActionPerformed(evt);
+                btnUsuariosActionPerformed(evt);
+            }
+        });
+
+        btnClientes.setForeground(new java.awt.Color(255, 255, 255));
+        btnClientes.setText("CLIENTES");
+        btnClientes.setBorder(null);
+        btnClientes.setContentAreaFilled(false);
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
+
+        Especialistas4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Especialistas4.setForeground(new java.awt.Color(255, 255, 255));
+        Especialistas4.setText("Salir");
+        Especialistas4.setBorder(null);
+        Especialistas4.setContentAreaFilled(false);
+        Especialistas4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Especialistas4ActionPerformed(evt);
             }
         });
 
@@ -125,18 +161,22 @@ public class JFUsuarios extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(btnHome)
                 .addGap(18, 18, 18)
                 .addComponent(bntCita)
                 .addGap(18, 18, 18)
-                .addComponent(Especialistas1)
+                .addComponent(btnAuditoria)
                 .addGap(18, 18, 18)
-                .addComponent(Especialistas)
+                .addComponent(btnClientes)
                 .addGap(18, 18, 18)
-                .addComponent(Especialistas2)
-                .addGap(67, 67, 67))
+                .addComponent(btnEspecialistas)
+                .addGap(18, 18, 18)
+                .addComponent(btnUsuarios)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
+                .addComponent(Especialistas4)
+                .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,11 +185,15 @@ public class JFUsuarios extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHome)
                     .addComponent(bntCita)
-                    .addComponent(Especialistas)
-                    .addComponent(Especialistas1)
-                    .addComponent(Especialistas2))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(btnEspecialistas)
+                    .addComponent(btnAuditoria)
+                    .addComponent(btnUsuarios)
+                    .addComponent(btnClientes)
+                    .addComponent(Especialistas4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 785, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -164,66 +208,11 @@ public class JFUsuarios extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPasswordField1.setText("jPasswordField1");
-        setJMenuBar(jMenuBar1);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 490, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                    .addComponent(lblCedula)
-                    .addComponent(lblNombre)
-                    .addComponent(lblCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtContraseña)
-                            .addComponent(txtCorreo)
-                            .addComponent(txtNombre)
-                            .addComponent(txtCedula))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPasswordField1))
-                .addGap(66, 66, 66))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCedula)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCorreo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtContraseña)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        jPasswordField1.setText("jPasswordField1");
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 296, 249, 34));
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -240,13 +229,21 @@ public class JFUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bntCitaActionPerformed
 
-    private void Especialistas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Especialistas1ActionPerformed
+    private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Especialistas1ActionPerformed
+    }//GEN-LAST:event_btnAuditoriaActionPerformed
 
-    private void Especialistas2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Especialistas2ActionPerformed
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Especialistas2ActionPerformed
+    }//GEN-LAST:event_btnUsuariosActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void Especialistas4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Especialistas4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Especialistas4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,13 +281,15 @@ public class JFUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Especialistas;
-    private javax.swing.JButton Especialistas1;
-    private javax.swing.JButton Especialistas2;
+    private javax.swing.JButton Especialistas4;
     private javax.swing.JButton bntCita;
+    private javax.swing.JButton btnAuditoria;
+    private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEspecialistas;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnUsuarios;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;

@@ -8,14 +8,13 @@ package View;
  *
  * @author araya
  */
-public class JFClientes extends javax.swing.JFrame {
+public class JFUsuarios extends javax.swing.JFrame {
 
     /**
      * Creates new form JFUsuarios
      */
-    public JFClientes() {
+    public JFUsuarios() {
         initComponents();
-         this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,24 +32,18 @@ public class JFClientes extends javax.swing.JFrame {
         lblCedula = new javax.swing.JTextField();
         txtNombre = new javax.swing.JLabel();
         lblNombre = new javax.swing.JTextField();
-        txtApellidos = new javax.swing.JLabel();
-        lblApellidos = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JLabel();
+        lblCorreo = new javax.swing.JTextField();
+        txtContraseña = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         bntCita = new javax.swing.JButton();
-        btnEspecialistas = new javax.swing.JButton();
-        btnAuditoria = new javax.swing.JButton();
-        btnUsuarios = new javax.swing.JButton();
-        btnClientes = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        Especialistas = new javax.swing.JButton();
+        Especialistas1 = new javax.swing.JButton();
+        Especialistas2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblCorreo = new javax.swing.JTextField();
-        txtProvincia = new javax.swing.JLabel();
-        lblProvincia = new javax.swing.JTextField();
-        txtProvincia1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,11 +67,11 @@ public class JFClientes extends javax.swing.JFrame {
         txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNombre.setText("Nombre");
 
-        txtApellidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtApellidos.setText("Apellidos");
-
         txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCorreo.setText("Correo");
+
+        txtContraseña.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtContraseña.setText("Contraseña");
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
         jPanel1.setForeground(new java.awt.Color(51, 51, 0));
@@ -103,50 +96,28 @@ public class JFClientes extends javax.swing.JFrame {
             }
         });
 
-        btnEspecialistas.setForeground(new java.awt.Color(255, 255, 255));
-        btnEspecialistas.setText("ESPECIALISTAS");
-        btnEspecialistas.setBorder(null);
-        btnEspecialistas.setContentAreaFilled(false);
+        Especialistas.setForeground(new java.awt.Color(255, 255, 255));
+        Especialistas.setText("ESPECIALISTAS");
+        Especialistas.setBorder(null);
+        Especialistas.setContentAreaFilled(false);
 
-        btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
-        btnAuditoria.setText("AUDITORIA");
-        btnAuditoria.setBorder(null);
-        btnAuditoria.setContentAreaFilled(false);
-        btnAuditoria.addActionListener(new java.awt.event.ActionListener() {
+        Especialistas1.setForeground(new java.awt.Color(255, 255, 255));
+        Especialistas1.setText("AUDITORIA");
+        Especialistas1.setBorder(null);
+        Especialistas1.setContentAreaFilled(false);
+        Especialistas1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAuditoriaActionPerformed(evt);
+                Especialistas1ActionPerformed(evt);
             }
         });
 
-        btnUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        btnUsuarios.setText("USUARIOS");
-        btnUsuarios.setBorder(null);
-        btnUsuarios.setContentAreaFilled(false);
-        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        Especialistas2.setForeground(new java.awt.Color(255, 255, 255));
+        Especialistas2.setText("USUARIOS");
+        Especialistas2.setBorder(null);
+        Especialistas2.setContentAreaFilled(false);
+        Especialistas2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuariosActionPerformed(evt);
-            }
-        });
-
-        btnClientes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnClientes.setForeground(new java.awt.Color(255, 255, 255));
-        btnClientes.setText("CLIENTES");
-        btnClientes.setBorder(null);
-        btnClientes.setContentAreaFilled(false);
-        btnClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClientesActionPerformed(evt);
-            }
-        });
-
-        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setText("Salir");
-        btnSalir.setBorder(null);
-        btnSalir.setContentAreaFilled(false);
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                Especialistas2ActionPerformed(evt);
             }
         });
 
@@ -154,36 +125,30 @@ public class JFClientes extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHome)
                 .addGap(18, 18, 18)
                 .addComponent(bntCita)
                 .addGap(18, 18, 18)
-                .addComponent(btnAuditoria)
+                .addComponent(Especialistas1)
                 .addGap(18, 18, 18)
-                .addComponent(btnClientes)
+                .addComponent(Especialistas)
                 .addGap(18, 18, 18)
-                .addComponent(btnEspecialistas)
-                .addGap(18, 18, 18)
-                .addComponent(btnUsuarios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(16, 16, 16))
+                .addComponent(Especialistas2)
+                .addGap(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHome)
                     .addComponent(bntCita)
-                    .addComponent(btnEspecialistas)
-                    .addComponent(btnAuditoria)
-                    .addComponent(btnUsuarios)
-                    .addComponent(btnClientes)
-                    .addComponent(btnSalir))
-                .addGap(16, 16, 16))
+                    .addComponent(Especialistas)
+                    .addComponent(Especialistas1)
+                    .addComponent(Especialistas2))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -199,23 +164,7 @@ public class JFClientes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        lblCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblCorreoActionPerformed(evt);
-            }
-        });
-
-        txtProvincia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtProvincia.setText("Provincia");
-
-        lblProvincia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblProvinciaActionPerformed(evt);
-            }
-        });
-
-        txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtProvincia1.setText("Fecha Nacimiento");
+        jPasswordField1.setText("jPasswordField1");
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,30 +172,26 @@ public class JFClientes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                     .addComponent(lblCedula)
                     .addComponent(lblNombre)
-                    .addComponent(lblApellidos, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCorreo)
-                    .addComponent(lblProvincia)
+                    .addComponent(lblCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtContraseña)
                             .addComponent(txtCorreo)
-                            .addComponent(txtApellidos)
                             .addComponent(txtNombre)
-                            .addComponent(txtCedula)
-                            .addComponent(txtProvincia)
-                            .addComponent(txtProvincia1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(16, 16, 16))
+                            .addComponent(txtCedula))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPasswordField1))
+                .addGap(66, 66, 66))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -255,7 +200,6 @@ public class JFClientes extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtCedula)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,26 +209,19 @@ public class JFClientes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtApellidos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtCorreo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtProvincia)
+                        .addComponent(txtContraseña)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtProvincia1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 139, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -303,29 +240,13 @@ public class JFClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bntCitaActionPerformed
 
-    private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
+    private void Especialistas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Especialistas1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAuditoriaActionPerformed
+    }//GEN-LAST:event_Especialistas1ActionPerformed
 
-    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+    private void Especialistas2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Especialistas2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnUsuariosActionPerformed
-
-    private void lblCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCorreoActionPerformed
-
-    private void lblProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblProvinciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblProvinciaActionPerformed
-
-    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnClientesActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_Especialistas2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,50 +265,43 @@ public class JFClientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFClientes().setVisible(true);
+                new JFUsuarios().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Especialistas;
+    private javax.swing.JButton Especialistas1;
+    private javax.swing.JButton Especialistas2;
     private javax.swing.JButton bntCita;
-    private javax.swing.JButton btnAuditoria;
-    private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnEspecialistas;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnUsuarios;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField lblApellidos;
     private javax.swing.JTextField lblCedula;
     private javax.swing.JTextField lblCorreo;
     private javax.swing.JTextField lblNombre;
-    private javax.swing.JTextField lblProvincia;
-    private javax.swing.JLabel txtApellidos;
     private javax.swing.JLabel txtCedula;
+    private javax.swing.JLabel txtContraseña;
     private javax.swing.JLabel txtCorreo;
     private javax.swing.JLabel txtNombre;
-    private javax.swing.JLabel txtProvincia;
-    private javax.swing.JLabel txtProvincia1;
     // End of variables declaration//GEN-END:variables
 }

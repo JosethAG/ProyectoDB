@@ -1,38 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Angelo
- */
+
 public class ConexionDB {
 
- 
-    public static Connection getConneccion(){
-     try {
-          
-            Class.forName("oracle.jdbc.driver.OracleDriver");  //DRIVER DE SQL DEVELOPER
-            String myDB = "jdbc:oracle:thin:@localhost:1521:XE";//URL DE SQL DEVELOPER
-            String usuario="VIDEOCLUB1";
-            String password="1234";
-            Connection cnx = DriverManager.getConnection(myDB,usuario,password);
-            return cnx;
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ConexionDB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }  
+    public static void main(String[] args)  {
 
+    
+        try {
+            // Cargar el controlador JDBC
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            String url= "jdbc:oracle:thin:@localhost:1521:orcl"; // Reemplaza con tu configuración
+            String uname = "admin";
+            String upass = "admin1234";
+            // Establecer la conexión
+            Connection conn = DriverManager.getConnection(url, uname, upass);
+           
+            String sql = "SELECT USER_ID FROM TB_USERS";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                System.out.print("USER_ID");
+                   System.out.println(rs.getString(1));
+                 }
+
+        } catch (Exception e) {
+            // Manejar la excepción de carga del controlador
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 }
