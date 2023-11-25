@@ -6,19 +6,19 @@ INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (103,  'User
 INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (104,  'User 4', 'user4@example.com', 'pass4');
 
 -- Inserts para TB_PROVINCIA
-INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (1, 'San Jos�');
+INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (1, 'San José');
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (2, 'Alajuela');
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (3, 'Heredia');
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (4, 'Puntarenas');
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (5, 'Cartago');
-INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (6, 'Lim�n');
+INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (6, 'Limón');
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (7, 'Guanacaste');
 
 -- Inserts para TB_CLIENTES
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL,  fechaNacimiento,   PROVINCIA_ID) VALUES (1,  'Cliente 1', 'Apellido 1',  'user1@example.com', '05/10/2000', 1);
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (2,  'Cliente 2', 'Apellido 2',  'user2@example.com', '05/10/2000', 2);
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (3,  'Cliente 3', 'Apellido 3',  'user3@example.com', '05/10/2000', 3);
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (4,  'Cliente 4', 'Apellido 4',  'user4@example.com', '05/10/2000', 4);
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL,  fechaNacimiento,   PROVINCIA_ID) VALUES (1,  'Cliente 1', 'Apellido 1',  'user1@example.com', '25-SEP-23', 1);
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (2,  'Cliente 2', 'Apellido 2',  'user2@example.com', '20-MAY-20', 2);
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (3,  'Cliente 3', 'Apellido 3',  'user3@example.com', '05-OCT-21', 3);
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (4,  'Cliente 4', 'Apellido 4',  'user4@example.com', '15-SEP-20', 4);
 
 
 -- Inserts para TB_ESPECIALISTAS
@@ -42,17 +42,17 @@ INSERT INTO TB_TIPOCITAS (TIPOCITA_ID, NOMBRE_TIPOCITA) VALUES (2, 'Presencial')
 
 
 -- Inserts para TB_APPOINTMENTS
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (1, 1, 1, '05/10/2023', '10:00 AM', 1, 1, 1, 'Programada');
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (2, 2, 2, '06/10/2023', '02:30 PM', 2, 2, 2, 'Realizada');
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (3, 3, 3, '07/10/2023', '11:45 AM', 3, 3, 3, 'Cancelada');
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (4, 4, 4, '08/10/2023', '09:00 AM', 4, 4, 4, 'Programada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (1, 1, 1, '10-NOV-23', '10:00 AM', 1, 1, 1, 'Programada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (2, 2, 2, '11-NOV-23', '02:30 PM', 2, 2, 2, 'Realizada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (3, 3, 3, '10-NOV-23', '10:00 AM', 3, 3, 2, 'Cancelada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (4, 4, 4, '11-NOV-23', '02:30 PM', 4, 4, 1, 'Realizada');
 
 
 -- Inserts para TB_AUDITORIACITAS
-INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (1, 1, '', '','05/10/2023');
-INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (2, 2, '', '', '05/10/2023');
-INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (3, 3, '', '', '05/10/2023');
-INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (4, 4, '', '', '05/10/2023');
+INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (1, 1, '', '','11-NOV-23');
+INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (2, 2, '', '', '10-NOV-23');
+INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (3, 3, '', '', '10-NOV-23');
+INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (4, 4, '', '', '11-NOV-23');
 
 
 CREATE TABLE TB_USERS(
@@ -117,7 +117,7 @@ CREATE TABLE TB_AUDITORIACITAS (
 
 -- Procedimientos Almacenados 
 
--- Iniciar Sesi�n
+-- Iniciar Sesiï¿½n
 CREATE OR REPLACE PROCEDURE Login_User(
     p_Email VARCHAR2,
     p_Password VARCHAR2,
@@ -198,7 +198,7 @@ END;
 
 
 
--- Obtener Informaci�n del Usuario
+-- Obtener Informaciï¿½n del Usuario
 CREATE OR REPLACE PROCEDURE Get_User_Info(
     p_UserID NUMBER,
     p_Name OUT VARCHAR2,
@@ -221,7 +221,7 @@ BEGIN
     END LOOP;
 END;
 
--- Actualizar Informaci�n del Usuario
+-- Actualizar Informaciï¿½n del Usuario
 CREATE OR REPLACE PROCEDURE Update_User_Info(
     p_UserID NUMBER,
     p_NewName VARCHAR2,
@@ -270,7 +270,7 @@ BEGIN
     WHERE APPOINTMENT_ID = p_AppointmentID;
 END;
 
--- Obtener Detalles de un Usuario por Correo Electr�nico
+-- Obtener Detalles de un Usuario por Correo Electrï¿½nico
 CREATE OR REPLACE PROCEDURE Get_User_DetailsByEmail(
     p_Email VARCHAR2,
     p_UserID OUT NUMBER,
@@ -330,7 +330,7 @@ INNER JOIN TB_PROVINCIA P ON A.PROVINCIA_ID = P.PROVINCIA_ID;
 
 --Funciones
 
---Funci�n para Calcular la Edad de un Cliente a partir de su Fecha de Nacimiento:
+--Funciï¿½n para Calcular la Edad de un Cliente a partir de su Fecha de Nacimiento:
 CREATE OR REPLACE FUNCTION CalculateAge(p_Birthdate DATE) RETURN NUMBER IS
     v_Age NUMBER;
 BEGIN
@@ -339,7 +339,7 @@ BEGIN
 END;
 
 
---Funci�n para Verificar si un Usuario Existe por su Correo Electr�nico:
+--Funciï¿½n para Verificar si un Usuario Existe por su Correo Electrï¿½nico:
 CREATE OR REPLACE FUNCTION UserExists(p_Email VARCHAR2) RETURN BOOLEAN IS
     v_Count NUMBER;
 BEGIN
@@ -350,7 +350,7 @@ BEGIN
 END;
 
 
---Funci�n para Encontrar el Pr�ximo Disponible en una Cita:
+--Funciï¿½n para Encontrar el Prï¿½ximo Disponible en una Cita:
 CREATE OR REPLACE FUNCTION FindNextAvailableAppointment(p_AppointmentID NUMBER) RETURN DATE IS
     v_NextAppointment DATE;
 BEGIN
@@ -361,7 +361,7 @@ BEGIN
 END;
 
 
---Funci�n para Calcular la Cantidad de Citas de un Cliente en una Fecha Espec�fica:
+--Funciï¿½n para Calcular la Cantidad de Citas de un Cliente en una Fecha Especï¿½fica:
 CREATE OR REPLACE FUNCTION CountAppointmentsOnDate(p_AppointmentID NUMBER, p_Date DATE) RETURN NUMBER IS
     v_Count NUMBER;
 BEGIN
@@ -371,7 +371,7 @@ BEGIN
     RETURN v_Count;
 END;
 
---Funci�n para Calcular el Promedio de Edades de los Clientes en una Provincia:
+--Funciï¿½n para Calcular el Promedio de Edades de los Clientes en una Provincia:
 CREATE OR REPLACE FUNCTION CalculateAverageAgeInProvince(p_ProvinciaID NUMBER) RETURN NUMBER IS
     v_AvgAge NUMBER;
 BEGIN
@@ -381,7 +381,7 @@ BEGIN
     RETURN v_AvgAge;
 END;
 
---Funci�n para Calcular la Cantidad de Clientes por Provincia:
+--Funciï¿½n para Calcular la Cantidad de Clientes por Provincia:
 CREATE OR REPLACE FUNCTION CountClientsInProvince(p_ProvincIAID NUMBER) RETURN NUMBER IS
     v_Count NUMBER;
 BEGIN
@@ -402,7 +402,7 @@ CREATE TABLE Audit_Log (
     Action VARCHAR2(10),
     Action_Date DATE);
 
---Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_USERS y registra la fecha y hora de la acci�n en otra tabla.
+--Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_USERS y registra la fecha y hora de la acciï¿½n en otra tabla.
 
 CREATE OR REPLACE TRIGGER User_Insert_Trigger
 BEFORE INSERT ON TB_USERS
@@ -413,7 +413,7 @@ BEGIN
 END;
 /
 
---Un trigger que se activa antes de eliminar un registro en la tabla TB_USERS y registra la fecha y hora de la acci�n en otra tabla.
+--Un trigger que se activa antes de eliminar un registro en la tabla TB_USERS y registra la fecha y hora de la acciï¿½n en otra tabla.
 CREATE OR REPLACE TRIGGER User_Delete_Trigger
 BEFORE DELETE ON TB_USERS
 FOR EACH ROW
@@ -422,7 +422,7 @@ BEGIN
     VALUES ('TB_USERS', 'DELETE', SYSDATE);
 END;
 
---Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_CLIENTES y registra la fecha y hora de la acci�n en otra tabla.
+--Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_CLIENTES y registra la fecha y hora de la acciï¿½n en otra tabla.
 CREATE OR REPLACE TRIGGER Cliente_Insert_Trigger
 BEFORE INSERT ON TB_CLIENTES
 FOR EACH ROW
@@ -432,7 +432,7 @@ BEGIN
 END;
 
 
---Un trigger que se activa antes de actualizar un registro en la tabla TB_CLIENTES y registra la fecha y hora de la acci�n en otra tabla.
+--Un trigger que se activa antes de actualizar un registro en la tabla TB_CLIENTES y registra la fecha y hora de la acciï¿½n en otra tabla.
 CREATE OR REPLACE TRIGGER Cliente_Update_Trigger
 BEFORE UPDATE ON TB_CLIENTES
 FOR EACH ROW
@@ -441,7 +441,7 @@ BEGIN
     VALUES ('TB_CLIENTES', 'UPDATE', SYSDATE);
 END;
 
---Un trigger que se activa antes de eliminar un registro en la tabla TB_CLIENTES y registra la fecha y hora de la acci�n en otra tabla.
+--Un trigger que se activa antes de eliminar un registro en la tabla TB_CLIENTES y registra la fecha y hora de la acciï¿½n en otra tabla.
 CREATE OR REPLACE TRIGGER Cliente_Delete_Trigger
 BEFORE DELETE ON TB_CLIENTES
 FOR EACH ROW
@@ -458,8 +458,8 @@ DECLARE
         SELECT * FROM TB_USERS;
 BEGIN
     FOR user_rec IN user_cursor LOOP
-        -- Procesa los registros aqu�
-        -- Por ejemplo, puedes imprimir informaci�n sobre cada registro:
+        -- Procesa los registros aquï¿½
+        -- Por ejemplo, puedes imprimir informaciï¿½n sobre cada registro:
         DBMS_OUTPUT.PUT_LINE('USER_ID: ' || user_rec.USER_ID);
         DBMS_OUTPUT.PUT_LINE('NAME_USERS: ' || user_rec.NAME_USERS);
         DBMS_OUTPUT.PUT_LINE('EMAIL: ' || user_rec.EMAIL);
@@ -511,7 +511,7 @@ END;
 
 
 
---Cursor para Obtener Informaci�n del Usuario
+--Cursor para Obtener Informaciï¿½n del Usuario
 CREATE OR REPLACE PROCEDURE Get_User_Info_Cursor(
     p_UserID NUMBER,
     p_Name OUT VARCHAR2,
