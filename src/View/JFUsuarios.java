@@ -4,19 +4,52 @@
  */
 package View;
 
+import Controller.UsuariosController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author araya
  */
 public class JFUsuarios extends javax.swing.JFrame {
 
+    private UsuariosController usuariosController;
+
     /**
      * Creates new form JFUsuarios
      */
     public JFUsuarios() {
         initComponents();
-          this.setLocationRelativeTo(null);
-     
+        this.setLocationRelativeTo(null);
+        usuariosController = new UsuariosController(this);
+    }
+
+    public String getCedula() {
+        return lblCedula.getText();
+    }
+
+    public String getNombre() {
+        return lblNombre.getText();
+    }
+
+    public String getCorreo() {
+        return lblCorreo.getText();
+    }
+
+    public String getContrasenna() {
+        return lblContrasena.getText();
+    }
+
+    public javax.swing.JButton getbtnGuardar() {
+    return btnGuardar;
+    
+}
+    public void limpiarCampos() {
+        lblCedula.setText("");
+        lblNombre.setText("");
+        lblCorreo.setText("");
+        lblContrasena.setText("");
     }
 
     /**
@@ -44,10 +77,10 @@ public class JFUsuarios extends javax.swing.JFrame {
         btnAuditoria = new javax.swing.JButton();
         btnUsuarios = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
-        Especialistas4 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        lblContrasena = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,6 +93,11 @@ public class JFUsuarios extends javax.swing.JFrame {
 
         btnGuardar.setText("Guardar");
         btnGuardar.setName("bntGuardar"); // NOI18N
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 348, 120, 48));
 
         txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -114,6 +152,11 @@ public class JFUsuarios extends javax.swing.JFrame {
         btnEspecialistas.setText("ESPECIALISTAS");
         btnEspecialistas.setBorder(null);
         btnEspecialistas.setContentAreaFilled(false);
+        btnEspecialistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEspecialistasActionPerformed(evt);
+            }
+        });
 
         btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
         btnAuditoria.setText("AUDITORIA");
@@ -146,14 +189,14 @@ public class JFUsuarios extends javax.swing.JFrame {
             }
         });
 
-        Especialistas4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Especialistas4.setForeground(new java.awt.Color(255, 255, 255));
-        Especialistas4.setText("Salir");
-        Especialistas4.setBorder(null);
-        Especialistas4.setContentAreaFilled(false);
-        Especialistas4.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("Salir");
+        btnSalir.setBorder(null);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Especialistas4ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -175,7 +218,7 @@ public class JFUsuarios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnUsuarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
-                .addComponent(Especialistas4)
+                .addComponent(btnSalir)
                 .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
@@ -189,7 +232,7 @@ public class JFUsuarios extends javax.swing.JFrame {
                     .addComponent(btnAuditoria)
                     .addComponent(btnUsuarios)
                     .addComponent(btnClientes)
-                    .addComponent(Especialistas4))
+                    .addComponent(btnSalir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -209,9 +252,7 @@ public class JFUsuarios extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 490, -1));
-
-        jPasswordField1.setText("jPasswordField1");
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 296, 249, 34));
+        getContentPane().add(lblContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 296, 249, 34));
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -223,14 +264,25 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
+        JFHome abrir = new JFHome();
+        abrir.setVisible(true);
+        this.setVisible(false);
+
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void bntCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCitaActionPerformed
         // TODO add your handling code here:
+        JFCitas abrir = new JFCitas();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         // TODO add your handling code here:
+
+        JFAuditoria abrir = new JFAuditoria();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
@@ -239,11 +291,30 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
+        JFClientes abrir = new JFClientes();
+        abrir.setVisible(true);
+        this.setVisible(false);
+
     }//GEN-LAST:event_btnClientesActionPerformed
 
-    private void Especialistas4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Especialistas4ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Especialistas4ActionPerformed
+        System.exit(0);
+
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialistasActionPerformed
+        // TODO add your handling code here:
+        JFEspecialistas abrir = new JFEspecialistas();
+        abrir.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnEspecialistasActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        
+        usuariosController.ejecutarProcedimiento();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,21 +352,21 @@ public class JFUsuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Especialistas4;
     private javax.swing.JButton bntCita;
     private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEspecialistas;
-    private javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField lblCedula;
+    private javax.swing.JPasswordField lblContrasena;
     private javax.swing.JTextField lblCorreo;
     private javax.swing.JTextField lblNombre;
     private javax.swing.JLabel txtCedula;
