@@ -7,6 +7,7 @@ package View;
 import Controller.UsuariosController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,8 +26,10 @@ public class JFUsuarios extends javax.swing.JFrame {
         usuariosController = new UsuariosController(this);
     }
 
-    public String getCedula() {
-        return lblCedula.getText();
+    public int getCedula() {
+
+        return Integer.parseInt(lblCedula.getText());
+
     }
 
     public String getNombre() {
@@ -42,15 +45,19 @@ public class JFUsuarios extends javax.swing.JFrame {
     }
 
     public javax.swing.JButton getbtnGuardar() {
-    return btnGuardar;
-    
-}
+        return btnGuardar;
+
+    }
+
     public void limpiarCampos() {
         lblCedula.setText("");
         lblNombre.setText("");
         lblCorreo.setText("");
         lblContrasena.setText("");
+        JOptionPane.showMessageDialog(null, "Usuario guardado correctamente");
+    
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -312,7 +319,7 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+
         usuariosController.ejecutarProcedimiento();
     }//GEN-LAST:event_btnGuardarActionPerformed
 

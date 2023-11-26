@@ -54,38 +54,46 @@ public class Usuarios {
     
     private Connection conn;
 
-    public Usuarios(String url, String usuario, String contraseña) {
+    
+        public Usuarios(String url, String usuario, String contraseña) throws SQLException, ClassNotFoundException {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(url, usuario, contraseña);
         } catch (ClassNotFoundException | SQLException e) {
+            // Manejo de excepciones: Imprimir el error y relanzar la excepción
             e.printStackTrace();
+            throw e;
         }
     }
 
-    public void ejecutarProcedimiento(String parametro1, String parametro2,String parametro3,String parametro4) {
+    public void ejecutarProcedimiento(int parametro1, String parametro2,String parametro3,String parametro4) throws SQLException {
         try {
             String sql = "{call Create_User(?, ?, ?, ?)}";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, parametro1);
+                stmt.setInt(1, parametro1);
                 stmt.setString(2, parametro2);
                 stmt.setString(3, parametro3);
                 stmt.setString(4, parametro4);
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
+         // Manejo de excepciones: Imprimir el error y relanzar la excepción
             e.printStackTrace();
+             throw e;
         }
     }
+        
 
-    public void cerrarConexion() {
+        public void cerrarConexion() {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
             }
         } catch (SQLException e) {
+            // Manejo de excepciones: Imprimir el error 
             e.printStackTrace();
         }
     }
+    
 }
 
