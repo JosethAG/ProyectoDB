@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class EspecialistasController {
     public static void main(String[]args) throws IOException, SQLException{
-        Conexion conexion = Conexion.obtenerConexion();
+        Conexion conexion = Conexion.getInstancia();
       if (conexion != null){
           try {
               String insercion = "INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, USER_ID, ESPECIALIDAD) VALUES (?,?,?)";
