@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import Controller.UsuariosController;
@@ -9,10 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author araya
- */
 public class JFUsuarios extends javax.swing.JFrame {
 
     private UsuariosController usuariosController;

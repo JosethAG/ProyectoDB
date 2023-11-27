@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class UsuariosController {
      private JFUsuarios jfusuarios;
-    private Usuarios usuarios;
+     private Usuarios usuarios;
 
 //    public UsuariosController(JFUsuarios jfusuarios) {
 //        this.jfusuarios = jfusuarios;

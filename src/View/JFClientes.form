@@ -36,24 +36,24 @@
               <Component id="jScrollPane1" min="-2" pref="496" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jDateChooser1" max="32767" attributes="0"/>
+                  <Component id="dcNacimiento" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnGuardar" min="-2" pref="164" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnEliminar" pref="156" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="lblCedula" max="32767" attributes="0"/>
-                  <Component id="lblNombre" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblApellidos" alignment="1" max="32767" attributes="0"/>
-                  <Component id="lblCorreo" max="32767" attributes="0"/>
-                  <Component id="lblProvincia" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtCedula" max="32767" attributes="0"/>
+                  <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtApellidos" alignment="1" max="32767" attributes="0"/>
+                  <Component id="txtCorreo" max="32767" attributes="0"/>
+                  <Component id="txtProvincia" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtCorreo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtNombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCedula" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtProvincia" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="Correo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="Apellidos" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="Nombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="Cedula" min="-2" max="-2" attributes="0"/>
+                          <Component id="Provincia" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtProvincia1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -72,35 +72,35 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="txtCedula" min="-2" max="-2" attributes="0"/>
+                      <Component id="Cedula" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblCedula" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="txtCedula" min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="Nombre" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtNombre" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
+                      <Component id="Apellidos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblNombre" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="txtApellidos" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtApellidos" min="-2" max="-2" attributes="0"/>
+                      <Component id="Correo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblApellidos" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="txtCorreo" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtCorreo" min="-2" max="-2" attributes="0"/>
+                      <Component id="Provincia" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblCorreo" min="-2" pref="34" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtProvincia" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblProvincia" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="txtProvincia" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtProvincia1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jDateChooser1" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="dcNacimiento" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnGuardar" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                           <Component id="btnEliminar" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="139" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="130" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -120,8 +120,14 @@
         <Property name="text" type="java.lang.String" value="Guardar"/>
         <Property name="name" type="java.lang.String" value="bntGuardar" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtCedula">
+    <Component class="javax.swing.JLabel" name="Cedula">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -129,12 +135,12 @@
         <Property name="text" type="java.lang.String" value="C&#xe9;dula"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblCedula">
+    <Component class="javax.swing.JTextField" name="txtCedula">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblCedulaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCedulaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtNombre">
+    <Component class="javax.swing.JLabel" name="Nombre">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -142,9 +148,9 @@
         <Property name="text" type="java.lang.String" value="Nombre"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblNombre">
+    <Component class="javax.swing.JTextField" name="txtNombre">
     </Component>
-    <Component class="javax.swing.JLabel" name="txtApellidos">
+    <Component class="javax.swing.JLabel" name="Apellidos">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -152,9 +158,9 @@
         <Property name="text" type="java.lang.String" value="Apellidos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblApellidos">
+    <Component class="javax.swing.JTextField" name="txtApellidos">
     </Component>
-    <Component class="javax.swing.JLabel" name="txtCorreo">
+    <Component class="javax.swing.JLabel" name="Correo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -344,12 +350,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="lblCorreo">
+    <Component class="javax.swing.JTextField" name="txtCorreo">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblCorreoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCorreoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtProvincia">
+    <Component class="javax.swing.JLabel" name="Provincia">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -357,9 +363,9 @@
         <Property name="text" type="java.lang.String" value="Provincia"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblProvincia">
+    <Component class="javax.swing.JTextField" name="txtProvincia">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblProvinciaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProvinciaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtProvincia1">
@@ -370,7 +376,10 @@
         <Property name="text" type="java.lang.String" value="Fecha Nacimiento"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+    <Component class="com.toedter.calendar.JDateChooser" name="dcNacimiento">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-mm-yyyy"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

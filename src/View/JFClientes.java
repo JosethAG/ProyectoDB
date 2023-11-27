@@ -1,21 +1,60 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
-/**
- *
- * @author araya
- */
+import Controller.ClientesController;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 public class JFClientes extends javax.swing.JFrame {
 
+    private ClientesController clientesController;
     /**
      * Creates new form JFUsuarios
      */
     public JFClientes() {
         initComponents();
          this.setLocationRelativeTo(null);
+         clientesController = new ClientesController(this);
+    }
+
+    public String getDcNacimiento() {
+        
+        return dcNacimiento.getDateFormatString();
+    }
+
+    public String getTxtApellidos() {
+        return txtApellidos.getText();
+    }
+
+    public int getTxtCedula() {
+        return Integer.parseInt(txtCedula.getText());
+    }
+
+    public String getTxtCorreo() {
+        return txtCorreo.getText();
+    }
+
+    public String getTxtNombre() {
+        return txtNombre.getText();
+    }
+
+    public int getTxtProvincia() {
+        return Integer.parseInt(txtProvincia.getText());
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+    
+    public void limpiarCampos() {
+        txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        txtCorreo.setText("");
+        txtProvincia.setText("");
+        dcNacimiento.cleanup();    
     }
 
     /**
@@ -29,13 +68,13 @@ public class JFClientes extends javax.swing.JFrame {
 
         btnEliminar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        txtCedula = new javax.swing.JLabel();
-        lblCedula = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JTextField();
-        txtApellidos = new javax.swing.JLabel();
-        lblApellidos = new javax.swing.JTextField();
-        txtCorreo = new javax.swing.JLabel();
+        Cedula = new javax.swing.JLabel();
+        txtCedula = new javax.swing.JTextField();
+        Nombre = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        Apellidos = new javax.swing.JLabel();
+        txtApellidos = new javax.swing.JTextField();
+        Correo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         bntCita = new javax.swing.JButton();
@@ -46,11 +85,11 @@ public class JFClientes extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblCorreo = new javax.swing.JTextField();
-        txtProvincia = new javax.swing.JLabel();
-        lblProvincia = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        Provincia = new javax.swing.JLabel();
+        txtProvincia = new javax.swing.JTextField();
         txtProvincia1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dcNacimiento = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,24 +100,29 @@ public class JFClientes extends javax.swing.JFrame {
 
         btnGuardar.setText("Guardar");
         btnGuardar.setName("bntGuardar"); // NOI18N
-
-        txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtCedula.setText("Cédula");
-
-        lblCedula.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblCedulaActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
-        txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtNombre.setText("Nombre");
+        Cedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Cedula.setText("Cédula");
 
-        txtApellidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtApellidos.setText("Apellidos");
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
 
-        txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtCorreo.setText("Correo");
+        Nombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Nombre.setText("Nombre");
+
+        Apellidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Apellidos.setText("Apellidos");
+
+        Correo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Correo.setText("Correo");
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
         jPanel1.setForeground(new java.awt.Color(51, 51, 0));
@@ -199,23 +243,25 @@ public class JFClientes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        lblCorreo.addActionListener(new java.awt.event.ActionListener() {
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblCorreoActionPerformed(evt);
+                txtCorreoActionPerformed(evt);
             }
         });
 
-        txtProvincia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtProvincia.setText("Provincia");
+        Provincia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Provincia.setText("Provincia");
 
-        lblProvincia.addActionListener(new java.awt.event.ActionListener() {
+        txtProvincia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblProvinciaActionPerformed(evt);
+                txtProvinciaActionPerformed(evt);
             }
         });
 
         txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtProvincia1.setText("Fecha Nacimiento");
+
+        dcNacimiento.setDateFormatString("dd-mm-yyyy");
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,23 +273,23 @@ public class JFClientes extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dcNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-                    .addComponent(lblCedula)
-                    .addComponent(lblNombre)
-                    .addComponent(lblApellidos, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCorreo)
-                    .addComponent(lblProvincia)
+                    .addComponent(txtCedula)
+                    .addComponent(txtNombre)
+                    .addComponent(txtApellidos, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCorreo)
+                    .addComponent(txtProvincia)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCorreo)
-                            .addComponent(txtApellidos)
-                            .addComponent(txtNombre)
-                            .addComponent(txtCedula)
-                            .addComponent(txtProvincia)
+                            .addComponent(Correo)
+                            .addComponent(Apellidos)
+                            .addComponent(Nombre)
+                            .addComponent(Cedula)
+                            .addComponent(Provincia)
                             .addComponent(txtProvincia1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(16, 16, 16))
@@ -257,43 +303,43 @@ public class JFClientes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCedula)
+                        .addComponent(Cedula)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(Nombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombre)
+                        .addComponent(Apellidos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtApellidos)
+                        .addComponent(Correo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCorreo)
+                        .addComponent(Provincia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtProvincia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtProvincia1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dcNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 139, Short.MAX_VALUE)))
+                        .addGap(0, 130, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCedulaActionPerformed
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblCedulaActionPerformed
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
@@ -311,13 +357,13 @@ public class JFClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
-    private void lblCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCorreoActionPerformed
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblCorreoActionPerformed
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void lblProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblProvinciaActionPerformed
+    private void txtProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProvinciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblProvinciaActionPerformed
+    }//GEN-LAST:event_txtProvinciaActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
@@ -327,6 +373,11 @@ public class JFClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        clientesController.ejecutarProcedimiento();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+ 
     /**
      * @param args the command line arguments
      */
@@ -364,30 +415,30 @@ public class JFClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Apellidos;
+    private javax.swing.JLabel Cedula;
+    private javax.swing.JLabel Correo;
+    private javax.swing.JLabel Nombre;
+    private javax.swing.JLabel Provincia;
     private javax.swing.JButton bntCita;
     private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEspecialistas;
-    private javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser dcNacimiento;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField lblApellidos;
-    private javax.swing.JTextField lblCedula;
-    private javax.swing.JTextField lblCorreo;
-    private javax.swing.JTextField lblNombre;
-    private javax.swing.JTextField lblProvincia;
-    private javax.swing.JLabel txtApellidos;
-    private javax.swing.JLabel txtCedula;
-    private javax.swing.JLabel txtCorreo;
-    private javax.swing.JLabel txtNombre;
-    private javax.swing.JLabel txtProvincia;
+    private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtProvincia;
     private javax.swing.JLabel txtProvincia1;
     // End of variables declaration//GEN-END:variables
 }
