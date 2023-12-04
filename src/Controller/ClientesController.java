@@ -42,8 +42,7 @@ public class ClientesController {
             // Limpiar los campos en la Vista
             jfClientes.limpiarCampos();
             
-         
-            jfClientes.limpiarCampos();
+       
         } catch (SQLException e) {
             // Manejo de excepciones: Mostrar un mensaje al usuario, log, etc.
             e.printStackTrace();

@@ -1,13 +1,17 @@
 package View;
 
 import Controller.UsuariosController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Model.Usuarios;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+
+
 
 public class JFUsuarios extends javax.swing.JFrame {
 
     private UsuariosController usuariosController;
+    private DefaultTableModel dtm;
+    private Object[] userTabla = new Object[3];
 
     /**
      * Creates new form JFUsuarios
@@ -16,6 +20,8 @@ public class JFUsuarios extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         usuariosController = new UsuariosController(this);
+        dtm = (DefaultTableModel) tUsuarios.getModel();
+        LlenarTabla();
     }
 
     public int getCedula() {
@@ -41,15 +47,24 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     }
 
+    public void LlenarTabla() {
+        for (Object object : usuariosController.findAllusuarios()) {
+            Usuarios user = (Usuarios) object;
+            userTabla[0] = user.getUsuarioID();
+            userTabla[1] = user.getNombreUsuario();
+            userTabla[2] = user.getCorreo();
+            dtm.addRow(userTabla);
+        }
+    }
+
     public void limpiarCampos() {
         lblCedula.setText("");
         lblNombre.setText("");
         lblCorreo.setText("");
         lblContrasena.setText("");
         JOptionPane.showMessageDialog(null, "Usuario guardado correctamente");
-    
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,7 +93,7 @@ public class JFUsuarios extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tUsuarios = new javax.swing.JTable();
         lblContrasena = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
@@ -88,6 +103,11 @@ public class JFUsuarios extends javax.swing.JFrame {
 
         btnEliminar.setText("Eliminar");
         btnEliminar.setName("bntEliminar"); // NOI18N
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(653, 348, 110, 48));
 
         btnGuardar.setText("Guardar");
@@ -237,18 +257,18 @@ public class JFUsuarios extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 785, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Correo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tUsuarios);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 490, -1));
         getContentPane().add(lblContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 296, 249, 34));
@@ -311,9 +331,21 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-
-        usuariosController.ejecutarProcedimiento();
+        // usuariosController.ejecutarProcedimiento();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < 8; i++) {
+            Object obj = usuariosController.findAllusuarios();
+            Usuarios user = (Usuarios) obj;
+            userTabla[0] = user.getUsuarioID();
+            userTabla[1] = user.getNombreUsuario();
+            userTabla[2] = user.getCorreo();
+            dtm.addRow(userTabla);
+            System.out.println(user.toString());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,11 +395,11 @@ public class JFUsuarios extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField lblCedula;
     private javax.swing.JPasswordField lblContrasena;
     private javax.swing.JTextField lblCorreo;
     private javax.swing.JTextField lblNombre;
+    private javax.swing.JTable tUsuarios;
     private javax.swing.JLabel txtCedula;
     private javax.swing.JLabel txtContraseña;
     private javax.swing.JLabel txtCorreo;

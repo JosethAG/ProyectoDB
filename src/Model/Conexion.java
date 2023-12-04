@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import java.sql.Connection;
@@ -9,20 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author Angelo
- */
+
 public class Conexion {
     
-    private Connection conexion;
+    private Connection conn;
     private Statement sentencia;
     private static Conexion instancia;
     
     public Conexion(){
         try{
              Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
-            conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","admin","admin1234");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","C##admin","admin1234");
         }catch(ClassNotFoundException e){
             e.printStackTrace();
         }catch(InstantiationException e){
@@ -32,8 +25,17 @@ public class Conexion {
         }catch(SQLException e){
             e.printStackTrace();
         }
-        
-        
+    }
+    
+    public void cerrarConexion() {
+        try {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            // Manejo de excepciones: Imprimir el error 
+            e.printStackTrace();
+        }
     }
     
     public static Conexion getInstancia(){
@@ -44,11 +46,11 @@ public class Conexion {
     } 
 
     public Connection getConexion() {
-        return conexion;
+        return conn;
     }
 
     public void setConexion(Connection conexion) {
-        this.conexion = conexion;
+        this.conn = conexion;
     }
     
 }
