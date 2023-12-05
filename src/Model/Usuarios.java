@@ -50,11 +50,12 @@ public class Usuarios {
 
     }
 
-    public Usuarios(int UsuarioID, String NombreUsuario, String Correo) {
-        this.UsuarioID = UsuarioID;
-        this.NombreUsuario = NombreUsuario;
-        this.Correo = Correo;
+    @Override
+    public String toString() {
+        return "Usuarios{" + "UsuarioID=" + UsuarioID + ", NombreUsuario=" + NombreUsuario + ", Correo=" + Correo + '}';
     }
+    
+    
 
     
     

@@ -60,6 +60,9 @@ public class UsuariosController {
         });
     }
 
+    public UsuariosController() {
+        
+    }
     public void SPCrearUsuario() throws SQLException {
         int idCed = jfusuarios.getCedula();
         String pNombre = jfusuarios.getNombre();
@@ -86,7 +89,7 @@ public class UsuariosController {
         } 
     }
     
-    public static final String FINDALL_USERS = "?=call findAllUsers"; //Variable que guarda la cadena de llamado en la DB
+    private static final String FINDALL_USERS = "?=call findAllUsers()"; //Variable que guarda la cadena de llamado en la DB
     
     public Collection findAllusuarios(){ //Procedimiento para almacenar toda la informacion
         
@@ -112,7 +115,8 @@ public class UsuariosController {
                 user = new Usuarios(
                         rs.getInt("USER_ID"),
                         rs.getString("NAME_USERS"),
-                        rs.getString("EMAIL")
+                        rs.getString("EMAIL"),
+                        rs.getString("PASSWORD")
                 );
                 
                 collection.add(user); //agregamos el objeto a la coleccion
