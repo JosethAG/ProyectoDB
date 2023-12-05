@@ -1,7 +1,13 @@
 package View;
 
 import Controller.UsuariosController;
+import Model.Conexion;
 import Model.Usuarios;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -10,18 +16,24 @@ import javax.swing.JOptionPane;
 public class JFUsuarios extends javax.swing.JFrame {
 
     private UsuariosController usuariosController;
-    private DefaultTableModel dtm;
+    //private DefaultTableModel dtm;
     private Object[] userTabla = new Object[3];
 
     /**
      * Creates new form JFUsuarios
      */
-    public JFUsuarios() {
+    public JFUsuarios(){
         initComponents();
         this.setLocationRelativeTo(null);
         usuariosController = new UsuariosController(this);
-        dtm = (DefaultTableModel) tUsuarios.getModel();
-        LlenarTabla();
+        
+        //dtm = (DefaultTableModel) tUsuarios.getModel();
+        //LlenarTabla();
+         try {
+            mostrarDatos();
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getCedula() {
@@ -47,15 +59,6 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     }
 
-    public void LlenarTabla() {
-        for (Object object : usuariosController.findAllusuarios()) {
-            Usuarios user = (Usuarios) object;
-            userTabla[0] = user.getUsuarioID();
-            userTabla[1] = user.getNombreUsuario();
-            userTabla[2] = user.getCorreo();
-            dtm.addRow(userTabla);
-        }
-    }
 
     public void limpiarCampos() {
         lblCedula.setText("");
@@ -66,6 +69,28 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     }
 
+    public void mostrarDatos() throws SQLException{
+        Conexion conection = new Conexion();
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("ID");
+        dtm.addColumn("NOMBRE");
+        dtm.addColumn("CORREO");
+        
+        String sql = "select USER_ID, NAME_USERS, EMAIL from TB_USERS";
+
+        String datos[] = new String[4];
+
+        Statement st = conection.getConexion().createStatement();
+        ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
+        
+        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+            datos[0] = rs.getString(1);
+            datos[1] = rs.getString(2);
+            datos[2] = rs.getString(3);
+            dtm.addRow(datos);
+    }
+        tUsuarios.setModel(dtm);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -268,6 +293,11 @@ public class JFUsuarios extends javax.swing.JFrame {
                 "ID", "Nombre", "Correo"
             }
         ));
+        tUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tUsuarios);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 490, -1));
@@ -335,17 +365,16 @@ public class JFUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        for (int i = 0; i < 8; i++) {
-            Object obj = usuariosController.findAllusuarios();
-            Usuarios user = (Usuarios) obj;
-            userTabla[0] = user.getUsuarioID();
-            userTabla[1] = user.getNombreUsuario();
-            userTabla[2] = user.getCorreo();
-            dtm.addRow(userTabla);
-            System.out.println(user.toString());
-        }
+       
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tUsuariosMouseClicked
+        // TODO add your handling code here:
+        lblCedula.setText(tUsuarios.getValueAt(tUsuarios.getSelectedRow(), 0).toString());
+        lblNombre.setText(tUsuarios.getValueAt(tUsuarios.getSelectedRow(), 1).toString());
+        lblCorreo.setText(tUsuarios.getValueAt(tUsuarios.getSelectedRow(), 2).toString());
+        lblContrasena.setText("********************");
+    }//GEN-LAST:event_tUsuariosMouseClicked
 
     /**
      * @param args the command line arguments
