@@ -20,17 +20,25 @@ FOREIGN KEY (PROVINCIA_ID) REFERENCES TB_PROVINCIA(PROVINCIA_ID));
 /*                              AUDITORIA                                    */
 --------------------------------------------------------------------------------
 
+CREATE SEQUENCE log_id_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
 CREATE TABLE Audit_Log (
-    Log_ID NUMBER PRIMARY KEY,
+    Log_ID NUMBER DEFAULT log_id_sequence.NEXTVAL PRIMARY KEY,
     Table_Name VARCHAR2(50),
     Action VARCHAR2(10),
-    Action_Date DATE);
-
+    Action_Date TIMESTAMP 
+    );
+    
 --------------------------------------------------------------------------------
 /*                              USUARIOS                                      */
 --------------------------------------------------------------------------------
 
 --TABLA USUARIOS
+
 CREATE TABLE TB_USERS(
 USER_ID INT PRIMARY KEY,
 NAME_USERS VARCHAR(100),
@@ -103,7 +111,7 @@ RETURN user_tb_cursor;
 
 END;
 
-
+     
 --------------------------------------------------------------------------------
 /*                              CLIENTES                                      */
 --------------------------------------------------------------------------------
@@ -273,7 +281,7 @@ END;
 
 
 
-SELECT * FROM TB_ESPECIALISTAS
+SELECT * FROM TB_ESPECIALISTAS;
 
 --------------------------------------------------------------------------------
 /*                                 CITAS                                      */
@@ -304,6 +312,47 @@ CREATE TABLE TB_AUDITORIACITAS (
     FECHA DATE,
     FOREIGN KEY (APPOINTMENT_ID) REFERENCES TB_APPOINTMENTS(APPOINTMENT_ID));   
 
+
+CREATE OR REPLACE PROCEDURE Crear_Cita(
+    p_APPOINTMENTID INT,  -- Agregado el prefijo 'p' al nombre del parámetro
+    p_ClienteID INT,
+    p_EspecialistaID INT,
+    p_Fecha DATE,
+    p_Fecha DATE,
+    p_Hora VARCHAR(255),
+    p_ProvinciaID INT,
+    p_SucursalID INT,
+    p_TipoCitaID INT
+)
+BEGIN
+    -- Insertar la nueva cita
+    INSERT INTO TB_APPOINTMENTS (
+        APPOINTMENT_ID,  -- Agregado el campo APPOINTMENT_ID
+        CLIENTE_ID,
+        ESPECIALISTA_ID,
+        FECHA,
+        FECHA,
+        HORA,
+        PROVINCIA_ID,
+        SUCURSAL_ID,
+        TIPOCITA_ID
+    ) VALUES (
+        p_APPOINTMENT_ID,
+        p_ClienteID,
+        p_EspecialistaID,
+        p_Fecha,
+        p_Fecha,
+        p_Hora,
+        p_ProvinciaID,
+        p_SucursalID,
+        p_TipoCitaID
+    );
+
+    -- Llamar a otro procedimiento o realizar acciones adicionales según sea necesario
+    -- En este ejemplo, llamaremos a un procedimiento que obtiene los apellidos y el nombre de la sucursal.
+    CALL Obtener_Apellidos(p_ClienteID);
+    CALL Obtener_Nombre_Sucursal(p_SucursalID);
+END;
 
 -- Sacar Cita
 -- Crear Secuencia para Citas
@@ -357,6 +406,43 @@ BEGIN
     DELETE FROM TB_APPOINTMENTS
     WHERE APPOINTMENT_ID = p_AppointmentID;
 END;
+
+---------Buscar Cita
+CREATE OR REPLACE PROCEDURE Buscar_Cita(
+    p_APPOINTMENT_ID OUT NUMBER,
+    p_CLIENTE_ID IN NUMBER,
+    p_FECHA_CITA IN DATE,
+    p_SUCURSAL_ID IN NUMBER,
+    P_TIPOCITA_ID IN NUMBER,
+    p_ESTADO VARCHAR2,
+    p_RESULTADO OUT VARCHAR2
+) AS
+BEGIN
+    -- Seleccionar la información de la cita
+    SELECT APPOINTMENT_ID
+    INTO p_APPOINTMENT_ID
+    FROM TB_APPOINTMENTS
+    WHERE APPOINTMENT_ID = p_APPOINTMENT_ID
+        AND FECHA = p_FECHA_CITA
+        AND SUCURSAL_ID=p_SUCURSAL_ID
+        AND TIPOCITA_ID=P_TIPOCITA_ID
+        AND ESTADO = p_ESTADO;
+
+    -- Verificar si se encontró la cita
+    IF p_CITA_ID IS NOT NULL THEN
+        p_RESULTADO := 'Cita encontrada';
+    ELSE
+        p_RESULTADO := 'Cita no encontrada';
+    END IF;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Manejo de excepción si no se encuentra ninguna cita
+        p_RESULTADO := 'Cita no encontrada';
+    WHEN OTHERS THEN
+        -- Manejo de otras excepciones
+        p_RESULTADO := 'Error al buscar la cita';
+END Buscar_Cita;
 
 
 
@@ -432,6 +518,82 @@ BEGIN
     FROM TB_USERS
     WHERE user_id = p_Usuario AND PASSWORD = p_Password;
 END;
+
+
+--------------------------------------------------------------------------------
+/*                                TRIGGERS                                    */
+--------------------------------------------------------------------------------
+
+--TRIGGER DE AUDITORIA AL INSERTAR UN USUARIO
+CREATE OR REPLACE TRIGGER User_Insert_Trigger
+BEFORE INSERT ON TB_USERS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_USERS', 'INSERT', CURRENT_TIMESTAMP);
+END;
+
+--TRIGGER DE AUDITORIA AL MODIFICAR UN USUARIO
+CREATE OR REPLACE TRIGGER User_Update_Trigger
+BEFORE UPDATE ON TB_USERS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_USERS', 'UPDATE', CURRENT_TIMESTAMP);
+END;
+
+--TRIGGER DE AUDITORIA AL ELIMINAR UN USUARIO
+CREATE OR REPLACE TRIGGER User_Delete_Trigger
+BEFORE DELETE ON TB_USERS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_USERS', 'DELETE', CURRENT_TIMESTAMP);
+END;
+
+
+
+
+--TRIGGER DE AUDITORIA AL INSERTAR UN CLIENTE
+CREATE OR REPLACE TRIGGER Cliente_Insert_Trigger
+BEFORE INSERT ON TB_CLIENTES
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_CLIENTES', 'INSERT', CURRENT_TIMESTAMP);
+END;
+
+--TRIGGER DE AUDITORIA AL MODIFICAR UN CLIENTE
+CREATE OR REPLACE TRIGGER Cliente_Update_Trigger
+BEFORE UPDATE ON TB_CLIENTES
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_CLIENTES', 'UPDATE', CURRENT_TIMESTAMP);
+END;
+
+
+
+
+--TRIGGER DE AUDITORIA AL INSERTAR UN ESPECIALISTA
+CREATE OR REPLACE TRIGGER Especialista_Insert_Trigger
+BEFORE INSERT ON TB_ESPECIALISTAS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_ESPECIALISTAS', 'INSERT', CURRENT_TIMESTAMP);
+END;
+
+--TRIGGER DE AUDITORIA AL MODIFICAR UN ESPECIALISTA
+CREATE OR REPLACE TRIGGER Especialista_Update_Trigger
+BEFORE UPDATE ON TB_ESPECIALISTAS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_ESPECIALISTAS', 'UPDATE', CURRENT_TIMESTAMP);
+END;
+
+
 
 
 --------------------------------------------------------------------------------
@@ -528,63 +690,9 @@ BEGIN
 END;
 
 
-
-
 --------------------------------------------------------------------------------
-/*                                TRIGGERS                                      */
+/*                                CURSORES                                    */
 --------------------------------------------------------------------------------
-
-
-
---Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_USERS y registra la fecha y hora de la accion en otra tabla.
-
-CREATE OR REPLACE TRIGGER User_Insert_Trigger
-BEFORE INSERT ON TB_USERS
-FOR EACH ROW
-BEGIN
-    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
-    VALUES ('TB_USERS', 'INSERT', SYSDATE);
-END;
-/
-
---Un trigger que se activa antes de eliminar un registro en la tabla TB_USERS y registra la fecha y hora de la acciï¿½n en otra tabla.
-CREATE OR REPLACE TRIGGER User_Delete_Trigger
-BEFORE DELETE ON TB_USERS
-FOR EACH ROW
-BEGIN
-    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
-    VALUES ('TB_USERS', 'DELETE', SYSDATE);
-END;
-
---Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_CLIENTES y registra la fecha y hora de la acciï¿½n en otra tabla.
-CREATE OR REPLACE TRIGGER Cliente_Insert_Trigger
-BEFORE INSERT ON TB_CLIENTES
-FOR EACH ROW
-BEGIN
-    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
-    VALUES ('TB_CLIENTES', 'INSERT', SYSDATE);
-END;
-
-
---Un trigger que se activa antes de actualizar un registro en la tabla TB_CLIENTES y registra la fecha y hora de la acciï¿½n en otra tabla.
-CREATE OR REPLACE TRIGGER Cliente_Update_Trigger
-BEFORE UPDATE ON TB_CLIENTES
-FOR EACH ROW
-BEGIN
-    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
-    VALUES ('TB_CLIENTES', 'UPDATE', SYSDATE);
-END;
-
---Un trigger que se activa antes de eliminar un registro en la tabla TB_CLIENTES y registra la fecha y hora de la acciï¿½n en otra tabla.
-CREATE OR REPLACE TRIGGER Cliente_Delete_Trigger
-BEFORE DELETE ON TB_CLIENTES
-FOR EACH ROW
-BEGIN
-    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
-    VALUES ('TB_CLIENTES', 'DELETE', SYSDATE);
-END;
-
---Cursor
 
 --Cursor Simple para Seleccionar Todos los Usuarios
 DECLARE
@@ -592,8 +700,7 @@ DECLARE
         SELECT * FROM TB_USERS;
 BEGIN
     FOR user_rec IN user_cursor LOOP
-        -- Procesa los registros aquï¿½
-        -- Por ejemplo, puedes imprimir informaciï¿½n sobre cada registro:
+     
         DBMS_OUTPUT.PUT_LINE('USER_ID: ' || user_rec.USER_ID);
         DBMS_OUTPUT.PUT_LINE('NAME_USERS: ' || user_rec.NAME_USERS);
         DBMS_OUTPUT.PUT_LINE('EMAIL: ' || user_rec.EMAIL);
@@ -643,8 +750,6 @@ BEGIN
 END;
 
 
-
-
 --Cursor para Obtener Informaciï¿½n del Usuario
 CREATE OR REPLACE PROCEDURE Get_User_Info_Cursor(
     p_UserID NUMBER,
@@ -662,107 +767,11 @@ BEGIN
     CLOSE user_cursor;
 END;
 
-----CREAR CURSOR PARA ENLISTAR USUARIOS
 
 
-CREATE OR REPLACE PACKAGE types AS
-TYPE ref_cursor IS REF CURSOR;
-END types;
-
-CREATE OR REPLACE FUNCTION findAllUsers
-return types.ref_cursor
-as
-    user_tb_cursor types.ref_cursor;    
-begin 
-    open user_tb_cursor for
-    select USER_ID, NAME_USERS, EMAIL from TB_USERS;
-RETURN user_tb_cursor;
-END;
-
----------
-CREATE OR REPLACE PROCEDURE Buscar_Cita(
-    p_APPOINTMENT_ID OUT NUMBER,
-    p_CLIENTE_ID IN NUMBER,
-    p_FECHA_CITA IN DATE,
-    p_SUCURSAL_ID IN NUMBER,
-    P_TIPOCITA_ID IN NUMBER,
-    p_ESTADO VARCHAR2,
-    p_RESULTADO OUT VARCHAR2
-) AS
-BEGIN
-    -- Seleccionar la información de la cita
-    SELECT APPOINTMENT_ID
-    INTO p_APPOINTMENT_ID
-    FROM TB_APPOINTMENTS
-    WHERE APPOINTMENT_ID = p_APPOINTMENT_ID
-        AND FECHA = p_FECHA_CITA
-        AND SUCURSAL_ID=p_SUCURSAL_ID
-        AND TIPOCITA_ID=P_TIPOCITA_ID
-        AND ESTADO = p_ESTADO;
-
-    -- Verificar si se encontró la cita
-    IF p_CITA_ID IS NOT NULL THEN
-        p_RESULTADO := 'Cita encontrada';
-    ELSE
-        p_RESULTADO := 'Cita no encontrada';
-    END IF;
-
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        -- Manejo de excepción si no se encuentra ninguna cita
-        p_RESULTADO := 'Cita no encontrada';
-    WHEN OTHERS THEN
-        -- Manejo de otras excepciones
-        p_RESULTADO := 'Error al buscar la cita';
-END Buscar_Cita;
-CREATE OR REPLACE PROCEDURE Crear_Cita(
-    p_APPOINTMENTID INT,  -- Agregado el prefijo 'p' al nombre del parámetro
-    p_ClienteID INT,
-    p_EspecialistaID INT,
-    p_Fecha DATE,
-    p_Fecha DATE,
-    p_Hora VARCHAR(255),
-    p_ProvinciaID INT,
-    p_SucursalID INT,
-    p_TipoCitaID INT
-)
-BEGIN
-    -- Insertar la nueva cita
-    INSERT INTO TB_APPOINTMENTS (
-        APPOINTMENT_ID,  -- Agregado el campo APPOINTMENT_ID
-        CLIENTE_ID,
-        ESPECIALISTA_ID,
-        FECHA,
-        FECHA,
-        HORA,
-        PROVINCIA_ID,
-        SUCURSAL_ID,
-        TIPOCITA_ID
-    ) VALUES (
-        p_APPOINTMENT_ID,
-        p_ClienteID,
-        p_EspecialistaID,
-        p_Fecha,
-        p_Fecha,
-        p_Hora,
-        p_ProvinciaID,
-        p_SucursalID,
-        p_TipoCitaID
-    );
-
-    -- Llamar a otro procedimiento o realizar acciones adicionales según sea necesario
-    -- En este ejemplo, llamaremos a un procedimiento que obtiene los apellidos y el nombre de la sucursal.
-    CALL Obtener_Apellidos(p_ClienteID);
-    CALL Obtener_Nombre_Sucursal(p_SucursalID);
-END;
-
-------------------------------------------------------------------------------------------
-
--- Inserts para TB_USERS
-INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (101,  'User 1', 'user1@example.com', 'pass1');
-INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (102,  'User 2', 'user2@example.com', 'pass2');
-INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (103,  'User 3', 'user3@example.com', 'pass3');
-INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (104,  'User 4', 'user4@example.com', 'pass4');
+--------------------------------------------------------------------------------
+/*                           INSERCION DE DATOS                               */
+--------------------------------------------------------------------------------
 
 -- Inserts para TB_PROVINCIA
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (1, 'San José');
@@ -773,32 +782,35 @@ INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (5, 'Cartago');
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (6, 'Limón');
 INSERT INTO TB_PROVINCIA (PROVINCIA_ID, NAME) VALUES (7, 'Guanacaste');
 
--- Inserts para TB_CLIENTES
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL,  fechaNacimiento,   PROVINCIA_ID) VALUES (1,  'Cliente 1', 'Apellido 1',  'user1@example.com', '25-SEP-23', 1);
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (2,  'Cliente 2', 'Apellido 2',  'user2@example.com', '20-MAY-20', 2);
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (3,  'Cliente 3', 'Apellido 3',  'user3@example.com', '05-OCT-21', 3);
-INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fechaNacimiento,   PROVINCIA_ID) VALUES (4,  'Cliente 4', 'Apellido 4',  'user4@example.com', '15-SEP-20', 4);
-
-
--- Inserts para TB_ESPECIALISTAS
-INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, USER_ID, ESPECIALIDAD) VALUES (1, 101, 'Especialidad1');
-INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, USER_ID, ESPECIALIDAD) VALUES (2, 102, 'Especialidad2');
-INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, USER_ID, ESPECIALIDAD) VALUES (3, 103, 'Especialidad3');
-INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, USER_ID, ESPECIALIDAD) VALUES (4, 104, 'Especialidad4');
-
-
 -- Inserts para TB_SUCURSALES
 INSERT INTO TB_SUCURSALES (SUCURSAL_ID, NOMBRE_SUCURSAL, PROVINCIA_ID) VALUES (1, 'Sucursal1', 1);
 INSERT INTO TB_SUCURSALES (SUCURSAL_ID, NOMBRE_SUCURSAL, PROVINCIA_ID) VALUES (2, 'Sucursal2', 2);
 INSERT INTO TB_SUCURSALES (SUCURSAL_ID, NOMBRE_SUCURSAL, PROVINCIA_ID) VALUES (3, 'Sucursal3', 3);
 INSERT INTO TB_SUCURSALES (SUCURSAL_ID, NOMBRE_SUCURSAL, PROVINCIA_ID) VALUES (4, 'Sucursal4', 4);
 
+-- Inserts para TB_USERS
+INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (859,  'User 1', 'user1@example.com', 'pass1');
+INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (102,  'User 2', 'user2@example.com', 'pass2');
+INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (103,  'User 3', 'user3@example.com', 'pass3');
+INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (104,  'User 4', 'user4@example.com', 'pass4');
 
+
+-- Inserts para TB_ESPECIALISTAS
+INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, NOMBRE, ESPECIALIDAD) VALUES (52, 'Edgar Castro', 'Especialidad1');
+INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, NOMBRE, ESPECIALIDAD) VALUES (2, 'Edgar Castro', 'Especialidad2');
+INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, NOMBRE, ESPECIALIDAD) VALUES (3, 'Edgar Castro', 'Especialidad3');
+INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, NOMBRE, ESPECIALIDAD) VALUES (4, 'Edgar Castro', 'Especialidad3');
+
+
+-- Inserts para TB_CLIENTES
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL,  fecha_Nacimiento,   PROVINCIA_ID) VALUES (1,  'Cliente 1', 'Apellido 1',  'user1@example.com', '25-SEP-23', 1);
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fecha_Nacimiento,   PROVINCIA_ID) VALUES (2,  'Cliente 2', 'Apellido 2',  'user2@example.com', '20-MAY-20', 2);
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fecha_Nacimiento,   PROVINCIA_ID) VALUES (3,  'Cliente 3', 'Apellido 3',  'user3@example.com', '05-OCT-21', 3);
+INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fecha_Nacimiento,   PROVINCIA_ID) VALUES (4,  'Cliente 4', 'Apellido 4',  'user4@example.com', '15-SEP-20', 4);
 
 -- Inserts para TB_TIPOCITAS
 INSERT INTO TB_TIPOCITAS (TIPOCITA_ID, NOMBRE_TIPOCITA) VALUES (1, 'Virtual');
 INSERT INTO TB_TIPOCITAS (TIPOCITA_ID, NOMBRE_TIPOCITA) VALUES (2, 'Presencial');
-
 
 -- Inserts para TB_APPOINTMENTS
 INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (1, 1, 1, '10-NOV-23', '10:00 AM', 1, 1, 1, 'Programada');
