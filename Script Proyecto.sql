@@ -501,6 +501,84 @@ begin
 RETURN user_tb_cursor;
 END;
 
+---------
+CREATE OR REPLACE PROCEDURE Buscar_Cita(
+    p_APPOINTMENT_ID OUT NUMBER,
+    p_CLIENTE_ID IN NUMBER,
+    p_FECHA_CITA IN DATE,
+    p_SUCURSAL_ID IN NUMBER,
+    P_TIPOCITA_ID IN NUMBER,
+    p_ESTADO VARCHAR2,
+    p_RESULTADO OUT VARCHAR2
+) AS
+BEGIN
+    -- Seleccionar la información de la cita
+    SELECT APPOINTMENT_ID
+    INTO p_APPOINTMENT_ID
+    FROM TB_APPOINTMENTS
+    WHERE APPOINTMENT_ID = p_APPOINTMENT_ID
+        AND FECHA = p_FECHA_CITA
+        AND SUCURSAL_ID=p_SUCURSAL_ID
+        AND TIPOCITA_ID=P_TIPOCITA_ID
+        AND ESTADO = p_ESTADO;
+
+    -- Verificar si se encontró la cita
+    IF p_CITA_ID IS NOT NULL THEN
+        p_RESULTADO := 'Cita encontrada';
+    ELSE
+        p_RESULTADO := 'Cita no encontrada';
+    END IF;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Manejo de excepción si no se encuentra ninguna cita
+        p_RESULTADO := 'Cita no encontrada';
+    WHEN OTHERS THEN
+        -- Manejo de otras excepciones
+        p_RESULTADO := 'Error al buscar la cita';
+END Buscar_Cita;
+CREATE OR REPLACE PROCEDURE Crear_Cita(
+    p_APPOINTMENTID INT,  -- Agregado el prefijo 'p' al nombre del parámetro
+    p_ClienteID INT,
+    p_EspecialistaID INT,
+    p_Fecha DATE,
+    p_Fecha DATE,
+    p_Hora VARCHAR(255),
+    p_ProvinciaID INT,
+    p_SucursalID INT,
+    p_TipoCitaID INT
+)
+BEGIN
+    -- Insertar la nueva cita
+    INSERT INTO TB_APPOINTMENTS (
+        APPOINTMENT_ID,  -- Agregado el campo APPOINTMENT_ID
+        CLIENTE_ID,
+        ESPECIALISTA_ID,
+        FECHA,
+        FECHA,
+        HORA,
+        PROVINCIA_ID,
+        SUCURSAL_ID,
+        TIPOCITA_ID
+    ) VALUES (
+        p_APPOINTMENT_ID,
+        p_ClienteID,
+        p_EspecialistaID,
+        p_Fecha,
+        p_Fecha,
+        p_Hora,
+        p_ProvinciaID,
+        p_SucursalID,
+        p_TipoCitaID
+    );
+
+    -- Llamar a otro procedimiento o realizar acciones adicionales según sea necesario
+    -- En este ejemplo, llamaremos a un procedimiento que obtiene los apellidos y el nombre de la sucursal.
+    CALL Obtener_Apellidos(p_ClienteID);
+    CALL Obtener_Nombre_Sucursal(p_SucursalID);
+END;
+
+------------------------------------------------------------------------------------------
 
 -- Inserts para TB_USERS
 INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (101,  'User 1', 'user1@example.com', 'pass1');
