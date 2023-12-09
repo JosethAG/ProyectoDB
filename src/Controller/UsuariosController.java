@@ -62,7 +62,7 @@ public class UsuariosController {
                 JOptionPane.showMessageDialog(null, "Se agregó el usuario correctamente");
                 // Limpiar los campos en la Vista
                 jfusuarios.limpiarCampos();
-
+                jfusuarios.mostrarDatos();
             }
         } catch (SQLException e) {
             // Manejo de excepciones: Imprimir el error y relanzar la excepción
@@ -82,7 +82,7 @@ public class UsuariosController {
                 JOptionPane.showMessageDialog(null, "Se eliminó el usuario correctamente");
                 // Limpiar los campos en la Vista
                 jfusuarios.limpiarCampos();
-
+                jfusuarios.mostrarDatos();
             }
         } catch (SQLException e) {
             // Manejo de excepciones: Imprimir el error y relanzar la excepción

@@ -9,17 +9,19 @@ public class Clientes {
     private String email;
     private Date fechaNacimiento;
     private int provinciaID;
+    private int estado;
 
     public Clientes() {
     }
 
-    public Clientes(int clienteID, String nombre, String apellido, String email, Date fechaNacimiento, int provinciaID) {
+    public Clientes(int clienteID, String nombre, String apellido, String email, Date fechaNacimiento, int provinciaID, int estado) {
         this.clienteID = clienteID;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
         this.provinciaID = provinciaID;
+        this.estado = estado;
     }
 
     public int getClienteID() {
@@ -70,6 +72,14 @@ public class Clientes {
         this.provinciaID = provinciaID;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+    
     @Override
     public String toString() {
         return "Clientes{" + "clienteID=" + clienteID + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", fechaNacimiento=" + fechaNacimiento + ", provinciaID=" + provinciaID + '}';

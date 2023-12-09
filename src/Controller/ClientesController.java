@@ -48,21 +48,29 @@ public class ClientesController {
         String pCorreo = jfClientes.getTxtCorreo();
         int pProvincia = jfClientes.getTxtProvincia();
         String pFechaNacimiento = jfClientes.getDcNacimiento();
+        int pEstado = jfClientes.getCbEstado();
 
         try {
             String sql = "{call Create_Client(?, ?, ?, ?, ?, ?)}";
+            System.out.println(idCed + "\n"
+                                           + pNombre +"\n"
+                                           + pApellidos + "\n"
+                                           + pCorreo + "\n"
+                                           + pFechaNacimiento + "\n"
+                                           + pProvincia + "\n");
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idCed);
                 stmt.setString(2, pNombre);
                 stmt.setString(3, pApellidos);
                 stmt.setString(4, pCorreo);
-                stmt.setInt(5, pProvincia);
-                stmt.setString(6, pFechaNacimiento);
+                stmt.setString(5, "12-SEP-23" );
+                stmt.setInt(6,  pProvincia);
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
                 // Limpiar los campos en la Vista
                 jfClientes.limpiarCampos();
-
+                jfClientes.mostrarDatos();
+                
             }
         } catch (SQLException e) {
             // Manejo de excepciones: Imprimir el error y relanzar la excepción
@@ -73,16 +81,18 @@ public class ClientesController {
 
     public void SPEliminarCliente() throws SQLException {
         int idCed = jfClientes.getTxtCedula();
+        int idEstado = jfClientes.getCbEstado();
 
         try {
-            String sql = "{call Delete_Client(?)}";
+            String sql = "{call Inactivar_Client(?, ?)}";
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idCed);
+                stmt.setInt(2, idEstado);
                 stmt.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Se eliminó el cliente correctamente");
+                JOptionPane.showMessageDialog(null, "Se inactivo el cliente correctamente");
                 // Limpiar los campos en la Vista
                 jfClientes.limpiarCampos();
-
+                jfClientes.mostrarDatos();
             }
         } catch (SQLException e) {
             // Manejo de excepciones: Imprimir el error y relanzar la excepción

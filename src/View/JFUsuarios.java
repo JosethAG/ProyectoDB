@@ -9,9 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
-
-
 
 public class JFUsuarios extends javax.swing.JFrame {
 
@@ -25,8 +22,6 @@ public class JFUsuarios extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         usuariosController = new UsuariosController(this);
         
-        //dtm = (DefaultTableModel) tUsuarios.getModel();
-        //LlenarTabla();
          try {
             mostrarDatos();
         } catch (SQLException ex) {
@@ -57,9 +52,6 @@ public class JFUsuarios extends javax.swing.JFrame {
     public JButton getBtnEliminar() {
         return btnEliminar;
     }
-    
-    
-
 
     public void limpiarCampos() {
         lblCedula.setText("");
@@ -342,13 +334,11 @@ public class JFUsuarios extends javax.swing.JFrame {
         JFClientes abrir = new JFClientes();
         abrir.setVisible(true);
         this.setVisible(false);
-
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialistasActionPerformed
