@@ -1,28 +1,209 @@
+--------------------------------------------------------------------------------
+/*                              USUARIOS                                      */
+--------------------------------------------------------------------------------
 
+--TABLA USUARIOS
 CREATE TABLE TB_USERS(
 USER_ID INT PRIMARY KEY,
 NAME_USERS VARCHAR(100),
 EMAIL VARCHAR(255),
 PASSWORD VARCHAR(100));
 
+--PROCEDIMIENTO CREAR USUARIO
+CREATE OR REPLACE PROCEDURE CREATE_USER(
+    p_user_id IN NUMBER,
+    p_Name IN VARCHAR2,
+    p_Email IN VARCHAR2,
+    p_password IN VARCHAR2
+)
+AS
+BEGIN
+    INSERT INTO TB_USERS(USER_ID, NAME_USERS, EMAIL, PASSWORD)
+    VALUES (p_user_id,p_Name,p_Email,p_password);
+    DBMS_OUTPUT.PUT_LINE('USUARIO CREADO');
+END CREATE_USER;
+
+
+--PROCEDIMIENTO ELIMINAR USUARIO
+CREATE OR REPLACE PROCEDURE Delete_User(
+    p_UserID NUMBER
+) AS
+BEGIN
+    DELETE FROM TB_USERS
+    WHERE USER_ID = p_UserID;
+END;
+
+
+--PROCEDIMIENTO MODIFICAR USUARIO
+CREATE OR REPLACE PROCEDURE Update_User(
+    P_USER_ID INT,
+    P_NAME_USERS VARCHAR2,
+    P_EMAIL VARCHAR2,
+    P_PASSWORD VARCHAR2
+)
+AS
+BEGIN
+    UPDATE TB_USERS
+    SET
+        NAME_USERS = P_NAME_USERS,
+        EMAIL = P_EMAIL,
+        PASSWORD = P_PASSWORD
+    WHERE
+        USER_ID = P_USER_ID;
+
+END Update_User;
+
+
+-- FUNCION MOSTRAR USUARIOS
+
+CREATE OR REPLACE PACKAGE types AS
+  TYPE ref_cursor IS REF CURSOR;
+END types;
+
+
+CREATE OR REPLACE FUNCTION findAllUsers
+return types.ref_cursor
+as
+    user_tb_cursor types.ref_cursor;    
+begin 
+    open user_tb_cursor for
+    select USER_ID, NAME_USERS, EMAIL from TB_USERS;
+RETURN user_tb_cursor;
+
+END;
+
+
+
+--------------------------------------------------------------------------------
+/*                              CLIENTES                                      */
+--------------------------------------------------------------------------------
+
+--TABLA CLIENTES
+CREATE TABLE TB_CLIENTES(
+    CLIENTE_ID NUMBER PRIMARY KEY,
+    FIRST_NAME VARCHAR(255),
+    LAST_NAME VARCHAR(255),
+    EMAIL VARCHAR(255),
+    FECHA_NACIMIENTO DATE,
+    PROVINCIA_ID NUMBER,
+    ESTADO_CLIENTE NUMBER DEFAULT 1, 
+    FOREIGN KEY (PROVINCIA_ID) REFERENCES TB_PROVINCIA(PROVINCIA_ID)
+);
+
+
+--PROCEDIMIENTO CREAR CLIENTES
+CREATE OR REPLACE PROCEDURE Create_Client(
+    p_CEDULA IN NUMBER,
+    p_FIRST_NAME VARCHAR2,
+    p_LAST_NAME VARCHAR2,
+    p_EMAIL VARCHAR2,
+    p_FECHA_NACIMIENTO DATE,
+    p_PROVINCIA_ID NUMBER
+
+    
+) AS
+BEGIN
+    INSERT INTO TB_CLIENTES(CLIENTE_ID, FIRST_NAME, LAST_NAME, EMAIL, FECHA_NACIMIENTO, PROVINCIA_ID)
+    VALUES (p_CEDULA, p_FIRST_NAME, p_LAST_NAME, p_EMAIL, p_FECHA_NACIMIENTO, p_PROVINCIA_ID);
+END;
+
+
+
+--PROCEDIMIENTO INACTIVAR CLIENTES
+CREATE OR REPLACE PROCEDURE inactivar_Client(
+    P_CLIENTE_ID NUMBER,
+    P_NUEVO_ESTADO NUMBER
+)
+AS
+BEGIN
+    UPDATE TB_CLIENTES
+    SET ESTADO_CLIENTE = P_NUEVO_ESTADO
+    WHERE CLIENTE_ID = P_CLIENTE_ID;
+
+END inactivar_Client;
+
+
+--PROCEDIMIENTO MODIFICAR CLIENTES
+CREATE OR REPLACE PROCEDURE UPDATE_CLIENT(
+    P_CLIENTE_ID NUMBER,
+    P_FIRST_NAME VARCHAR2,
+    P_LAST_NAME VARCHAR2,
+    P_EMAIL VARCHAR2,
+    P_FECHA_NACIMIENTO DATE,
+    P_PROVINCIA_ID NUMBER,
+    P_ESTADO_CLIENTE NUMBER
+)
+AS
+BEGIN
+    UPDATE TB_CLIENTES
+    SET
+        FIRST_NAME = P_FIRST_NAME,
+        LAST_NAME = P_LAST_NAME,
+        EMAIL = P_EMAIL,
+        FECHA_NACIMIENTO = P_FECHA_NACIMIENTO,
+        PROVINCIA_ID = P_PROVINCIA_ID,
+        ESTADO_CLIENTE = P_ESTADO_CLIENTE
+    WHERE CLIENTE_ID = P_CLIENTE_ID;
+
+
+END UPDATE_CLIENT;
+
+
+
+--------------------------------------------------------------------------------
+/*                           ESPECIALISTAS                                    */
+--------------------------------------------------------------------------------
+ALTER TABLE TB_ESPECIALISTAS
+ADD ESTADO_ESPECIALISTA INT DEFAULT 1;
+
+
+--TABLA ESPECIALISTAS
+CREATE TABLE TB_ESPECIALISTAS (
+ESPECIALISTA_ID INT PRIMARY KEY,
+FIRST_NAME VARCHAR(255),
+LAST_NAME VARCHAR(255),
+ESPECIALIDAD VARCHAR(100),
+ESTADO_ESPECIALISTA INT DEFAULT 1,
+
+
+
+
+
+PROCEDIMIENTO 
+CREATE OR REPLACE PROCEDURE Create_Especialista(
+    P_ESPECIALISTA_ID INT,
+    P_USER_ID INT,
+    P_ESPECIALIDAD VARCHAR2
+)
+AS
+BEGIN
+    INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, USER_ID, ESPECIALIDAD)
+    VALUES (P_ESPECIALISTA_ID, P_USER_ID, P_ESPECIALIDAD);
+
+    COMMIT;
+END Create_Especialista;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE TB_PROVINCIA(
 PROVINCIA_ID INT PRIMARY KEY,
 NAME VARCHAR(100));
 
-CREATE TABLE TB_CLIENTES(
-CLIENTE_ID INT PRIMARY KEY,
-FIRST_NAME VARCHAR(255),
-last_name VARCHAR(255),
-EMAIL VARCHAR(255),
-fechaNacimiento DATE,
-PROVINCIA_ID INT,
-FOREIGN KEY (PROVINCIA_ID) REFERENCES TB_PROVINCIA(PROVINCIA_ID));
-
-CREATE TABLE TB_ESPECIALISTAS (
-ESPECIALISTA_ID INT PRIMARY KEY,
-USER_ID INT,
-ESPECIALIDAD VARCHAR(100),
-FOREIGN KEY (USER_ID) REFERENCES TB_USERS(USER_ID));
 
 CREATE TABLE TB_SUCURSALES (
 SUCURSAL_ID INT PRIMARY KEY,
@@ -74,29 +255,7 @@ BEGIN
 END;
 
 
--- Nuevo Usuario
-CREATE OR REPLACE PROCEDURE CREATE_USER(
-    p_user_id IN NUMBER,
-    p_Name IN VARCHAR2,
-    p_Email IN VARCHAR2,
-    p_password IN VARCHAR2
-)
-AS
-BEGIN
-    INSERT INTO TB_USERS(USER_ID, NAME_USERS, EMAIL, PASSWORD)
-    VALUES (p_user_id,p_Name,p_Email,p_password);
-    DBMS_OUTPUT.PUT_LINE('USUARIO CREADO');
-END CREATE_USER;
 
-
--- Borrar Usuario
-CREATE OR REPLACE PROCEDURE Delete_User(
-    p_UserID NUMBER
-) AS
-BEGIN
-    DELETE FROM TB_USERS
-    WHERE USER_ID = p_UserID;
-END;
 
 -- Sacar Cita
 -- Crear Secuencia para Citas
@@ -105,21 +264,6 @@ CREATE SEQUENCE APPOINTMENT_SEQ
     INCREMENT BY 1
     NOCACHE
     NOCYCLE;
-
--- Nuevo Cliente
-CREATE OR REPLACE PROCEDURE Create_Client(
-    p_CEDULA IN NUMBER,
-    p_FIRST_NAME VARCHAR2,
-    p_LAST_NAME VARCHAR2,
-    p_EMAIL VARCHAR2,
-    p_FECHA_NACIMIENTO DATE,
-    p_PROVINCIA_ID INT
-    
-) AS
-BEGIN
-    INSERT INTO TB_CLIENTES(CLIENTE_ID, FIRST_NAME, LAST_NAME, EMAIL, fechaNacimiento, PROVINCIA_ID)
-    VALUES (p_CEDULA, p_FIRST_NAME, p_LAST_NAME, p_EMAIL, p_FECHA_NACIMIENTO, p_PROVINCIA_ID);
-END;
 
 
 -- Programar Cita
@@ -154,18 +298,6 @@ END;
 
 
 
--- Obtener Informaciï¿½n del Usuario
-CREATE OR REPLACE PROCEDURE Get_User_Info(
-    p_UserID NUMBER,
-    p_Name OUT VARCHAR2,
-    p_Email OUT VARCHAR2
-) AS
-BEGIN
-    SELECT NAME_USERS, EMAIL INTO p_Name, p_Email
-    FROM TB_USERS
-    WHERE USER_ID = p_UserID;
-END;
-
 -- Listar Citas de un Usuario
 CREATE OR REPLACE PROCEDURE List_User_Appointments(
     p_UserID NUMBER
@@ -177,17 +309,7 @@ BEGIN
     END LOOP;
 END;
 
--- Actualizar Informaciï¿½n del Usuario
-CREATE OR REPLACE PROCEDURE Update_User_Info(
-    p_UserID NUMBER,
-    p_NewName VARCHAR2,
-    p_NewEmail VARCHAR2
-) AS
-BEGIN
-    UPDATE TB_USERS
-    SET NAME_USERS = p_NewName, EMAIL = p_NewEmail
-    WHERE USER_ID = p_UserID;
-END;
+
 
 -- Obtener Detalles de una Cita
 CREATE OR REPLACE PROCEDURE Get_Appointment_Details(
@@ -501,6 +623,84 @@ begin
 RETURN user_tb_cursor;
 END;
 
+---------
+CREATE OR REPLACE PROCEDURE Buscar_Cita(
+    p_APPOINTMENT_ID OUT NUMBER,
+    p_CLIENTE_ID IN NUMBER,
+    p_FECHA_CITA IN DATE,
+    p_SUCURSAL_ID IN NUMBER,
+    P_TIPOCITA_ID IN NUMBER,
+    p_ESTADO VARCHAR2,
+    p_RESULTADO OUT VARCHAR2
+) AS
+BEGIN
+    -- Seleccionar la información de la cita
+    SELECT APPOINTMENT_ID
+    INTO p_APPOINTMENT_ID
+    FROM TB_APPOINTMENTS
+    WHERE APPOINTMENT_ID = p_APPOINTMENT_ID
+        AND FECHA = p_FECHA_CITA
+        AND SUCURSAL_ID=p_SUCURSAL_ID
+        AND TIPOCITA_ID=P_TIPOCITA_ID
+        AND ESTADO = p_ESTADO;
+
+    -- Verificar si se encontró la cita
+    IF p_CITA_ID IS NOT NULL THEN
+        p_RESULTADO := 'Cita encontrada';
+    ELSE
+        p_RESULTADO := 'Cita no encontrada';
+    END IF;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Manejo de excepción si no se encuentra ninguna cita
+        p_RESULTADO := 'Cita no encontrada';
+    WHEN OTHERS THEN
+        -- Manejo de otras excepciones
+        p_RESULTADO := 'Error al buscar la cita';
+END Buscar_Cita;
+CREATE OR REPLACE PROCEDURE Crear_Cita(
+    p_APPOINTMENTID INT,  -- Agregado el prefijo 'p' al nombre del parámetro
+    p_ClienteID INT,
+    p_EspecialistaID INT,
+    p_Fecha DATE,
+    p_Fecha DATE,
+    p_Hora VARCHAR(255),
+    p_ProvinciaID INT,
+    p_SucursalID INT,
+    p_TipoCitaID INT
+)
+BEGIN
+    -- Insertar la nueva cita
+    INSERT INTO TB_APPOINTMENTS (
+        APPOINTMENT_ID,  -- Agregado el campo APPOINTMENT_ID
+        CLIENTE_ID,
+        ESPECIALISTA_ID,
+        FECHA,
+        FECHA,
+        HORA,
+        PROVINCIA_ID,
+        SUCURSAL_ID,
+        TIPOCITA_ID
+    ) VALUES (
+        p_APPOINTMENT_ID,
+        p_ClienteID,
+        p_EspecialistaID,
+        p_Fecha,
+        p_Fecha,
+        p_Hora,
+        p_ProvinciaID,
+        p_SucursalID,
+        p_TipoCitaID
+    );
+
+    -- Llamar a otro procedimiento o realizar acciones adicionales según sea necesario
+    -- En este ejemplo, llamaremos a un procedimiento que obtiene los apellidos y el nombre de la sucursal.
+    CALL Obtener_Apellidos(p_ClienteID);
+    CALL Obtener_Nombre_Sucursal(p_SucursalID);
+END;
+
+------------------------------------------------------------------------------------------
 
 -- Inserts para TB_USERS
 INSERT INTO TB_USERS (USER_ID,  NAME_USERS, EMAIL, PASSWORD) VALUES (101,  'User 1', 'user1@example.com', 'pass1');
@@ -556,5 +756,3 @@ INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION
 INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (2, 2, '', '', '10-NOV-23');
 INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (3, 3, '', '', '10-NOV-23');
 INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (4, 4, '', '', '11-NOV-23');
-
-
