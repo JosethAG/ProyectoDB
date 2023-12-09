@@ -1,4 +1,32 @@
 --------------------------------------------------------------------------------
+/*                              PROVINCIA                                     */
+--------------------------------------------------------------------------------
+
+CREATE TABLE TB_PROVINCIA(
+PROVINCIA_ID INT PRIMARY KEY,
+NAME VARCHAR(100));
+
+--------------------------------------------------------------------------------
+/*                              SUCURSALES                                    */
+--------------------------------------------------------------------------------
+
+CREATE TABLE TB_SUCURSALES (
+SUCURSAL_ID INT PRIMARY KEY,
+NOMBRE_SUCURSAL VARCHAR(100),
+PROVINCIA_ID INT,
+FOREIGN KEY (PROVINCIA_ID) REFERENCES TB_PROVINCIA(PROVINCIA_ID));
+
+--------------------------------------------------------------------------------
+/*                              AUDITORIA                                    */
+--------------------------------------------------------------------------------
+
+CREATE TABLE Audit_Log (
+    Log_ID NUMBER PRIMARY KEY,
+    Table_Name VARCHAR2(50),
+    Action VARCHAR2(10),
+    Action_Date DATE);
+
+--------------------------------------------------------------------------------
 /*                              USUARIOS                                      */
 --------------------------------------------------------------------------------
 
@@ -10,6 +38,7 @@ EMAIL VARCHAR(255),
 PASSWORD VARCHAR(100));
 
 --PROCEDIMIENTO CREAR USUARIO
+
 CREATE OR REPLACE PROCEDURE CREATE_USER(
     p_user_id IN NUMBER,
     p_Name IN VARCHAR2,
@@ -25,6 +54,7 @@ END CREATE_USER;
 
 
 --PROCEDIMIENTO ELIMINAR USUARIO
+
 CREATE OR REPLACE PROCEDURE Delete_User(
     p_UserID NUMBER
 ) AS
@@ -35,6 +65,7 @@ END;
 
 
 --PROCEDIMIENTO MODIFICAR USUARIO
+
 CREATE OR REPLACE PROCEDURE Update_User(
     P_USER_ID INT,
     P_NAME_USERS VARCHAR2,
@@ -73,12 +104,12 @@ RETURN user_tb_cursor;
 END;
 
 
-
 --------------------------------------------------------------------------------
 /*                              CLIENTES                                      */
 --------------------------------------------------------------------------------
 
 --TABLA CLIENTES
+
 CREATE TABLE TB_CLIENTES(
     CLIENTE_ID NUMBER PRIMARY KEY,
     FIRST_NAME VARCHAR(255),
@@ -92,6 +123,7 @@ CREATE TABLE TB_CLIENTES(
 
 
 --PROCEDIMIENTO CREAR CLIENTES
+
 CREATE OR REPLACE PROCEDURE Create_Client(
     p_CEDULA IN NUMBER,
     p_FIRST_NAME VARCHAR2,
@@ -108,22 +140,8 @@ BEGIN
 END;
 
 
-
---PROCEDIMIENTO INACTIVAR CLIENTES
-CREATE OR REPLACE PROCEDURE inactivar_Client(
-    P_CLIENTE_ID NUMBER,
-    P_NUEVO_ESTADO NUMBER
-)
-AS
-BEGIN
-    UPDATE TB_CLIENTES
-    SET ESTADO_CLIENTE = P_NUEVO_ESTADO
-    WHERE CLIENTE_ID = P_CLIENTE_ID;
-
-END inactivar_Client;
-
-
 --PROCEDIMIENTO MODIFICAR CLIENTES
+
 CREATE OR REPLACE PROCEDURE UPDATE_CLIENT(
     P_CLIENTE_ID NUMBER,
     P_FIRST_NAME VARCHAR2,
@@ -150,70 +168,116 @@ END UPDATE_CLIENT;
 
 
 
+--PROCEDIMIENTO INACTIVAR CLIENTES
+
+CREATE OR REPLACE PROCEDURE inactivar_Client(
+    P_CLIENTE_ID NUMBER,
+    P_NUEVO_ESTADO NUMBER
+)
+AS
+BEGIN
+    UPDATE TB_CLIENTES
+    SET ESTADO_CLIENTE = P_NUEVO_ESTADO
+    WHERE CLIENTE_ID = P_CLIENTE_ID;
+
+END inactivar_Client;
+
+
 --------------------------------------------------------------------------------
 /*                           ESPECIALISTAS                                    */
 --------------------------------------------------------------------------------
+
+
+ALTER TABLE TB_ESPECIALISTAS
+DROP COLUMN USER_ID;
+
+ALTER TABLE TB_ESPECIALISTAS
+ADD NOMBRE VARCHAR(255);
+
 ALTER TABLE TB_ESPECIALISTAS
 ADD ESTADO_ESPECIALISTA INT DEFAULT 1;
 
 
 --TABLA ESPECIALISTAS
+
 CREATE TABLE TB_ESPECIALISTAS (
 ESPECIALISTA_ID INT PRIMARY KEY,
-FIRST_NAME VARCHAR(255),
-LAST_NAME VARCHAR(255),
+NAME VARCHAR(255),
 ESPECIALIDAD VARCHAR(100),
-ESTADO_ESPECIALISTA INT DEFAULT 1,
+ESTADO_ESPECIALISTA NUMBER DEFAULT 1
 
+);
 
+--PROCEDIMIENTO CREAR ESPECIALISTAS
 
-
-
-PROCEDIMIENTO 
 CREATE OR REPLACE PROCEDURE Create_Especialista(
     P_ESPECIALISTA_ID INT,
-    P_USER_ID INT,
+    P_NOMBRE VARCHAR2,
     P_ESPECIALIDAD VARCHAR2
 )
 AS
 BEGIN
-    INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, USER_ID, ESPECIALIDAD)
-    VALUES (P_ESPECIALISTA_ID, P_USER_ID, P_ESPECIALIDAD);
+    INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, NOMBRE, ESPECIALIDAD)
+    VALUES (P_ESPECIALISTA_ID, P_NOMBRE, P_ESPECIALIDAD);
 
-    COMMIT;
 END Create_Especialista;
 
 
+--PROCEDIMIENTO MODIFICAR ESPECIALISTAS
+
+CREATE OR REPLACE PROCEDURE Update_Especialistas(
+    P_ESPECIALISTA_ID INT,
+    P_NOMBRE VARCHAR2,
+    P_ESPECIALIDAD VARCHAR2
+)
+AS
+BEGIN
+    UPDATE TB_ESPECIALISTAS
+    SET
+        NOMBRE = P_NOMBRE,
+        ESPECIALIDAD = P_ESPECIALIDAD
+    WHERE ESPECIALISTA_ID = P_ESPECIALISTA_ID;
+
+END Update_Especialistas;
 
 
 
+--PROCEDIMIENTO INACTIVAR ESPECIALISTAS
+
+CREATE OR REPLACE PROCEDURE Inactivar_Especialista(
+    P_ESPECIALISTA_ID INT,
+    P_NUEVO_ESTADO INT
+)
+AS
+BEGIN
+    UPDATE TB_ESPECIALISTAS
+    SET ESTADO_ESPECIALISTA = P_NUEVO_ESTADO
+    WHERE ESPECIALISTA_ID = P_ESPECIALISTA_ID;
+
+END Inactivar_Especialista;
+
+
+--VALIDAR FUNCIONAMIENTO
+
+BEGIN
+    Create_Especialista(8, 'John', 'Cardiología');
+END;
+
+BEGIN
+    Update_Especialistas(8, 'Jane', 'Neurología');
+END;
+
+BEGIN
+    Inactivar_Especialista(8, 0);
+END;
 
 
 
+SELECT * FROM TB_ESPECIALISTAS
 
-
-
-
-
-
-
-
-
-
-CREATE TABLE TB_PROVINCIA(
-PROVINCIA_ID INT PRIMARY KEY,
-NAME VARCHAR(100));
-
-
-CREATE TABLE TB_SUCURSALES (
-SUCURSAL_ID INT PRIMARY KEY,
-NOMBRE_SUCURSAL VARCHAR(100),
-PROVINCIA_ID INT,
-FOREIGN KEY (PROVINCIA_ID) REFERENCES TB_PROVINCIA(PROVINCIA_ID));
-
-CREATE TABLE TB_TIPOCITAS (
-    TIPOCITA_ID INT PRIMARY KEY,
-    NOMBRE_TIPOCITA VARCHAR(50));
+--------------------------------------------------------------------------------
+/*                                 CITAS                                      */
+--------------------------------------------------------------------------------
 
 CREATE TABLE TB_APPOINTMENTS(
 APPOINTMENT_ID INT PRIMARY KEY,
@@ -239,22 +303,6 @@ CREATE TABLE TB_AUDITORIACITAS (
     DESCRIPCION VARCHAR(500),
     FECHA DATE,
     FOREIGN KEY (APPOINTMENT_ID) REFERENCES TB_APPOINTMENTS(APPOINTMENT_ID));   
-
--- Procedimientos Almacenados 
-
--- Iniciar Sesiï¿½n
-CREATE OR REPLACE PROCEDURE Login_User(
-    p_Email VARCHAR2,
-    p_Password VARCHAR2,
-    p_Usuario OUT NUMBER
-) AS
-BEGIN
-    SELECT USER_ID INTO p_Usuario
-    FROM TB_USERS
-    WHERE EMAIL = p_Email AND PASSWORD = p_Password;
-END;
-
-
 
 
 -- Sacar Cita
@@ -283,6 +331,20 @@ BEGIN
     INSERT INTO TB_APPOINTMENTS(APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID,FECHA, HORA, PROVINCIA_ID,SUCURSAL_ID,TIPOCITA_ID,ESTADO)
     VALUES (APPOINTMENT_SEQ.NEXTVAL, p_Cliente,p_Especialista, p_Date, p_Time, p_ProvinceID,p_Sucursal,p_TipoCita,p_Estado)
     RETURNING APPOINTMENT_ID INTO p_AppointmentID;
+END;
+
+
+-- Actualizar Detalles de una Cita
+CREATE OR REPLACE PROCEDURE Update_Appointment_Details(
+    p_AppointmentID NUMBER,
+    p_NewDate DATE,
+    p_NewTime VARCHAR2,
+    p_NewProvinceID NUMBER
+) AS
+BEGIN
+    UPDATE TB_APPOINTMENTS
+    SET FECHA = p_NewDate, HORA = p_NewTime, PROVINCIA_ID = p_NewProvinceID
+    WHERE APPOINTMENT_ID = p_AppointmentID;
 END;
 
 
@@ -335,31 +397,6 @@ END;
 
 
 
--- Actualizar Detalles de una Cita
-CREATE OR REPLACE PROCEDURE Update_Appointment_Details(
-    p_AppointmentID NUMBER,
-    p_NewDate DATE,
-    p_NewTime VARCHAR2,
-    p_NewProvinceID NUMBER
-) AS
-BEGIN
-    UPDATE TB_APPOINTMENTS
-    SET FECHA = p_NewDate, HORA = p_NewTime, PROVINCIA_ID = p_NewProvinceID
-    WHERE APPOINTMENT_ID = p_AppointmentID;
-END;
-
--- Obtener Detalles de un Usuario por Correo Electrï¿½nico
-CREATE OR REPLACE PROCEDURE Get_User_DetailsByEmail(
-    p_Email VARCHAR2,
-    p_UserID OUT NUMBER,
-    p_Name OUT VARCHAR2
-) AS
-BEGIN
-    SELECT USER_ID, NAME_USERS INTO p_UserID, p_Name
-    FROM TB_USERS
-    WHERE EMAIL = p_Email;
-END;
-
 -- Obtener Detalles de una Cita por Fecha
 CREATE OR REPLACE PROCEDURE Get_Appointment_DetailsByDate(
     p_Date DATE
@@ -381,7 +418,25 @@ BEGIN
 END;
 
 
---vistas
+--------------------------------------------------------------------------------
+/*                                 LOGIN                                      */
+--------------------------------------------------------------------------------
+
+
+CREATE OR REPLACE PROCEDURE Login_User(
+    p_Password VARCHAR2,
+    p_Usuario OUT NUMBER
+) AS
+BEGIN
+    SELECT USER_ID INTO p_Usuario
+    FROM TB_USERS
+    WHERE user_id = p_Usuario AND PASSWORD = p_Password;
+END;
+
+
+--------------------------------------------------------------------------------
+/*                                VISTAS                                      */
+--------------------------------------------------------------------------------
 
 
 --Vista de Clientes y Provincias:
@@ -406,9 +461,12 @@ INNER JOIN TB_PROVINCIA P ON A.PROVINCIA_ID = P.PROVINCIA_ID;
 
 
 
---Funciones
+--------------------------------------------------------------------------------
+/*                                FUNCIONES                                   */
+--------------------------------------------------------------------------------
 
---Funciï¿½n para Calcular la Edad de un Cliente a partir de su Fecha de Nacimiento:
+
+--Funcion para Calcular la Edad de un Cliente a partir de su Fecha de Nacimiento:
 CREATE OR REPLACE FUNCTION CalculateAge(p_Birthdate DATE) RETURN NUMBER IS
     v_Age NUMBER;
 BEGIN
@@ -417,7 +475,7 @@ BEGIN
 END;
 
 
---Funciï¿½n para Verificar si un Usuario Existe por su Correo Electrï¿½nico:
+--Funcion para Verificar si un Usuario Existe por su Correo Electrï¿½nico:
 CREATE OR REPLACE FUNCTION UserExists(p_Email VARCHAR2) RETURN BOOLEAN IS
     v_Count NUMBER;
 BEGIN
@@ -428,7 +486,7 @@ BEGIN
 END;
 
 
---Funciï¿½n para Encontrar el Prï¿½ximo Disponible en una Cita:
+--Funcion para Encontrar el Prï¿½ximo Disponible en una Cita:
 CREATE OR REPLACE FUNCTION FindNextAvailableAppointment(p_AppointmentID NUMBER) RETURN DATE IS
     v_NextAppointment DATE;
 BEGIN
@@ -439,7 +497,7 @@ BEGIN
 END;
 
 
---Funciï¿½n para Calcular la Cantidad de Citas de un Cliente en una Fecha Especï¿½fica:
+--Funcion para Calcular la Cantidad de Citas de un Cliente en una Fecha Especï¿½fica:
 CREATE OR REPLACE FUNCTION CountAppointmentsOnDate(p_AppointmentID NUMBER, p_Date DATE) RETURN NUMBER IS
     v_Count NUMBER;
 BEGIN
@@ -449,7 +507,7 @@ BEGIN
     RETURN v_Count;
 END;
 
---Funciï¿½n para Calcular el Promedio de Edades de los Clientes en una Provincia:
+--Funcion para Calcular el Promedio de Edades de los Clientes en una Provincia:
 CREATE OR REPLACE FUNCTION CalculateAverageAgeInProvince(p_ProvinciaID NUMBER) RETURN NUMBER IS
     v_AvgAge NUMBER;
 BEGIN
@@ -459,7 +517,7 @@ BEGIN
     RETURN v_AvgAge;
 END;
 
---Funciï¿½n para Calcular la Cantidad de Clientes por Provincia:
+--Funcion para Calcular la Cantidad de Clientes por Provincia:
 CREATE OR REPLACE FUNCTION CountClientsInProvince(p_ProvincIAID NUMBER) RETURN NUMBER IS
     v_Count NUMBER;
 BEGIN
@@ -472,15 +530,13 @@ END;
 
 
 
---triggers
+--------------------------------------------------------------------------------
+/*                                TRIGGERS                                      */
+--------------------------------------------------------------------------------
 
-CREATE TABLE Audit_Log (
-    Log_ID NUMBER PRIMARY KEY,
-    Table_Name VARCHAR2(50),
-    Action VARCHAR2(10),
-    Action_Date DATE);
 
---Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_USERS y registra la fecha y hora de la acciï¿½n en otra tabla.
+
+--Un trigger que se activa antes de insertar un nuevo registro en la tabla TB_USERS y registra la fecha y hora de la accion en otra tabla.
 
 CREATE OR REPLACE TRIGGER User_Insert_Trigger
 BEFORE INSERT ON TB_USERS
