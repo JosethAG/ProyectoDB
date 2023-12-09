@@ -5,6 +5,7 @@ import Model.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -31,9 +32,10 @@ public class JFClientes extends javax.swing.JFrame {
     }
 
     public String getDcNacimiento() {
-        return dcNacimiento.getDateFormatString();
+        String fecha =((JTextField)dcNacimiento.getDateEditor().getUiComponent()).getText();
+        return fecha;
     }
-
+    
     public String getTxtApellidos() {
         return txtApellidos.getText();
     }
@@ -50,16 +52,20 @@ public class JFClientes extends javax.swing.JFrame {
         return txtNombre.getText();
     }
 
-    public int getTxtProvincia() {
-        return Integer.parseInt(txtProvincia.getText());
+    public int getCdProvincia() {
+        return cdProvincia.getSelectedIndex();
     }
 
+    public void setCdProvincia(JComboBox<String> cdProvincia) {
+        this.cdProvincia = cdProvincia;
+    }
+    
     public JButton getBtnGuardar() {
         return btnGuardar;
     }
 
     public JButton getBtnEliminar() {
-        return btnEliminar;
+        return btnModificar;
     }
 
     public int getCbEstado() {
@@ -75,7 +81,7 @@ public class JFClientes extends javax.swing.JFrame {
         txtNombre.setText("");
         txtApellidos.setText("");
         txtCorreo.setText("");
-        txtProvincia.setText("");
+        cdProvincia.setSelectedIndex(0);
         dcNacimiento.cleanup();    
     }
     
@@ -87,7 +93,8 @@ public class JFClientes extends javax.swing.JFrame {
         dtm.addColumn("CORREO");
         dtm.addColumn("ESTADO");
         
-        String sql = "SELECT CLIENTE_ID, FIRST_NAME || LAST_NAME, EMAIL, ESTADO_CLIENTE  from TB_CLIENTES";
+        String sql = "SELECT CLIENTE_ID, FIRST_NAME || LAST_NAME, EMAIL, ESTADO_CLIENTE  "
+                + "from TB_CLIENTES";
 
         String datos[] = new String[4];
 
@@ -113,7 +120,7 @@ public class JFClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         Cedula = new javax.swing.JLabel();
         txtCedula = new javax.swing.JTextField();
@@ -134,18 +141,18 @@ public class JFClientes extends javax.swing.JFrame {
         tblClientes = new javax.swing.JTable();
         txtCorreo = new javax.swing.JTextField();
         Provincia = new javax.swing.JLabel();
-        txtProvincia = new javax.swing.JTextField();
         txtProvincia1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cbEstado = new javax.swing.JComboBox<>();
         dcNacimiento = new com.toedter.calendar.JDateChooser();
+        cdProvincia = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.white);
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setName("bntEliminar"); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.setName("bntEliminar"); // NOI18N
 
         btnGuardar.setText("Guardar");
         btnGuardar.setName("bntGuardar"); // NOI18N
@@ -306,12 +313,6 @@ public class JFClientes extends javax.swing.JFrame {
         Provincia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Provincia.setText("Provincia");
 
-        txtProvincia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProvinciaActionPerformed(evt);
-            }
-        });
-
         txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtProvincia1.setText("Fecha Nacimiento");
 
@@ -320,7 +321,9 @@ public class JFClientes extends javax.swing.JFrame {
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inactivo", "Activo" }));
         cbEstado.setSelectedIndex(1);
 
-        dcNacimiento.setDateFormatString("dd-MM-yy");
+        dcNacimiento.setDateFormatString("dd-MMM-yy");
+
+        cdProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "San José", "Alajuela", "Heredia", "Puntarenas", "Cartago", "Limón", "Guanacaste" }));
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -337,16 +340,16 @@ public class JFClientes extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cdProvincia, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                                .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
                             .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtApellidos)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProvincia, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Correo)
@@ -388,8 +391,8 @@ public class JFClientes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Provincia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cdProvincia, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                        .addGap(4, 4, 4)
                         .addComponent(txtProvincia1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dcNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,7 +403,7 @@ public class JFClientes extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43))))
         );
 
@@ -430,10 +433,6 @@ public class JFClientes extends javax.swing.JFrame {
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoActionPerformed
-
-    private void txtProvinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProvinciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProvinciaActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
@@ -499,13 +498,14 @@ public class JFClientes extends javax.swing.JFrame {
     private javax.swing.JButton bntCita;
     private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnClientes;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEspecialistas;
     public javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JComboBox<String> cbEstado;
+    private javax.swing.JComboBox<String> cdProvincia;
     private com.toedter.calendar.JDateChooser dcNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -516,7 +516,6 @@ public class JFClientes extends javax.swing.JFrame {
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtProvincia;
     private javax.swing.JLabel txtProvincia1;
     // End of variables declaration//GEN-END:variables
 }

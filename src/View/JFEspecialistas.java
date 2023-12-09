@@ -28,13 +28,13 @@ public class JFEspecialistas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         txtCedula = new javax.swing.JLabel();
-        txtCodigoEspecialista = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JLabel();
-        lblUsuario = new javax.swing.JTextField();
-        txtEspecialidad = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        lblEspecialidad1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         bntCita = new javax.swing.JButton();
@@ -44,41 +44,48 @@ public class JFEspecialistas extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        lblEspecialidad = new javax.swing.JTextField();
+        tblEspecialistas = new javax.swing.JTable();
+        txtEspecialidad = new javax.swing.JTextField();
+        cbEstado = new javax.swing.JComboBox<>();
+        lblEspecialidad2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.white);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setName("bntEliminar"); // NOI18N
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 110, 48));
+        btnModificar.setText("Modificar");
+        btnModificar.setName("bntEliminar"); // NOI18N
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 110, 48));
 
         btnGuardar.setText("Guardar");
         btnGuardar.setName("bntGuardar"); // NOI18N
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 120, 48));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 120, 48));
 
         txtCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCedula.setText("Código Especialista");
         getContentPane().add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 54, -1, -1));
 
-        txtCodigoEspecialista.addActionListener(new java.awt.event.ActionListener() {
+        txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoEspecialistaActionPerformed(evt);
+                txtIDActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCodigoEspecialista, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 80, 249, 34));
+        getContentPane().add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 80, 249, 34));
 
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtUsuario.setText("Usuario");
+        txtUsuario.setText("Nombre");
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 126, -1, -1));
-        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 152, 249, 34));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 152, 249, 34));
 
-        txtEspecialidad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtEspecialidad.setText("Nombre");
-        getContentPane().add(txtEspecialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 198, -1, -1));
+        lblEspecialidad1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblEspecialidad1.setText("Estado");
+        getContentPane().add(lblEspecialidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
         jPanel1.setForeground(new java.awt.Color(51, 51, 0));
@@ -188,7 +195,7 @@ public class JFEspecialistas extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 785, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEspecialistas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -199,18 +206,26 @@ public class JFEspecialistas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblEspecialistas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 490, -1));
-        getContentPane().add(lblEspecialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 224, 249, 34));
+        getContentPane().add(txtEspecialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 224, 249, 34));
+
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Inactivo", "Activo" }));
+        cbEstado.setSelectedIndex(1);
+        getContentPane().add(cbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 240, 30));
+
+        lblEspecialidad2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblEspecialidad2.setText("Especialidad");
+        getContentPane().add(lblEspecialidad2, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 198, -1, -1));
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCodigoEspecialistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoEspecialistaActionPerformed
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoEspecialistaActionPerformed
+    }//GEN-LAST:event_txtIDActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
@@ -235,6 +250,10 @@ public class JFEspecialistas extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,21 +295,23 @@ public class JFEspecialistas extends javax.swing.JFrame {
     private javax.swing.JButton bntCita;
     private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnClientes;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEspecialistas;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField lblEspecialidad;
-    private javax.swing.JTextField lblUsuario;
+    private javax.swing.JLabel lblEspecialidad1;
+    private javax.swing.JLabel lblEspecialidad2;
+    private javax.swing.JTable tblEspecialistas;
     private javax.swing.JLabel txtCedula;
-    private javax.swing.JTextField txtCodigoEspecialista;
-    private javax.swing.JLabel txtEspecialidad;
+    private javax.swing.JTextField txtEspecialidad;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtNombre;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

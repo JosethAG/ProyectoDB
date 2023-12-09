@@ -46,24 +46,17 @@ public class ClientesController {
         String pNombre = jfClientes.getTxtNombre();
         String pApellidos = jfClientes.getTxtApellidos();
         String pCorreo = jfClientes.getTxtCorreo();
-        int pProvincia = jfClientes.getTxtProvincia();
+        int pProvincia = jfClientes.getCdProvincia();
         String pFechaNacimiento = jfClientes.getDcNacimiento();
-        int pEstado = jfClientes.getCbEstado();
 
         try {
             String sql = "{call Create_Client(?, ?, ?, ?, ?, ?)}";
-            System.out.println(idCed + "\n"
-                                           + pNombre +"\n"
-                                           + pApellidos + "\n"
-                                           + pCorreo + "\n"
-                                           + pFechaNacimiento + "\n"
-                                           + pProvincia + "\n");
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idCed);
                 stmt.setString(2, pNombre);
                 stmt.setString(3, pApellidos);
                 stmt.setString(4, pCorreo);
-                stmt.setString(5, "12-SEP-23" );
+                stmt.setString(5, pFechaNacimiento );
                 stmt.setInt(6,  pProvincia);
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
@@ -81,13 +74,23 @@ public class ClientesController {
 
     public void SPEliminarCliente() throws SQLException {
         int idCed = jfClientes.getTxtCedula();
-        int idEstado = jfClientes.getCbEstado();
+        String pNombre = jfClientes.getTxtNombre();
+        String pApellidos = jfClientes.getTxtApellidos();
+        String pCorreo = jfClientes.getTxtCorreo();
+        int pProvincia = jfClientes.getCdProvincia();
+        String pFechaNacimiento = jfClientes.getDcNacimiento();
+        int pEstado = jfClientes.getCbEstado();
 
         try {
-            String sql = "{call Inactivar_Client(?, ?)}";
+            String sql = "{call UPATE_CLIENT(?, ?, ?, ?, ?, ?, ?)}";
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idCed);
-                stmt.setInt(2, idEstado);
+                stmt.setString(2, pNombre);
+                stmt.setString(3, pApellidos);
+                stmt.setString(4, pCorreo);
+                stmt.setString(5, pFechaNacimiento );
+                stmt.setInt(6,  pProvincia);
+                stmt.setInt(7, pEstado);
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se inactivo el cliente correctamente");
                 // Limpiar los campos en la Vista
