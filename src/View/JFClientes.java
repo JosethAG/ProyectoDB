@@ -1,11 +1,14 @@
 package View;
 
 import Controller.ClientesController;
-import com.toedter.calendar.JDateChooser;
+import Model.Conexion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class JFClientes extends javax.swing.JFrame {
 
@@ -17,6 +20,12 @@ public class JFClientes extends javax.swing.JFrame {
         initComponents();
          this.setLocationRelativeTo(null);
          clientesController = new ClientesController(this);
+         
+         try {
+            mostrarDatos();
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getDcNacimiento() {
@@ -47,6 +56,10 @@ public class JFClientes extends javax.swing.JFrame {
     public JButton getBtnGuardar() {
         return btnGuardar;
     }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
     
     public void limpiarCampos() {
         txtCedula.setText("");
@@ -56,6 +69,29 @@ public class JFClientes extends javax.swing.JFrame {
         txtProvincia.setText("");
         dcNacimiento.cleanup();    
     }
+    
+    public void mostrarDatos() throws SQLException{
+        Conexion conection = new Conexion();
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("ID");
+        dtm.addColumn("NOMBRE");
+        dtm.addColumn("CORREO");
+        
+        String sql = "select CLIENTE_ID, FIRST_NAME || LAST_NAME, EMAIL from TB_CLIENTES";
+
+        String datos[] = new String[4];
+
+        Statement st = conection.getConexion().createStatement();
+        ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
+        
+        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+            datos[0] = rs.getString(1);
+            datos[1] = rs.getString(2);
+            datos[2] = rs.getString(3);
+            dtm.addRow(datos);
+    }
+        tblClientes.setModel(dtm);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -84,7 +120,7 @@ public class JFClientes extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         txtCorreo = new javax.swing.JTextField();
         Provincia = new javax.swing.JLabel();
         txtProvincia = new javax.swing.JTextField();
@@ -230,7 +266,7 @@ public class JFClientes extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -241,7 +277,12 @@ public class JFClientes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
 
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,8 +416,14 @@ public class JFClientes extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        clientesController.ejecutarProcedimiento();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // TODO add your handling code here:
+        txtCedula.setText(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString());
+        txtNombre.setText(tblClientes.getValueAt(tblClientes.getSelectedRow(), 1).toString());
+        txtCorreo.setText(tblClientes.getValueAt(tblClientes.getSelectedRow(), 2).toString());
+    }//GEN-LAST:event_tblClientesMouseClicked
  
     /**
      * @param args the command line arguments
@@ -433,7 +480,7 @@ public class JFClientes extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCorreo;

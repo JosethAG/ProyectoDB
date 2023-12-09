@@ -2,12 +2,12 @@ package View;
 
 import Controller.UsuariosController;
 import Model.Conexion;
-import Model.Usuarios;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -16,8 +16,6 @@ import javax.swing.JOptionPane;
 public class JFUsuarios extends javax.swing.JFrame {
 
     private UsuariosController usuariosController;
-    //private DefaultTableModel dtm;
-    private Object[] userTabla = new Object[3];
 
     /**
      * Creates new form JFUsuarios
@@ -37,9 +35,7 @@ public class JFUsuarios extends javax.swing.JFrame {
     }
 
     public int getCedula() {
-
         return Integer.parseInt(lblCedula.getText());
-
     }
 
     public String getNombre() {
@@ -56,8 +52,13 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     public javax.swing.JButton getbtnGuardar() {
         return btnGuardar;
-
     }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+    
+    
 
 
     public void limpiarCampos() {
@@ -65,8 +66,6 @@ public class JFUsuarios extends javax.swing.JFrame {
         lblNombre.setText("");
         lblCorreo.setText("");
         lblContrasena.setText("");
-        JOptionPane.showMessageDialog(null, "Usuario guardado correctamente");
-
     }
 
     public void mostrarDatos() throws SQLException{
@@ -417,7 +416,7 @@ public class JFUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEspecialistas;
-    public javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;

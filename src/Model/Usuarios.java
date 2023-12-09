@@ -55,9 +55,4 @@ public class Usuarios {
         return "Usuarios{" + "UsuarioID=" + UsuarioID + ", NombreUsuario=" + NombreUsuario + ", Correo=" + Correo + '}';
     }
     
-    
-
-    
-    
-
 }

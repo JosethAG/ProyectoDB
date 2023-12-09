@@ -15,6 +15,9 @@ public class UsuariosController {
     private Usuarios usuarios;
     private Conexion conection = new Conexion();
 
+    public UsuariosController() {
+    }
+
     public UsuariosController(JFUsuarios jfusuarios) {
         this.jfusuarios = jfusuarios;
         this.usuarios = new Usuarios();
@@ -29,12 +32,19 @@ public class UsuariosController {
                 }
             }
         });
+
+        // Escucha cuando se realiza click en el boton y ejecuta un proceso
+        jfusuarios.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    SPEliminarUsuario();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuariosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
-    public UsuariosController() {
-        
-    }
-    
     public void SPCrearUsuario() throws SQLException {
         int idCed = jfusuarios.getCedula();
         String pNombre = jfusuarios.getNombre();
@@ -49,17 +59,35 @@ public class UsuariosController {
                 stmt.setString(3, pCorre);
                 stmt.setString(4, pContrasena);
                 stmt.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
+                JOptionPane.showMessageDialog(null, "Se agregó el usuario correctamente");
                 // Limpiar los campos en la Vista
                 jfusuarios.limpiarCampos();
-            
+
             }
         } catch (SQLException e) {
             // Manejo de excepciones: Imprimir el error y relanzar la excepción
             e.printStackTrace();
             throw e;
-        } 
+        }
     }
-    
-    
+
+    public void SPEliminarUsuario() throws SQLException {
+        int idCed = jfusuarios.getCedula();
+
+        try {
+            String sql = "{call Delete_User(?)}";
+            try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
+                stmt.setInt(1, idCed);
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Se eliminó el usuario correctamente");
+                // Limpiar los campos en la Vista
+                jfusuarios.limpiarCampos();
+
+            }
+        } catch (SQLException e) {
+            // Manejo de excepciones: Imprimir el error y relanzar la excepción
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }
