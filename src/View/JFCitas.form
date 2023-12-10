@@ -44,8 +44,8 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="cbxEstado" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblSucursal" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblApellidos1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblhora" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jfecha" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnGuardar" min="-2" pref="164" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -53,8 +53,8 @@
                           </Group>
                           <Component id="lblCitas" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblCliente" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblApellidos" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblEspecialista" alignment="1" max="32767" attributes="0"/>
+                          <Component id="tipocita" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtEspecialista" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -93,15 +93,15 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtEspecialista" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblApellidos" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="lblEspecialista" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtProvincia1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jDateChooser1" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="jfecha" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtHora" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblApellidos1" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="lblhora" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtSucursall" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -109,7 +109,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtTipoCita" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="tipocita" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtEstado" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -133,12 +133,18 @@
         <Property name="text" type="java.lang.String" value="Eliminar"/>
         <Property name="name" type="java.lang.String" value="bntEliminar" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
         <Property name="name" type="java.lang.String" value="bntGuardar" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtCodigoCita">
       <Properties>
@@ -168,10 +174,13 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Apellidos"/>
+        <Property name="text" type="java.lang.String" value="Especialista"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Especialista"/>
+      </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblApellidos">
+    <Component class="javax.swing.JTextField" name="lblEspecialista">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
@@ -363,7 +372,10 @@
         <Property name="text" type="java.lang.String" value="Fecha"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+    <Component class="com.toedter.calendar.JDateChooser" name="jfecha">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-mm-yyyy"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtHora">
       <Properties>
@@ -373,7 +385,10 @@
         <Property name="text" type="java.lang.String" value="Hora"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblApellidos1">
+    <Component class="javax.swing.JTextField" name="lblhora">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblhoraActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtSucursall">
       <Properties>
@@ -393,7 +408,7 @@
         <Property name="text" type="java.lang.String" value="Tipo de Cita"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="tipocita">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">

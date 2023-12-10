@@ -1,59 +1,66 @@
 package Model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class Citas {
-    private int appointmentID;
-    private int clienteID;
-    private int especialitaID;
-    private Date fechaCita;
-    private String hora;
-    private int sucursalID;
-    private String estado;
-
-    public Citas() {
-    }
     
-    public Citas(int appointmentID, int clienteID, int especialitaID, Date fechaCita, String hora, int sucursalID, String estado) {
-        this.appointmentID = appointmentID;
-        this.clienteID = clienteID;
-        this.especialitaID = especialitaID;
-        this.fechaCita = fechaCita;
+    private int codigoCita;
+    private int clienteId;
+    private int especialista;
+    private Date fecha;
+    private String hora;
+    private int sucursal;
+    private int tipoCita;
+    private int estado;
+
+    public Citas(int codigoCita, int clienteId, int especialista, Date fechaDesde, String hora, int sucursal, int tipoCita, int estado) {
+        this.codigoCita = codigoCita;
+        this.clienteId = clienteId;
+        this.especialista = especialista;
+        this.fecha = fecha;
         this.hora = hora;
-        this.sucursalID = sucursalID;
+        this.sucursal = sucursal;
+        this.tipoCita = tipoCita;
         this.estado = estado;
     }
 
-    public int getAppointmentID() {
-        return appointmentID;
+    public int getCodigoCita() {
+        return codigoCita;
     }
 
-    public void setAppointmentID(int appointmentID) {
-        this.appointmentID = appointmentID;
+    public void setCodigoCita(int codigoCita) {
+        this.codigoCita = codigoCita;
     }
 
-    public int getClienteID() {
-        return clienteID;
+    public int getClienteId() {
+        return clienteId;
     }
 
-    public void setClienteID(int clienteID) {
-        this.clienteID = clienteID;
+    public void setClienteId(int clienteId) {
+        this.clienteId = clienteId;
     }
 
-    public int getEspecialitaID() {
-        return especialitaID;
+    public int getEspecialista() {
+        return especialista;
     }
 
-    public void setEspecialitaID(int especialitaID) {
-        this.especialitaID = especialitaID;
+    public void setEspecialista(int especialista) {
+        this.especialista = especialista;
     }
 
-    public Date getFechaCita() {
-        return fechaCita;
+    
+
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFechaCita(Date fechaCita) {
-        this.fechaCita = fechaCita;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getHora() {
@@ -64,19 +71,39 @@ public class Citas {
         this.hora = hora;
     }
 
-    public int getSucursalID() {
-        return sucursalID;
+    public int getSucursal() {
+        return sucursal;
     }
 
-    public void setSucursalID(int sucursalID) {
-        this.sucursalID = sucursalID;
+    public void setSucursal(int sucursal) {
+        this.sucursal = sucursal;
     }
 
-    public String getEstado() {
+    public int getTipoCita() {
+        return tipoCita;
+    }
+
+    public void setTipoCita(int tipoCita) {
+        this.tipoCita = tipoCita;
+    }
+
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
+    
+    
+
+   
+
+   
+
+    
+
+    
+    
+    
 }
