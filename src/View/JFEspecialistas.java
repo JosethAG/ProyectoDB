@@ -4,19 +4,94 @@
  */
 package View;
 
+import Controller.EspecialistasController;
+import Model.Conexion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author araya
  */
 public class JFEspecialistas extends javax.swing.JFrame {
 
+    private EspecialistasController especialistasController;
+
     /**
      * Creates new form JFUsuarios
      */
     public JFEspecialistas() {
         initComponents();
-          this.setLocationRelativeTo(null);
-     
+        this.setLocationRelativeTo(null);
+        especialistasController = new EspecialistasController(this);
+
+        try {
+            mostrarDatos();
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String getTxtEspecialidad() {
+        return txtEspecialidad.getText();
+    }
+
+    public int getTxtID() {
+        return Integer.parseInt(txtID.getText());
+    }
+
+    public String getTxtNombre() {
+        return txtNombre.getText();
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public int getCbEstado() {
+        return cbEstado.getSelectedIndex();
+    }
+
+    public void limpiarCampos() {
+        txtID.setText("");
+        txtNombre.setText("");
+        txtEspecialidad.setText("");
+        cbEstado.setSelectedIndex(0);
+    }
+
+    public void mostrarDatos() throws SQLException {
+        Conexion conection = new Conexion();
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("ID");
+        dtm.addColumn("NOMBRE");
+        dtm.addColumn("ESPECILIDAD");
+        dtm.addColumn("ESTADO");
+
+        String sql = "SELECT ESPECIALISTA_ID, NOMBRE, ESPECIALIDAD, ESTADO_ESPECIALISTA  "
+                + "from TB_ESPECIALISTAS";
+
+        String datos[] = new String[4];
+
+        Statement st = conection.getConexion().createStatement();
+        ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
+
+        while (rs.next()) {//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+            datos[0] = rs.getString(1);
+            datos[1] = rs.getString(2);
+            datos[2] = rs.getString(3);
+            datos[3] = String.valueOf(rs.getInt(4));
+            dtm.addRow(datos);
+        }
+        tblEspecialistas.setModel(dtm);
     }
 
     /**
@@ -206,6 +281,11 @@ public class JFEspecialistas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblEspecialistas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEspecialistasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEspecialistas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 54, 490, -1));
@@ -254,6 +334,13 @@ public class JFEspecialistas extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void tblEspecialistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEspecialistasMouseClicked
+        // TODO add your handling code here:
+        txtID.setText(tblEspecialistas.getValueAt(tblEspecialistas.getSelectedRow(), 0).toString());
+        txtNombre.setText(tblEspecialistas.getValueAt(tblEspecialistas.getSelectedRow(), 1).toString());
+        txtEspecialidad.setText(tblEspecialistas.getValueAt(tblEspecialistas.getSelectedRow(), 2).toString());
+    }//GEN-LAST:event_tblEspecialistasMouseClicked
 
     /**
      * @param args the command line arguments

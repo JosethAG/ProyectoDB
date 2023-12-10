@@ -3,39 +3,58 @@ package Model;
 
 public class Especialitas {
     
-  private int EspecialistaID;
-  private int UserID;
-  private String Especialista;
+  private int especialistaID;
+  private String nombre;
+  private String especialidad;
+  private int estado;
 
-    public Especialitas(int EspecialistaID, int UserID, String Especialista) {
-        this.EspecialistaID = EspecialistaID;
-        this.UserID = UserID;
-        this.Especialista = Especialista;
+    public Especialitas() {
+    }
+
+    public Especialitas(int especialistaID, String nombre, String especialidad, int estado) {
+        this.especialistaID = especialistaID;
+        this.nombre = nombre;
+        this.especialidad = especialidad;
+        this.estado = estado;
     }
 
     public int getEspecialistaID() {
-        return EspecialistaID;
+        return especialistaID;
     }
 
-    public void setEspecialistaID(int EspecialistaID) {
-        this.EspecialistaID = EspecialistaID;
+    public void setEspecialistaID(int especialistaID) {
+        this.especialistaID = especialistaID;
     }
 
-    public int getUserID() {
-        return UserID;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getEspecialista() {
-        return Especialista;
+    public String getEspecialidad() {
+        return especialidad;
     }
 
-    public void setEspecialista(String Especialista) {
-        this.Especialista = Especialista;
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Especialitas{" + "especialistaID=" + especialistaID + ", nombre=" + nombre + ", especialidad=" + especialidad + ", estado=" + estado + '}';
+    }
+
   
   
 }

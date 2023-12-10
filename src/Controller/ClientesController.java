@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 public class ClientesController {
     
     private JFClientes jfClientes;
-    private Clientes clientes;
     private Conexion conection = new Conexion();
     
     public ClientesController(JFClientes jfClientes) {
