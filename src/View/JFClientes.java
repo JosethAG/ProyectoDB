@@ -81,7 +81,7 @@ public class JFClientes extends javax.swing.JFrame {
         txtApellidos.setText("");
         txtCorreo.setText("");
         cdProvincia.setSelectedIndex(0);
-        dcNacimiento.cleanup();    
+        dcNacimiento.cleanup();
     }
     
     public void mostrarDatos() throws SQLException{

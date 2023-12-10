@@ -1,24 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import Controller.LoginController;
 import javax.swing.JButton;
 
-/**
- *
- * @author araya
- */
-public class JFLogin extends javax.swing.JFrame {
 
+public class JFLogin extends javax.swing.JFrame {
+    
     private LoginController loginController;
-    /**
-     * Creates new form JFUsuarios
-     */
+    
     public JFLogin() {
-        initComponents();
+         initComponents();
          this.setLocationRelativeTo(null);
          loginController = new LoginController(this);
     }
@@ -35,11 +26,6 @@ public class JFLogin extends javax.swing.JFrame {
         return btnIngresar;
     }
 
-    
-    
-
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -156,7 +142,6 @@ public class JFLogin extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        System.out.println("test 1");
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
