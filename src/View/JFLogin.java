@@ -4,20 +4,42 @@
  */
 package View;
 
+import Controller.LoginController;
+import javax.swing.JButton;
+
 /**
  *
  * @author araya
  */
-public class JFLgoin extends javax.swing.JFrame {
+public class JFLogin extends javax.swing.JFrame {
 
+    private LoginController loginController;
     /**
      * Creates new form JFUsuarios
      */
-    public JFLgoin() {
+    public JFLogin() {
         initComponents();
          this.setLocationRelativeTo(null);
+         loginController = new LoginController(this);
     }
 
+    public String getTxtContra() {
+        return txtContra.getText();
+    }
+
+    public String getTxtUser() {
+        return txtUser.getText();
+    }
+
+    public JButton getBtnIngresar() {
+        return btnIngresar;
+    }
+
+    
+    
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,9 +51,9 @@ public class JFLgoin extends javax.swing.JFrame {
 
         btnIngresar = new javax.swing.JButton();
         txtUsuario = new javax.swing.JLabel();
-        lblUsuario = new javax.swing.JTextField();
-        txtContraseña = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
+        lblContra = new javax.swing.JLabel();
+        txtContra = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -41,18 +63,23 @@ public class JFLgoin extends javax.swing.JFrame {
 
         btnIngresar.setText("INGRESAR");
         btnIngresar.setName("bntGuardar"); // NOI18N
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsuario.setText("Usuario");
 
-        lblUsuario.addActionListener(new java.awt.event.ActionListener() {
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblUsuarioActionPerformed(evt);
+                txtUserActionPerformed(evt);
             }
         });
 
-        txtContraseña.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtContraseña.setText("Contraseña");
+        lblContra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblContra.setText("Contraseña");
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
         jPanel1.setForeground(new java.awt.Color(51, 51, 0));
@@ -92,10 +119,10 @@ public class JFLgoin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNombre)
-                    .addComponent(txtContraseña)
+                    .addComponent(txtContra)
+                    .addComponent(lblContra)
                     .addComponent(txtUsuario)
-                    .addComponent(lblUsuario)
+                    .addComponent(txtUser)
                     .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49))
         );
@@ -106,26 +133,31 @@ public class JFLgoin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtContraseña)
+                .addComponent(lblContra)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblUsuarioActionPerformed
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblUsuarioActionPerformed
+    }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+        System.out.println("test 1");
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,14 +176,18 @@ public class JFLgoin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFLgoin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFLgoin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFLgoin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFLgoin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -160,19 +196,19 @@ public class JFLgoin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFLgoin().setVisible(true);
+                new JFLogin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnIngresar;
+    public javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField lblNombre;
-    private javax.swing.JTextField lblUsuario;
-    private javax.swing.JLabel txtContraseña;
+    private javax.swing.JLabel lblContra;
+    private javax.swing.JTextField txtContra;
+    private javax.swing.JTextField txtUser;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

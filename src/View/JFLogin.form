@@ -35,10 +35,10 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="50" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="lblNombre" max="32767" attributes="0"/>
-                  <Component id="txtContraseña" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtContra" max="32767" attributes="0"/>
+                  <Component id="lblContra" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtUsuario" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblUsuario" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtUser" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnIngresar" min="-2" pref="212" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
@@ -52,14 +52,14 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="txtUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblUsuario" min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="txtUser" min="-2" pref="34" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="txtContraseña" min="-2" max="-2" attributes="0"/>
+              <Component id="lblContra" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblNombre" min="-2" pref="34" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="txtContra" min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="btnIngresar" min="-2" pref="34" max="-2" attributes="0"/>
-              <EmptySpace pref="69" max="32767" attributes="0"/>
+              <EmptySpace pref="57" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,6 +70,12 @@
         <Property name="text" type="java.lang.String" value="INGRESAR"/>
         <Property name="name" type="java.lang.String" value="bntGuardar" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIngresarActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="txtUsuario">
       <Properties>
@@ -79,12 +85,12 @@
         <Property name="text" type="java.lang.String" value="Usuario"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblUsuario">
+    <Component class="javax.swing.JTextField" name="txtUser">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblUsuarioActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUserActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtContrase&#xf1;a">
+    <Component class="javax.swing.JLabel" name="lblContra">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
@@ -92,7 +98,7 @@
         <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblNombre">
+    <Component class="javax.swing.JTextField" name="txtContra">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>

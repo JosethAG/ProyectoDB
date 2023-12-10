@@ -1,40 +1,83 @@
 package Controller;
 
 import Model.Conexion;
-import java.io.IOException;
+import View.JFHome;
+import View.JFLogin;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Connection;
-import java.util.ArrayList;
+import java.sql.Statement;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class LoginController {
 
- 
-    public static void main(String[] args) throws IOException, SQLException {
-        // TODO code application logic here
-//        Planilla plan = new Planilla();
-//        Funciones fun = new Funciones();
-//        plan.setId_planilla(1);
-//        plan.setAnho(2022);
-//        plan.setMes("mes");
-//        plan.setId_planilla(1);
-//        //fun.guarda(plan);
-//        //fun.guardaArchivo(plan);
-//        fun.leer();
-        //
-        ArrayList<String> lista = new ArrayList<String>();
-        try{
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall(" SELECT * FROM TB_USERS ");
-            ResultSet resultado = procedimiento.executeQuery();
-            while(resultado.next()){
-                //System.out.println("sss"+resultado.getInt("NOMBRE"));
-                lista.add(resultado.getString("NAME_USERS"));
+    private JFLogin jfLogin;
+    private JFHome jfHome;
+    private Conexion conection = new Conexion();
+    
+     public LoginController(JFLogin jfLogin) {
+           this.jfLogin = jfLogin;
+           
+         // Escucha cuando se realiza click en el boton y ejecuta un proceso
+        jfLogin.getBtnIngresar().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    System.out.println("salto");
+                    SPValidarLogin();
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }catch(Exception e){
+        });
+         
+     }
+ 
+    public void SPValidarLogin() throws SQLException {
+        String pNombre = jfLogin.getTxtUser();
+        String pContra = jfLogin.getTxtContra();
+        String respuesta = "0";
+
+        try {
+            /*
+            String sql = "{call VALIDAR_USUARIO_CONTRASEÑA(?, ?, ?)}";
+            try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
+                stmt.setString(1, pNombre);
+                stmt.setString(2, pContra);
+                stmt.executeUpdate();
+                
+                System.out.println(respuesta);
+                if (respuesta == 1) {
+                    jfLogin.dispose();
+                    jfHome.show();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
+                }
+                
+            }*/
+        //String sql = "EXEC VALIDAR_USUARIO_CONTRASEÑA( "+ pNombre + "," + pContra + " );";
+        String sql = "EXEC VALIDAR_USUARIO_CONTRASEÑA('101', 'pass1');";
+
+        Statement st = conection.getConexion().createStatement();
+        ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
+        respuesta = rs.getString(1);
+            System.out.println(respuesta);
+        if (respuesta == "1") {
+                    jfLogin.dispose();
+                    jfHome.show();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
+                }
+        
+        } catch (SQLException e) {
+            // Manejo de excepciones: Imprimir el error y relanzar la excepción
             e.printStackTrace();
+            throw e;
         }
-        //PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("Select codigoCategoria,descripcion from Categorias  WHERE ESTADO<>0");
+        System.out.println("salte");
     }
     
 }

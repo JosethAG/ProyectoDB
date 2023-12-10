@@ -1,5 +1,6 @@
 package Model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -51,6 +52,10 @@ public class Conexion {
 
     public void setConexion(Connection conexion) {
         this.conn = conexion;
+    }
+
+    public CallableStatement prepareCall(String call) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
