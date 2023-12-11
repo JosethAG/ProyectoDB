@@ -40,10 +40,7 @@ public class JFAuditoria extends javax.swing.JFrame {
         btnUsuarios = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jfecha = new com.toedter.calendar.JDateChooser();
-        jfecha1 = new com.toedter.calendar.JDateChooser();
         Exportar = new java.awt.Button();
-        txtProvincia1 = new javax.swing.JLabel();
         txtProvincia2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -159,10 +156,6 @@ public class JFAuditoria extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jfecha.setDateFormatString("dd-mm-yyyy");
-
-        jfecha1.setDateFormatString("dd-mm-yyyy");
-
         Exportar.setActionCommand("Exportar");
         Exportar.setLabel("Exportar");
         Exportar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,11 +169,8 @@ public class JFAuditoria extends javax.swing.JFrame {
             }
         });
 
-        txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtProvincia1.setText("Fecha desde ");
-
-        txtProvincia2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtProvincia2.setText("Fecha hasta");
+        txtProvincia2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        txtProvincia2.setText("Exportar historico de movimientos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,35 +178,24 @@ public class JFAuditoria extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProvincia1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jfecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProvincia2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(225, 225, 225)
-                .addComponent(Exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(txtProvincia2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(Exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtProvincia1)
-                    .addComponent(txtProvincia2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jfecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                .addGap(80, 80, 80)
+                .addComponent(txtProvincia2)
+                .addGap(50, 50, 50)
                 .addComponent(Exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         pack();
@@ -324,9 +303,6 @@ public class JFAuditoria extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JPanel jPanel1;
-    private com.toedter.calendar.JDateChooser jfecha;
-    private com.toedter.calendar.JDateChooser jfecha1;
-    private javax.swing.JLabel txtProvincia1;
     private javax.swing.JLabel txtProvincia2;
     // End of variables declaration//GEN-END:variables
 }
