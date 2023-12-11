@@ -309,26 +309,43 @@ public class JFEspecialistas extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
+        JFHome abrir = new JFHome();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void bntCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCitaActionPerformed
         // TODO add your handling code here:
+        JFCitas abrir = new JFCitas();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         // TODO add your handling code here:
+        JFAuditoria abrir = new JFAuditoria();
+        abrir.setVisible(true);
+        this.setVisible(false);
+
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
+        JFUsuarios abrir = new JFUsuarios();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
+        JFClientes abrir = new JFClientes();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

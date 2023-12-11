@@ -319,7 +319,6 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         // TODO add your handling code here:
-
         JFAuditoria abrir = new JFAuditoria();
         abrir.setVisible(true);
         this.setVisible(false);

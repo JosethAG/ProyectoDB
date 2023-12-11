@@ -15,15 +15,16 @@ import javax.swing.table.DefaultTableModel;
 public class JFClientes extends javax.swing.JFrame {
 
     private ClientesController clientesController;
+
     /**
      * Creates new form JFUsuarios
      */
     public JFClientes() {
         initComponents();
-         this.setLocationRelativeTo(null);
-         clientesController = new ClientesController(this);
-         
-         try {
+        this.setLocationRelativeTo(null);
+        clientesController = new ClientesController(this);
+
+        try {
             mostrarDatos();
         } catch (SQLException ex) {
             Logger.getLogger(JFUsuarios.class.getName()).log(Level.SEVERE, null, ex);
@@ -31,10 +32,10 @@ public class JFClientes extends javax.swing.JFrame {
     }
 
     public String getDcNacimiento() {
-        String fecha =((JTextField)dcNacimiento.getDateEditor().getUiComponent()).getText();
+        String fecha = ((JTextField) dcNacimiento.getDateEditor().getUiComponent()).getText();
         return fecha;
     }
-    
+
     public String getTxtApellidos() {
         return txtApellidos.getText();
     }
@@ -58,7 +59,7 @@ public class JFClientes extends javax.swing.JFrame {
     public void setCdProvincia(JComboBox<String> cdProvincia) {
         this.cdProvincia = cdProvincia;
     }
-    
+
     public JButton getBtnGuardar() {
         return btnGuardar;
     }
@@ -83,15 +84,15 @@ public class JFClientes extends javax.swing.JFrame {
         cdProvincia.setSelectedIndex(0);
         dcNacimiento.cleanup();
     }
-    
-    public void mostrarDatos() throws SQLException{
+
+    public void mostrarDatos() throws SQLException {
         Conexion conection = new Conexion();
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("ID");
         dtm.addColumn("NOMBRE");
         dtm.addColumn("CORREO");
         dtm.addColumn("ESTADO");
-        
+
         String sql = "SELECT CLIENTE_ID, FIRST_NAME || LAST_NAME, EMAIL, ESTADO_CLIENTE  "
                 + "from TB_CLIENTES";
 
@@ -99,16 +100,16 @@ public class JFClientes extends javax.swing.JFrame {
 
         Statement st = conection.getConexion().createStatement();
         ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
-        
-        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+
+        while (rs.next()) {//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
             datos[0] = rs.getString(1);
             datos[1] = rs.getString(2);
             datos[2] = rs.getString(3);
             datos[3] = String.valueOf(rs.getInt(4));
             dtm.addRow(datos);
-    }
+        }
         tblClientes.setModel(dtm);
-}
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -206,6 +207,11 @@ public class JFClientes extends javax.swing.JFrame {
         btnEspecialistas.setText("ESPECIALISTAS");
         btnEspecialistas.setBorder(null);
         btnEspecialistas.setContentAreaFilled(false);
+        btnEspecialistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEspecialistasActionPerformed(evt);
+            }
+        });
 
         btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
         btnAuditoria.setText("AUDITORIA");
@@ -415,18 +421,30 @@ public class JFClientes extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
+        JFHome abrir = new JFHome();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void bntCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCitaActionPerformed
         // TODO add your handling code here:
+        JFCitas abrir = new JFCitas();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         // TODO add your handling code here:
+        JFAuditoria abrir = new JFAuditoria();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
         // TODO add your handling code here:
+        JFUsuarios abrir = new JFUsuarios();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
@@ -435,10 +453,12 @@ public class JFClientes extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -451,7 +471,13 @@ public class JFClientes extends javax.swing.JFrame {
         txtNombre.setText(tblClientes.getValueAt(tblClientes.getSelectedRow(), 1).toString());
         txtCorreo.setText(tblClientes.getValueAt(tblClientes.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tblClientesMouseClicked
- 
+
+    private void btnEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialistasActionPerformed
+        JFEspecialistas abrir = new JFEspecialistas();
+        abrir.setVisible(true);
+        this.setVisible(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEspecialistasActionPerformed
+
     /**
      * @param args the command line arguments
      */
