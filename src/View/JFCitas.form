@@ -49,7 +49,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnGuardar" min="-2" pref="164" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnEliminar" pref="140" max="32767" attributes="0"/>
+                              <Component id="btnModificar" pref="140" max="32767" attributes="0"/>
                           </Group>
                           <Component id="lblCitas" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblCliente" alignment="0" max="32767" attributes="0"/>
@@ -117,7 +117,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnGuardar" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="btnEliminar" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="btnModificar" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                   </Group>
@@ -128,13 +128,13 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnEliminar">
+    <Component class="javax.swing.JButton" name="btnModificar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar"/>
+        <Property name="text" type="java.lang.String" value="Modificar"/>
         <Property name="name" type="java.lang.String" value="bntEliminar" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
@@ -176,9 +176,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Especialista"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Especialista"/>
-      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="lblEspecialista">
     </Component>
@@ -277,6 +274,9 @@
             </Property>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEspecialistasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAuditoria">
           <Properties>
@@ -411,11 +411,10 @@
     <Component class="javax.swing.JComboBox" name="tipocita">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Seleccionar"/>
+            <StringItem index="1" value="Virtual"/>
+            <StringItem index="2" value="Presencial"/>
           </StringArray>
         </Property>
       </Properties>
@@ -434,11 +433,12 @@
     <Component class="javax.swing.JComboBox" name="cbxEstado">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Seleccionar"/>
+            <StringItem index="1" value="Programada  "/>
+            <StringItem index="2" value="Realizada"/>
+            <StringItem index="3" value="Cancelada"/>
+            <StringItem index="4" value=" "/>
           </StringArray>
         </Property>
       </Properties>

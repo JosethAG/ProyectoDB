@@ -16,9 +16,9 @@ public class Citas {
     private String hora;
     private int sucursal;
     private int tipoCita;
-    private int estado;
+    private String estado;
 
-    public Citas(int codigoCita, int clienteId, int especialista, Date fechaDesde, String hora, int sucursal, int tipoCita, int estado) {
+    public Citas(int codigoCita, int clienteId, int especialista, Date fechaDesde, String hora, int sucursal, int tipoCita, String estado) {
         this.codigoCita = codigoCita;
         this.clienteId = clienteId;
         this.especialista = especialista;
@@ -87,11 +87,11 @@ public class Citas {
         this.tipoCita = tipoCita;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
     

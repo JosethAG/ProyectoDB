@@ -30,10 +30,10 @@ public class CitasController {
         });
 
         // Escucha cuando se realiza click en el boton y ejecuta un proceso
-        jfCitas.getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+            jfCitas.getBtnModificar().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-                    SPEliminarcita();
+                    SPEmodificar();
                 } catch (SQLException ex) {
                     Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -51,7 +51,7 @@ public class CitasController {
         String hora = jfCitas.getLblhora();
         int sucursal = jfCitas.getLblSucursal();
         int tipocita = jfCitas.getTipocita();
-        int estado = jfCitas.getCbxEstado();
+        String estado = jfCitas.getCbxEstado();
 
         try {
             String sql = "{call Crear_Cita(?, ?, ?, ?, ?, ?,?)}";
@@ -63,7 +63,7 @@ public class CitasController {
                 stmt.setString(5, hora);
                 stmt.setInt(6, sucursal);
                 stmt.setInt(7, tipocita);
-                stmt.setInt(8, estado);
+                stmt.setString(8, estado);
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
                 // Limpiar los campos en la Vista
@@ -78,7 +78,7 @@ public class CitasController {
         }
     }
 
-    public void SPEliminarcita() throws SQLException {
+    public void SPEmodificar() throws SQLException {
         int idcita = jfCitas.getLblCitas();
         int idcliente = jfCitas.getLblCliente();
         int especialista = jfCitas.getLblEspecialista();
@@ -86,10 +86,10 @@ public class CitasController {
         String hora = jfCitas.getLblhora();
         int sucursal = jfCitas.getLblSucursal();
         int tipocita = jfCitas.getTipocita();
-        int estado = jfCitas.getCbxEstado();
+        String estado = jfCitas.getCbxEstado();
 
         try {
-            String sql = "{call update_cita(?, ?, ?, ?, ?, ?,?,?)}";
+            String sql = "{call Update_Appointment(?, ?, ?, ?, ?, ?,?,?)}";
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idcita);
                 stmt.setInt(2, idcliente);
@@ -98,7 +98,7 @@ public class CitasController {
                 stmt.setString(5, hora);
                 stmt.setInt(6, sucursal);
                 stmt.setInt(7, tipocita);
-                stmt.setInt(8, estado);
+                stmt.setString(8, estado);
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
                 // Limpiar los campos en la Vista

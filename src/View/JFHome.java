@@ -19,12 +19,14 @@ public class JFHome extends javax.swing.JFrame {
     public JFHome() {
         initComponents();
         this.setLocationRelativeTo(null);
-        homecontroller = new HomeController(this);
+        
 
         try {
             mostrarDatos();
         } catch (SQLException ex) {
             Logger.getLogger(JFHome.class.getName()).log(Level.SEVERE, null, ex);
+            
+            
         }
     }
     
@@ -61,12 +63,12 @@ public class JFHome extends javax.swing.JFrame {
     
     
 
-    public int getEstado() {
-        return cbxEstado.getSelectedIndex();
+    public String getEstado() {
+        return cbxEstado.getSelectedItem().toString();
     }
 
     public JButton getBtnGuardar() {
-        return btnGuardar;
+        return btnBuscar;
     }
 
     public void limpiarCampos() {
@@ -76,11 +78,43 @@ public class JFHome extends javax.swing.JFrame {
         fechahasta.cleanup();
         lblSucursal.setText("");
         tipocita.setSelectedIndex(0); 
-        cbxEstado.setSelectedIndex(0); 
+        cbxEstado.setSelectedItem(0); 
         
     }
 
+    public void mostrarDatos_por_ID() throws SQLException{
+        
+        Conexion conection = new Conexion();
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Title 1");
+        dtm.addColumn("Title 2");
+        dtm.addColumn("Title 3");
+        dtm.addColumn("Title 4");
+        
+        String sql = "select APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID,TIPOCITA_ID,ESTADO from TB_APPOINTMENTS WHERE APPOINTMENT_ID ="+lblCitas.getText()+"OR CLIENTE_ID ="+lblCliente.getText()+"OR FECHA BETWEEN FECHA = "+fechadesde.getDateFormatString()+ fechahasta.getDateFormatString()+"OR SUCURSAL_ID = "+lblSucursal+"OR TIPOCITA_ID ="+tipocita+"OR ESTADO =" +cbxEstado ;
+
+        String datos[] = new String[7];
+
+        Statement st = conection.getConexion().createStatement();
+        ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
+        
+        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+            datos[0] = rs.getString(1);
+            datos[1] = rs.getString(2);
+            datos[2] = rs.getString(3);
+            datos[3] = rs.getString(4);
+            datos[4] = rs.getString(5);
+            datos[5] = rs.getString(6);
+            datos[6] = String.valueOf(rs.getInt(7));
+            dtm.addRow(datos);
+            
+            
+    }
+        jTable1.setModel(dtm);
+}
+    
     public void mostrarDatos() throws SQLException{
+        
         Conexion conection = new Conexion();
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("Title 1");
@@ -119,7 +153,7 @@ public class JFHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGuardar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         txtCodigoCita = new javax.swing.JLabel();
         lblCitas = new javax.swing.JTextField();
         txtCliente = new javax.swing.JLabel();
@@ -150,11 +184,11 @@ public class JFHome extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.white);
 
-        btnGuardar.setText("BUSCAR");
-        btnGuardar.setName("bntGuardar"); // NOI18N
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.setName("bntGuardar"); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -198,6 +232,11 @@ public class JFHome extends javax.swing.JFrame {
         btnEspecialistas.setText("ESPECIALISTAS");
         btnEspecialistas.setBorder(null);
         btnEspecialistas.setContentAreaFilled(false);
+        btnEspecialistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEspecialistasActionPerformed(evt);
+            }
+        });
 
         btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
         btnAuditoria.setText("AUDITORIA");
@@ -314,7 +353,7 @@ public class JFHome extends javax.swing.JFrame {
         txtEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtEstado.setText("Estado");
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Programada  ", "Realizada", "Cancelada", " " }));
         cbxEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxEstadoActionPerformed(evt);
@@ -388,7 +427,7 @@ public class JFHome extends javax.swing.JFrame {
                                         .addGap(12, 12, 12)
                                         .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnHome1)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,7 +472,7 @@ public class JFHome extends javax.swing.JFrame {
                         .addComponent(txtSucursall)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -444,7 +483,8 @@ public class JFHome extends javax.swing.JFrame {
 
 
     private void lblCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCitasActionPerformed
-        // TODO add your handling code here:
+        
+       
     }//GEN-LAST:event_lblCitasActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
@@ -452,19 +492,27 @@ public class JFHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void bntCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCitaActionPerformed
-        // TODO add your handling code here:
+        JFCitas abrir = new JFCitas();
+        abrir.setVisible(true);
+        this.setVisible(false);        
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
-        // TODO add your handling code here:
+        JFAuditoria abrir = new JFAuditoria();
+        abrir.setVisible(true);
+        this.setVisible(false);  
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        // TODO add your handling code here:
+           JFUsuarios abrir = new JFUsuarios();
+           abrir.setVisible(true);
+           this.setVisible(false);   // TODO add your handling code here:
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
+           JFClientes abrir = new JFClientes();
+           abrir.setVisible(true);
+           this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -475,9 +523,14 @@ public class JFHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHome1ActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         
-    }//GEN-LAST:event_btnGuardarActionPerformed
+        try {
+            mostrarDatos_por_ID();
+        } catch (SQLException ex) {
+            Logger.getLogger(JFHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void lblSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblSucursalActionPerformed
         // TODO add your handling code here:
@@ -490,6 +543,12 @@ public class JFHome extends javax.swing.JFrame {
     private void cbxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxEstadoActionPerformed
+
+    private void btnEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialistasActionPerformed
+           JFEspecialistas abrir = new JFEspecialistas();
+           abrir.setVisible(true);
+           this.setVisible(false);                          // TODO add your handling code here:
+    }//GEN-LAST:event_btnEspecialistasActionPerformed
 
    
     
@@ -547,9 +606,9 @@ public class JFHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCita;
     private javax.swing.JButton btnAuditoria;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEspecialistas;
-    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnHome1;
     private javax.swing.JButton btnSalir;

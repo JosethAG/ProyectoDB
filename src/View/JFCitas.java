@@ -41,9 +41,11 @@ public class JFCitas extends javax.swing.JFrame {
         }
     }
 
-    public JButton getBtnEliminar() {
-        return btnEliminar;
+    public JButton getBtnModificar() {
+        return btnModificar;
     }
+
+    
 
     public JButton getBtnGuardar() {
         return btnGuardar;
@@ -76,11 +78,11 @@ public class JFCitas extends javax.swing.JFrame {
     }
     
     public int getTipocita() {
-        return tipocita.getSelectedIndex();
+        return  tipocita.getSelectedIndex();
     }
     
-     public int getCbxEstado() {
-        return cbxEstado.getSelectedIndex();
+     public String getCbxEstado() {
+        return  cbxEstado.getSelectedItem().toString();
     }
 
     
@@ -141,8 +143,8 @@ public class JFCitas extends javax.swing.JFrame {
         jfecha.cleanup();
         lblhora.setText("");
         lblSucursal.setText("");
-        tipocita.setSelectedIndex(0);
-        cbxEstado.setSelectedIndex(0);
+        tipocita.setSelectedItem(0);
+        cbxEstado.setSelectedItem(0);
 
     }
 
@@ -180,7 +182,7 @@ public class JFCitas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         txtCodigoCita = new javax.swing.JLabel();
         lblCitas = new javax.swing.JTextField();
@@ -213,11 +215,11 @@ public class JFCitas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.white);
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setName("bntEliminar"); // NOI18N
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("Modificar");
+        btnModificar.setName("bntEliminar"); // NOI18N
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -272,6 +274,11 @@ public class JFCitas extends javax.swing.JFrame {
         btnEspecialistas.setText("ESPECIALISTAS");
         btnEspecialistas.setBorder(null);
         btnEspecialistas.setContentAreaFilled(false);
+        btnEspecialistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEspecialistasActionPerformed(evt);
+            }
+        });
 
         btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
         btnAuditoria.setText("AUDITORIA");
@@ -383,12 +390,12 @@ public class JFCitas extends javax.swing.JFrame {
         txtTipoCita.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTipoCita.setText("Tipo de Cita");
 
-        tipocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tipocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Virtual", "Presencial" }));
 
         txtEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtEstado.setText("Estado");
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Programada  ", "Realizada", "Cancelada", " " }));
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -412,7 +419,7 @@ public class JFCitas extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                                .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                             .addComponent(lblCitas, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCliente, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEspecialista)
@@ -472,12 +479,10 @@ public class JFCitas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-
-        txtEspecialista.getAccessibleContext().setAccessibleName("Especialista");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -487,7 +492,9 @@ public class JFCitas extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCitasActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        // TODO add your handling code here:
+         JFHome abrir = new JFHome();
+        abrir.setVisible(true);
+        this.setVisible(false);  
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void bntCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCitaActionPerformed
@@ -495,15 +502,21 @@ public class JFCitas extends javax.swing.JFrame {
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
-        // TODO add your handling code here:
+         JFAuditoria abrir = new JFAuditoria();
+        abrir.setVisible(true);
+        this.setVisible(false);  
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        // TODO add your handling code here:
+         JFUsuarios abrir = new JFUsuarios();
+        abrir.setVisible(true);
+        this.setVisible(false);  
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
+        JFClientes abrir = new JFClientes();
+        abrir.setVisible(true);
+        this.setVisible(false);  
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -518,9 +531,15 @@ public class JFCitas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblhoraActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialistasActionPerformed
+         JFEspecialistas abrir = new JFEspecialistas();
+        abrir.setVisible(true);
+        this.setVisible(false);  
+    }//GEN-LAST:event_btnEspecialistasActionPerformed
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
@@ -575,10 +594,10 @@ public class JFCitas extends javax.swing.JFrame {
     private javax.swing.JButton bntCita;
     private javax.swing.JButton btnAuditoria;
     private javax.swing.JButton btnClientes;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEspecialistas;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JComboBox<String> cbxEstado;
