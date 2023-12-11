@@ -289,23 +289,26 @@ SELECT * FROM TB_ESPECIALISTAS;
 /*                                 CITAS                                      */
 --------------------------------------------------------------------------------
 
+CREATE TABLE TB_TIPOCITAS(
+TIPOCITA_ID INT PRIMARY KEY,
+DESCRIPCION VARCHAR2(300)
+)
+
 CREATE TABLE TB_APPOINTMENTS(
 APPOINTMENT_ID INT PRIMARY KEY,
 CLIENTE_ID INT,
 ESPECIALISTA_ID INT,
 FECHA DATE,
 HORA VARCHAR (255),
---PROVINCIA_ID INT,
 SUCURSAL_ID INT,
 TIPOCITA_ID INT,
-ESTADO VARCHAR(20) DEFAULT 'Programada', -- Puede ser 'Programada', 'Realizada', 'Cancelada', etc.
+ESTADO VARCHAR(100) DEFAULT 'Programada',
 FOREIGN KEY (CLIENTE_ID) REFERENCES TB_CLIENTES(CLIENTE_ID),
 FOREIGN KEY (ESPECIALISTA_ID) REFERENCES TB_ESPECIALISTAS(ESPECIALISTA_ID),
 FOREIGN KEY (TIPOCITA_ID) REFERENCES TB_TIPOCITAS(TIPOCITA_ID),
-FOREIGN KEY (SUCURSAL_ID) REFERENCES TB_SUCURSALES(SUCURSAL_ID);
---FOREIGN KEY (PROVINCIA_ID) REFERENCES TB_PROVINCIA(PROVINCIA_ID));
+FOREIGN KEY (SUCURSAL_ID) REFERENCES TB_SUCURSALES(SUCURSAL_ID));
 
-
+ -- Puede ser 'Virtual', 'Presencial'.
 CREATE TABLE TB_AUDITORIACITAS (
     AUDITORIA_ID INT PRIMARY KEY,
     APPOINTMENT_ID INT,
@@ -315,15 +318,14 @@ CREATE TABLE TB_AUDITORIACITAS (
     FOREIGN KEY (APPOINTMENT_ID) REFERENCES TB_APPOINTMENTS(APPOINTMENT_ID));   
 
 --crear  cita
-
 CREATE OR REPLACE PROCEDURE Crear_Cita(
 P_APPOINTMENT_ID IN NUMBER,
 P_CLIENTE_ID IN NUMBER,
 P_ESPECIALISTA_ID IN NUMBER,
 P_FECHA DATE,
 P_HORA VARCHAR2,
-p_Sucursal_ID int
-p_TIPOCITA_ID int
+p_Sucursal_ID int,
+p_TIPOCITA_ID int,
 p_ESTADO VARCHAR2
 )
 AS
@@ -333,195 +335,26 @@ VALUES(P_APPOINTMENT_ID,P_CLIENTE_ID,P_ESPECIALISTA_ID,P_FECHA,P_HORA,p_Sucursal
   DBMS_OUTPUT.PUT_LINE('Cita creada');
 END Crear_Cita;
 
-
-CREATE OR REPLACE PROCEDURE Crear_Cita(
-    p_APPOINTMENTID INT,  -- Agregado el prefijo 'p' al nombre del parámetro
-    p_ClienteID INT,
-    p_EspecialistaID INT,
-    p_Fecha DATE,
-    p_Fecha DATE,
-    p_Hora VARCHAR(255),
-    p_ProvinciaID INT,
-    p_SucursalID INT,
-    p_TipoCitaID INT
-)
-BEGIN
-    -- Insertar la nueva cita
-    INSERT INTO TB_APPOINTMENTS (
-        APPOINTMENT_ID,  -- Agregado el campo APPOINTMENT_ID
-        CLIENTE_ID,
-        ESPECIALISTA_ID,
-        FECHA,
-        FECHA,
-        HORA,
-        PROVINCIA_ID,
-        SUCURSAL_ID,
-        TIPOCITA_ID
-    ) VALUES (
-        p_APPOINTMENT_ID,
-        p_ClienteID,
-        p_EspecialistaID,
-        p_Fecha,
-        p_Fecha,
-        p_Hora,
-        p_ProvinciaID,
-        p_SucursalID,
-        p_TipoCitaID
-    );
-
-    -- Llamar a otro procedimiento o realizar acciones adicionales según sea necesario
-    -- En este ejemplo, llamaremos a un procedimiento que obtiene los apellidos y el nombre de la sucursal.
-    CALL Obtener_Apellidos(p_ClienteID);
-    CALL Obtener_Nombre_Sucursal(p_SucursalID);
-END;
-
--- Sacar Cita
--- Crear Secuencia para Citas
-CREATE SEQUENCE APPOINTMENT_SEQ
-    START WITH 1
-    INCREMENT BY 1
-    NOCACHE
-    NOCYCLE;
-
-
--- Programar Cita
-CREATE OR REPLACE PROCEDURE Schedule_Appointment(
-    p_Cliente NUMBER,
-    p_Especialista NUMBER,
-    p_Date DATE,
-    p_Time VARCHAR2,
-    p_ProvinceID NUMBER,
-    p_Sucursal NUMBER,
-    p_TipoCita NUMBER,
-    p_Estado Varchar2,
-    p_AppointmentID OUT NUMBER
-    
-) AS
-BEGIN
-    INSERT INTO TB_APPOINTMENTS(APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID,FECHA, HORA, PROVINCIA_ID,SUCURSAL_ID,TIPOCITA_ID,ESTADO)
-    VALUES (APPOINTMENT_SEQ.NEXTVAL, p_Cliente,p_Especialista, p_Date, p_Time, p_ProvinceID,p_Sucursal,p_TipoCita,p_Estado)
-    RETURNING APPOINTMENT_ID INTO p_AppointmentID;
-END;
-
-
 -- Actualizar Detalles de una Cita
-CREATE OR REPLACE PROCEDURE Update_Appointment_Details(
-    p_AppointmentID NUMBER,
-    p_NewDate DATE,
-    p_NewTime VARCHAR2,
-    p_NewProvinceID NUMBER
+CREATE OR REPLACE PROCEDURE Update_Appointment(
+    P_APPOINTMENT_ID IN NUMBER,
+    P_CLIENTE_ID IN NUMBER,
+    P_ESPECIALISTA_ID IN NUMBER,
+    P_FECHA DATE,
+    P_HORA VARCHAR2,
+    p_SUCURSAL_ID int,
+    p_TIPOCITA_ID int,
+    p_ESTADO VARCHAR2
 ) AS
 BEGIN
     UPDATE TB_APPOINTMENTS
-    SET FECHA = p_NewDate, HORA = p_NewTime, PROVINCIA_ID = p_NewProvinceID
-    WHERE APPOINTMENT_ID = p_AppointmentID;
-END;
-
-
-
--- Borrar Cita
-CREATE OR REPLACE PROCEDURE Cancel_Appointment(
-    p_AppointmentID NUMBER
-) AS
-BEGIN
-    DELETE FROM TB_APPOINTMENTS
-    WHERE APPOINTMENT_ID = p_AppointmentID;
-END;
-
----------Buscar Cita
-CREATE OR REPLACE PROCEDURE Buscar_Cita(
-    p_APPOINTMENT_ID OUT NUMBER,
-    p_CLIENTE_ID IN NUMBER,
-    p_FECHA_CITA IN DATE,
-    p_SUCURSAL_ID IN NUMBER,
-    P_TIPOCITA_ID IN NUMBER,
-    p_ESTADO VARCHAR2,
-    p_RESULTADO OUT VARCHAR2
-) AS
-BEGIN
-    -- Seleccionar la información de la cita
-    SELECT APPOINTMENT_ID
-    INTO p_APPOINTMENT_ID
-    FROM TB_APPOINTMENTS
-    WHERE APPOINTMENT_ID = p_APPOINTMENT_ID
-        AND FECHA = p_FECHA_CITA
-        AND SUCURSAL_ID=p_SUCURSAL_ID
-        AND TIPOCITA_ID=P_TIPOCITA_ID
-        AND ESTADO = p_ESTADO;
-
-    -- Verificar si se encontró la cita
-    IF p_CITA_ID IS NOT NULL THEN
-        p_RESULTADO := 'Cita encontrada';
-    ELSE
-        p_RESULTADO := 'Cita no encontrada';
-    END IF;
-
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        -- Manejo de excepción si no se encuentra ninguna cita
-        p_RESULTADO := 'Cita no encontrada';
-    WHEN OTHERS THEN
-        -- Manejo de otras excepciones
-        p_RESULTADO := 'Error al buscar la cita';
-END Buscar_Cita;
-
-
-
--- Listar Citas de un Usuario
-CREATE OR REPLACE PROCEDURE List_User_Appointments(
-    p_UserID NUMBER
-) AS
-BEGIN
-    FOR rec IN (SELECT * FROM TB_APPOINTMENTS WHERE ID_SESSIONS = p_UserID) 
-    LOOP
-        DBMS_OUTPUT.PUT_LINE('Appointment ID: ' || rec.APPOINTMENT_ID || ', Date: ' || rec.FECHA || ', Time: ' || rec.HORA);
-    END LOOP;
-END;
-
-
-
--- Obtener Detalles de una Cita
-CREATE OR REPLACE PROCEDURE Get_Appointment_Details(
-    p_AppointmentID NUMBER,
-    p_Date OUT DATE,
-    p_Time OUT VARCHAR2,
-    p_ProvinceID OUT NUMBER
-) AS
-BEGIN
-    SELECT FECHA, HORA, PROVINCIA_ID INTO p_Date, p_Time, p_ProvinceID
-    FROM TB_APPOINTMENTS
-    WHERE APPOINTMENT_ID = p_AppointmentID;
-END;
-
--- Listar Todas las Citas
-CREATE OR REPLACE PROCEDURE List_All_Appointments AS
-BEGIN
-    FOR rec IN (SELECT * FROM TB_APPOINTMENTS) 
-    LOOP
-        DBMS_OUTPUT.PUT_LINE('Appointment ID: ' || rec.APPOINTMENT_ID || ', Date: ' || rec.FECHA || ', Time: ' || rec.HORA);
-    END LOOP;
-END;
-
-
-
--- Obtener Detalles de una Cita por Fecha
-CREATE OR REPLACE PROCEDURE Get_Appointment_DetailsByDate(
-    p_Date DATE
-) AS
-BEGIN
-    FOR rec IN (SELECT * FROM TB_APPOINTMENTS WHERE FECHA = p_Date) 
-    LOOP
-        DBMS_OUTPUT.PUT_LINE('Appointment ID: ' || rec.APPOINTMENT_ID || ', Date: ' || rec.FECHA || ', Time: ' || rec.HORA);
-    END LOOP;
-END;
-
--- Obtener Citas Programadas para Hoy
-CREATE OR REPLACE PROCEDURE Get_AppointmentsForToday AS
-BEGIN
-    FOR rec IN (SELECT * FROM TB_APPOINTMENTS WHERE FECHA = TRUNC(SYSDATE)) 
-    LOOP
-        DBMS_OUTPUT.PUT_LINE('Appointment ID: ' || rec.APPOINTMENT_ID || ', Date: ' || rec.FECHA || ', Time: ' || rec.HORA);
-    END LOOP;
+    SET ESPECIALISTA_ID = P_ESPECIALISTA_ID, 
+    FECHA = P_FECHA,
+    HORA = P_HORA,
+    SUCURSAL_ID = p_SUCURSAL_ID,
+    TIPOCITA_ID = p_TIPOCITA_ID,
+    ESTADO = p_ESTADO
+    WHERE APPOINTMENT_ID = P_APPOINTMENT_ID;
 END;
 
 
@@ -599,8 +432,6 @@ BEGIN
 END;
 
 
-
-
 --TRIGGER DE AUDITORIA AL INSERTAR UN CLIENTE
 CREATE OR REPLACE TRIGGER Cliente_Insert_Trigger
 BEFORE INSERT ON TB_CLIENTES
@@ -618,8 +449,6 @@ BEGIN
     INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
     VALUES ('TB_CLIENTES', 'UPDATE', CURRENT_TIMESTAMP);
 END;
-
-
 
 
 --TRIGGER DE AUDITORIA AL INSERTAR UN ESPECIALISTA
@@ -640,6 +469,24 @@ BEGIN
     VALUES ('TB_ESPECIALISTAS', 'UPDATE', CURRENT_TIMESTAMP);
 END;
 
+--TRIGGER DE AUDITORIA AL INSERTAR UNA CITA
+CREATE OR REPLACE TRIGGER Cita_Insert_Trigger
+BEFORE INSERT ON TB_APPOINTMENTS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_APPOINTMENTS', 'INSERT', CURRENT_TIMESTAMP);
+END;
+
+--TRIGGER DE AUDITORIA AL MODIFICAR UN CITA
+CREATE OR REPLACE TRIGGER Cita_Update_Trigger
+BEFORE UPDATE ON TB_APPOINTMENTS
+FOR EACH ROW
+BEGIN
+    INSERT INTO Audit_Log (Table_Name, Action, Action_Date)
+    VALUES ('TB_APPOINTMENTS', 'UPDATE', CURRENT_TIMESTAMP);
+END;
+
 
 --------------------------------------------------------------------------------
 /*                                VISTAS                                      */
@@ -648,7 +495,7 @@ END;
 
 --Vista de Clientes y Provincias:
 CREATE OR REPLACE VIEW ClientsAndPROVINCIA_ID AS
-SELECT C.CLIENTE_ID, C.FIRST_NAME, C.LAST_NAME, C.fechanacimiento, P.NAME AS PROVINCIA_NAME
+SELECT C.CLIENTE_ID, C.FIRST_NAME, C.LAST_NAME, C.FECHA_NACIMIENTO, P.NAME AS PROVINCIA_NAME
 FROM TB_CLIENTES C
 INNER JOIN TB_PROVINCIA P ON C.PROVINCIA_ID = P.PROVINCIA_ID;
 
@@ -662,16 +509,13 @@ INNER JOIN TB_APPOINTMENTS A ON C.CLIENTE_ID = A.CLIENTE_ID;
 
 --Vista de Citas por Provincia:
 CREATE OR REPLACE VIEW AppointmentsByProvince AS
-SELECT A.FECHA, A.HORA, P.NAME AS PROVINCIA_NAME
+SELECT A.FECHA, A.HORA, S.NOMBRE_SUCURSAL
 FROM TB_APPOINTMENTS A
-INNER JOIN TB_PROVINCIA P ON A.PROVINCIA_ID = P.PROVINCIA_ID;
-
-
+INNER JOIN TB_SUCURSALES S ON S.SUCURSAL_ID = A.SUCURSAL_ID;
 
 --------------------------------------------------------------------------------
 /*                                FUNCIONES                                   */
 --------------------------------------------------------------------------------
-
 
 --Funcion para Calcular la Edad de un Cliente a partir de su Fecha de Nacimiento:
 CREATE OR REPLACE FUNCTION CalculateAge(p_Birthdate DATE) RETURN NUMBER IS
@@ -712,16 +556,6 @@ BEGIN
     FROM TB_APPOINTMENTS
     WHERE APPOINTMENT_ID = p_AppointmentID AND FECHA = p_Date;
     RETURN v_Count;
-END;
-
---Funcion para Calcular el Promedio de Edades de los Clientes en una Provincia:
-CREATE OR REPLACE FUNCTION CalculateAverageAgeInProvince(p_ProvinciaID NUMBER) RETURN NUMBER IS
-    v_AvgAge NUMBER;
-BEGIN
-    SELECT AVG(CalculateAge(C.fechanacimiento)) INTO v_AvgAge
-    FROM TB_CLIENTES C
-    WHERE C.PROVINCIA_ID = p_ProvinciaID;
-    RETURN v_AvgAge;
 END;
 
 --Funcion para Calcular la Cantidad de Clientes por Provincia:
@@ -779,22 +613,6 @@ BEGIN
     END LOOP;
 END;
 
---Cursor para Listar Citas de una Provincia
-CREATE OR REPLACE PROCEDURE List_Appointments_By_Province_Cursor(
-    p_ProvinciaID NUMBER
-) AS
-    CURSOR appointment_cursor IS
-        SELECT *
-        FROM TB_APPOINTMENTS
-        WHERE PROVINCIA_ID = p_ProvinciaID;
-BEGIN
-    FOR rec IN appointment_cursor
-    LOOP
-        DBMS_OUTPUT.PUT_LINE('Appointment ID: ' || rec.APPOINTMENT_ID || ', Date: ' || rec.FECHA || ', Time: ' || rec.HORA);
-    END LOOP;
-END;
-
-
 --Cursor para Obtener Informaciï¿½n del Usuario
 CREATE OR REPLACE PROCEDURE Get_User_Info_Cursor(
     p_UserID NUMBER,
@@ -819,9 +637,8 @@ END;
 --------------------------------------------------------------------------------
 
 --PAQUETE USUARIOS
-
-CREATE OR REPLACE PACKAGE Usuarios_Package AS
    -- Procedimiento para crear usuarios
+CREATE OR REPLACE PACKAGE Usuarios_Package AS
    PROCEDURE CREATE_USER(
       p_user_id IN NUMBER,
       p_Name IN VARCHAR2,
@@ -898,17 +715,9 @@ CREATE OR REPLACE PACKAGE BODY Usuarios_Package AS
 END Usuarios_Package;
 
 
-
-
-
-
-
-
-
 --PAQUETE CLIENTES
 
 CREATE OR REPLACE PACKAGE Clientes_Package AS
-   -- Procedimiento para crear clientes
    PROCEDURE Create_Client(
       p_CEDULA IN NUMBER,
       p_FIRST_NAME VARCHAR2,
@@ -918,7 +727,6 @@ CREATE OR REPLACE PACKAGE Clientes_Package AS
       p_PROVINCIA_ID NUMBER
    );
 
-   -- Procedimiento para modificar clientes
    PROCEDURE Update_Client(
       P_CLIENTE_ID NUMBER,
       P_FIRST_NAME VARCHAR2,
@@ -929,7 +737,6 @@ CREATE OR REPLACE PACKAGE Clientes_Package AS
       P_ESTADO_CLIENTE NUMBER
    );
 
-   -- Procedimiento para inactivar clientes
    PROCEDURE Inactivar_Client(
       P_CLIENTE_ID NUMBER,
       P_NUEVO_ESTADO NUMBER
@@ -938,7 +745,6 @@ END Clientes_Package;
 
 
 CREATE OR REPLACE PACKAGE BODY Clientes_Package AS
-   -- Procedimiento para crear clientes
    PROCEDURE Create_Client(
       p_CEDULA IN NUMBER,
       p_FIRST_NAME VARCHAR2,
@@ -952,7 +758,6 @@ CREATE OR REPLACE PACKAGE BODY Clientes_Package AS
       VALUES (p_CEDULA, p_FIRST_NAME, p_LAST_NAME, p_EMAIL, p_FECHA_NACIMIENTO, p_PROVINCIA_ID);
    END Create_Client;
 
-   -- Procedimiento para modificar clientes
    PROCEDURE Update_Client(
       P_CLIENTE_ID NUMBER,
       P_FIRST_NAME VARCHAR2,
@@ -974,7 +779,6 @@ CREATE OR REPLACE PACKAGE BODY Clientes_Package AS
       WHERE CLIENTE_ID = P_CLIENTE_ID;
    END Update_Client;
 
-   -- Procedimiento para inactivar clientes
    PROCEDURE Inactivar_Client(
       P_CLIENTE_ID NUMBER,
       P_NUEVO_ESTADO NUMBER
@@ -1100,15 +904,18 @@ INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fecha_Nacimi
 INSERT INTO TB_CLIENTES (CLIENTE_ID,  FIRST_NAME, last_name, EMAIL, fecha_Nacimiento,   PROVINCIA_ID) VALUES (4,  'Cliente 4', 'Apellido 4',  'user4@example.com', '15-SEP-20', 4);
 
 -- Inserts para TB_TIPOCITAS
-INSERT INTO TB_TIPOCITAS (TIPOCITA_ID, NOMBRE_TIPOCITA) VALUES (1, 'Virtual');
-INSERT INTO TB_TIPOCITAS (TIPOCITA_ID, NOMBRE_TIPOCITA) VALUES (2, 'Presencial');
+INSERT INTO TB_TIPOCITAS (TIPOCITA_ID, DESCRIPCION) VALUES (1, 'Virtual');
+INSERT INTO TB_TIPOCITAS (TIPOCITA_ID, DESCRIPCION) VALUES (2, 'Presencial');
 
 -- Inserts para TB_APPOINTMENTS
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (1, 1, 1, '10-NOV-23', '10:00 AM', 1, 1, 1, 'Programada');
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (2, 2, 2, '11-NOV-23', '02:30 PM', 2, 2, 2, 'Realizada');
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (3, 3, 3, '10-NOV-23', '10:00 AM', 3, 3, 2, 'Cancelada');
-INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA, PROVINCIA_ID, SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (4, 4, 4, '11-NOV-23', '02:30 PM', 4, 4, 1, 'Realizada');
-
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (1, 25, 8, '10-NOV-23', '10:00 AM', 1, 1, 'Programada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (2, 25, 8, '11-NOV-23', '02:30 PM', 2, 2, 'Realizada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (3, 25, 8, '16-NOV-23', '10:00 AM', 3, 2, 'Cancelada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (4, 25, 8, '17-NOV-23', '02:30 PM', 4, 1, 'Realizada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (5, 30, 8, '10-NOV-23', '10:00 AM', 1, 1, 'Programada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (6, 34, 8, '11-NOV-23', '02:30 PM', 2, 2, 'Realizada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (7, 30, 8, '16-NOV-23', '10:00 AM', 3, 2, 'Cancelada');
+INSERT INTO TB_APPOINTMENTS (APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID, FECHA, HORA , SUCURSAL_ID, TIPOCITA_ID, ESTADO) VALUES (8, 34, 8, '17-NOV-23', '02:30 PM', 4, 1, 'Realizada');
 
 -- Inserts para TB_AUDITORIACITAS
 INSERT INTO TB_AUDITORIACITAS (AUDITORIA_ID, APPOINTMENT_ID, NOMBRE, DESCRIPCION, FECHA) VALUES (1, 1, '', '','11-NOV-23');
