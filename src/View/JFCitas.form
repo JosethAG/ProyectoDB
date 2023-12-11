@@ -350,7 +350,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tblCitas">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
@@ -374,7 +374,7 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="jfecha">
       <Properties>
-        <Property name="dateFormatString" type="java.lang.String" value="dd-mm-yyyy"/>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-MMM-yy"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtHora">

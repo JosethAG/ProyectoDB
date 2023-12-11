@@ -86,64 +86,90 @@ public class JFHome extends javax.swing.JFrame {
         
         Conexion conection = new Conexion();
         DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Title 1");
-        dtm.addColumn("Title 2");
-        dtm.addColumn("Title 3");
-        dtm.addColumn("Title 4");
+        dtm.addColumn("ID CITA");
+        dtm.addColumn("ID CLIENTE");
+        dtm.addColumn("FECHA");
+        dtm.addColumn("ID SUCURSAL");
         
-        String sql = "select APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID,TIPOCITA_ID,ESTADO from TB_APPOINTMENTS WHERE APPOINTMENT_ID ="+lblCitas.getText()+"OR CLIENTE_ID ="+lblCliente.getText()+"OR FECHA BETWEEN FECHA = "+fechadesde.getDateFormatString()+ fechahasta.getDateFormatString()+"OR SUCURSAL_ID = "+lblSucursal+"OR TIPOCITA_ID ="+tipocita+"OR ESTADO =" +cbxEstado ;
+        String sql = "SELECT APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID "
+                + "FROM TB_APPOINTMENTS "
+                + "WHERE CLIENTE_ID = " + lblCliente.getText() + " ";
 
-        String datos[] = new String[7];
+        String datos[] = new String[4];
 
         Statement st = conection.getConexion().createStatement();
         ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
         
         while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
-            datos[0] = rs.getString(1);
-            datos[1] = rs.getString(2);
+            datos[0] = String.valueOf(rs.getInt(1));
+            datos[1] = String.valueOf(rs.getInt(2));
             datos[2] = rs.getString(3);
-            datos[3] = rs.getString(4);
-            datos[4] = rs.getString(5);
-            datos[5] = rs.getString(6);
-            datos[6] = String.valueOf(rs.getInt(7));
+            datos[3] = String.valueOf(rs.getInt(4));
             dtm.addRow(datos);
-            
-            
-    }
-        jTable1.setModel(dtm);
+        }
+        tblHome.setModel(dtm);
 }
     
-    public void mostrarDatos() throws SQLException{
-        
+//    public void mostrarDatos() throws SQLException{
+//        Conexion conection = new Conexion();
+//        DefaultTableModel dtm = new DefaultTableModel();
+//        dtm.addColumn("ID CITA");
+//        dtm.addColumn("ID CLIENTE");
+//        dtm.addColumn("FECHA");
+//        dtm.addColumn("ID SUCURSAL");
+//        dtm.addColumn("ID TIPO CITA");
+//        dtm.addColumn("ID ESTADO");
+//        
+//        String sql = "select APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID,TIPOCITA_ID,ESTADO from TB_APPOINTMENTS";
+////        String sql = "SELECT APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID  FROM TB_APPOINTMENTS";
+//
+//        String datos[] = new String[6];
+////        String datos[] = new String[3];
+//
+//        Statement st = conection.getConexion().createStatement();
+//        ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
+//        
+//        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+//            datos[0] = String.valueOf(rs.getInt(1));
+//            datos[1] = String.valueOf(rs.getInt(2));
+//            datos[2] = rs.getString(3);
+//            datos[3] = String.valueOf(rs.getInt(4));
+//            datos[4] = String.valueOf(rs.getInt(5));
+//            datos[5] = String.valueOf(rs.getInt(6));
+//            dtm.addRow(datos);
+//            
+//    }
+//        tblHome.setModel(dtm);
+//}
+
+    
+    
+    public void mostrarDatos() throws SQLException {
         Conexion conection = new Conexion();
         DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Title 1");
-        dtm.addColumn("Title 2");
-        dtm.addColumn("Title 3");
-        dtm.addColumn("Title 4");
-        
-        String sql = "select APPOINTMENT_ID, CLIENTE_ID, FECHA, FECHA, SUCURSAL_ID,TIPOCITA_ID,ESTADO from TB_APPOINTMENTS";
+        dtm.addColumn("ID");
+        dtm.addColumn("NOMBRE");
+        dtm.addColumn("ESPECILIDAD");
+        dtm.addColumn("ESTADO");
 
-        String datos[] = new String[7];
+        String sql = "SELECT APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID  "
+                + "FROM TB_APPOINTMENTS";
+
+        String datos[] = new String[4];
 
         Statement st = conection.getConexion().createStatement();
         ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
-        
-        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
-            datos[0] = rs.getString(1);
-            datos[1] = rs.getString(2);
-            datos[2] = rs.getString(3);
-            datos[3] = rs.getString(4);
-            datos[4] = rs.getString(5);
-            datos[5] = rs.getString(6);
-            datos[6] = String.valueOf(rs.getInt(7));
-            dtm.addRow(datos);
-            
-            
-    }
-        jTable1.setModel(dtm);
-}
 
+        while (rs.next()) {//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+            datos[0] = String.valueOf(rs.getInt(1));
+            datos[1] = String.valueOf(rs.getInt(2));
+            datos[2] = rs.getString(3);
+            datos[3] = String.valueOf(rs.getInt(4));
+            dtm.addRow(datos);
+        }
+        tblHome.setModel(dtm);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -167,7 +193,7 @@ public class JFHome extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHome = new javax.swing.JTable();
         txtProvincia1 = new javax.swing.JLabel();
         txtSucursall = new javax.swing.JLabel();
         lblSucursal = new javax.swing.JTextField();
@@ -315,7 +341,7 @@ public class JFHome extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHome.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -326,7 +352,7 @@ public class JFHome extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHome);
 
         txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtProvincia1.setText("Fecha desde");
@@ -619,10 +645,10 @@ public class JFHome extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField lblCitas;
     private javax.swing.JTextField lblCliente;
     private javax.swing.JTextField lblSucursal;
+    private javax.swing.JTable tblHome;
     private javax.swing.JComboBox<String> tipocita;
     private javax.swing.JLabel txtCliente;
     private javax.swing.JLabel txtCodigoCita;

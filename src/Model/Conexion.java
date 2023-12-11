@@ -16,7 +16,7 @@ public class Conexion {
     public Conexion(){
         try{
              Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","admin","admin1234"); //Ajustar parametros
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","C##admin","admin1234"); //Ajustar parametros
         }catch(ClassNotFoundException e){
             e.printStackTrace();
         }catch(InstantiationException e){

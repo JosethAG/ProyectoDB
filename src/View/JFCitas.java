@@ -151,31 +151,27 @@ public class JFCitas extends javax.swing.JFrame {
     public void mostrarDatos() throws SQLException {
         Conexion conection = new Conexion();
         DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Title 1");
-        dtm.addColumn("Title 2");
-        dtm.addColumn("Title 3");
-        dtm.addColumn("Title 4");
+        dtm.addColumn("ID CITA");
+        dtm.addColumn("ID CLIENTE");
+        dtm.addColumn("FECHA");
+        dtm.addColumn("ID ESPECIALISTA");
+        
+        String sql = "SELECT APPOINTMENT_ID, CLIENTE_ID, FECHA, ESPECIALISTA_ID "
+                + "FROM TB_APPOINTMENTS";
 
-        String sql = "select APPOINTMENT_ID, CLIENTE_ID, ESPECIALISTA_ID , FECHA, HORA, SUCURSAL_ID,TIPOCITA_ID,ESTADO from TB_APPOINTMENTS";
-
-        String datos[] = new String[8];
+        String datos[] = new String[4];
 
         Statement st = conection.getConexion().createStatement();
         ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
-
-        while (rs.next()) {//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
-            datos[0] = rs.getString(1);
-            datos[1] = rs.getString(2);
+        
+        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+            datos[0] = String.valueOf(rs.getInt(1));
+            datos[1] = String.valueOf(rs.getInt(2));
             datos[2] = rs.getString(3);
-            datos[3] = rs.getString(4);
-            datos[4] = rs.getString(4);
-            datos[5] = rs.getString(5);
-            datos[6] = rs.getString(6);
-            datos[7] = String.valueOf(rs.getInt(8));
+            datos[3] = String.valueOf(rs.getInt(4));
             dtm.addRow(datos);
-
         }
-        jTable1.setModel(dtm);
+        tblCitas.setModel(dtm);
     }
 
     @SuppressWarnings("unchecked")
@@ -199,7 +195,7 @@ public class JFCitas extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCitas = new javax.swing.JTable();
         txtProvincia1 = new javax.swing.JLabel();
         jfecha = new com.toedter.calendar.JDateChooser();
         txtHora = new javax.swing.JLabel();
@@ -357,7 +353,7 @@ public class JFCitas extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -368,12 +364,12 @@ public class JFCitas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCitas);
 
         txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtProvincia1.setText("Fecha");
 
-        jfecha.setDateFormatString("dd-mm-yyyy");
+        jfecha.setDateFormatString("dd-MMM-yy");
 
         txtHora.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtHora.setText("Hora");
@@ -543,11 +539,11 @@ public class JFCitas extends javax.swing.JFrame {
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
-        lblCitas.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-        lblCliente.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
-        lblEspecialista.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        lblhora.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
-        lblSucursal.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+        lblCitas.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 0).toString());
+        lblCliente.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 1).toString());
+        lblEspecialista.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 2).toString());
+        lblhora.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 2).toString());
+        lblSucursal.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 2).toString());
         
     }                                        
  
@@ -604,13 +600,13 @@ public class JFCitas extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private com.toedter.calendar.JDateChooser jfecha;
     private javax.swing.JTextField lblCitas;
     private javax.swing.JTextField lblCliente;
     private javax.swing.JTextField lblEspecialista;
     private javax.swing.JTextField lblSucursal;
     private javax.swing.JTextField lblhora;
+    private javax.swing.JTable tblCitas;
     private javax.swing.JComboBox<String> tipocita;
     private javax.swing.JLabel txtCliente;
     private javax.swing.JLabel txtCodigoCita;
