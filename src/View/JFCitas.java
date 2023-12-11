@@ -395,7 +395,7 @@ public class JFCitas extends javax.swing.JFrame {
         txtEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtEstado.setText("Estado");
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Programada  ", "Realizada", "Cancelada", " " }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Programada", "Realizada", "Cancelada", "" }));
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

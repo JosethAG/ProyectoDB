@@ -343,7 +343,7 @@ public class JFHome extends javax.swing.JFrame {
         txtTipoCita.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTipoCita.setText("Tipo de Cita");
 
-        tipocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tipocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Virtual", "Presencial" }));
         tipocita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipocitaActionPerformed(evt);
@@ -353,7 +353,7 @@ public class JFHome extends javax.swing.JFrame {
         txtEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtEstado.setText("Estado");
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Programada  ", "Realizada", "Cancelada", " " }));
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Programada  ", "Realizada", "Cancelada", " " }));
         cbxEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxEstadoActionPerformed(evt);
