@@ -796,6 +796,252 @@ END;
 
 
 --------------------------------------------------------------------------------
+/*                                  PAQUETES                                  */
+--------------------------------------------------------------------------------
+
+--PAQUETE USUARIOS
+
+CREATE OR REPLACE PACKAGE Usuarios_Package AS
+   -- Procedimiento para crear usuarios
+   PROCEDURE CREATE_USER(
+      p_user_id IN NUMBER,
+      p_Name IN VARCHAR2,
+      p_Email IN VARCHAR2,
+      p_password IN VARCHAR2
+   );
+
+   -- Procedimiento para eliminar usuarios
+   PROCEDURE Delete_User(
+      p_UserID NUMBER
+   );
+
+   -- Procedimiento para modificar usuarios
+   PROCEDURE Update_User(
+      P_USER_ID INT,
+      P_NAME_USERS VARCHAR2,
+      P_EMAIL VARCHAR2,
+      P_PASSWORD VARCHAR2
+   );
+
+   -- Función para mostrar todos los usuarios
+   FUNCTION findAllUsers RETURN types.ref_cursor;
+END Usuarios_Package;
+
+
+CREATE OR REPLACE PACKAGE BODY Usuarios_Package AS
+   -- Procedimiento para crear usuarios
+   PROCEDURE CREATE_USER(
+      p_user_id IN NUMBER,
+      p_Name IN VARCHAR2,
+      p_Email IN VARCHAR2,
+      p_password IN VARCHAR2
+   ) AS
+   BEGIN
+      INSERT INTO TB_USERS(USER_ID, NAME_USERS, EMAIL, PASSWORD)
+      VALUES (p_user_id, p_Name, p_Email, p_password);
+      DBMS_OUTPUT.PUT_LINE('USUARIO CREADO');
+   END CREATE_USER;
+
+   -- Procedimiento para eliminar usuarios
+   PROCEDURE Delete_User(
+      p_UserID NUMBER
+   ) AS
+   BEGIN
+      DELETE FROM TB_USERS
+      WHERE USER_ID = p_UserID;
+   END Delete_User;
+
+   -- Procedimiento para modificar usuarios
+   PROCEDURE Update_User(
+      P_USER_ID INT,
+      P_NAME_USERS VARCHAR2,
+      P_EMAIL VARCHAR2,
+      P_PASSWORD VARCHAR2
+   ) AS
+   BEGIN
+      UPDATE TB_USERS
+      SET
+         NAME_USERS = P_NAME_USERS,
+         EMAIL = P_EMAIL,
+         PASSWORD = P_PASSWORD
+      WHERE
+         USER_ID = P_USER_ID;
+   END Update_User;
+
+   -- Función para mostrar todos los usuarios
+   FUNCTION findAllUsers RETURN types.ref_cursor AS
+      user_tb_cursor types.ref_cursor;
+   BEGIN
+      OPEN user_tb_cursor FOR
+         SELECT USER_ID, NAME_USERS, EMAIL FROM TB_USERS;
+      RETURN user_tb_cursor;
+   END findAllUsers;
+END Usuarios_Package;
+
+
+
+
+
+
+
+
+
+--PAQUETE CLIENTES
+
+CREATE OR REPLACE PACKAGE Clientes_Package AS
+   -- Procedimiento para crear clientes
+   PROCEDURE Create_Client(
+      p_CEDULA IN NUMBER,
+      p_FIRST_NAME VARCHAR2,
+      p_LAST_NAME VARCHAR2,
+      p_EMAIL VARCHAR2,
+      p_FECHA_NACIMIENTO DATE,
+      p_PROVINCIA_ID NUMBER
+   );
+
+   -- Procedimiento para modificar clientes
+   PROCEDURE Update_Client(
+      P_CLIENTE_ID NUMBER,
+      P_FIRST_NAME VARCHAR2,
+      P_LAST_NAME VARCHAR2,
+      P_EMAIL VARCHAR2,
+      P_FECHA_NACIMIENTO DATE,
+      P_PROVINCIA_ID NUMBER,
+      P_ESTADO_CLIENTE NUMBER
+   );
+
+   -- Procedimiento para inactivar clientes
+   PROCEDURE Inactivar_Client(
+      P_CLIENTE_ID NUMBER,
+      P_NUEVO_ESTADO NUMBER
+   );
+END Clientes_Package;
+
+
+CREATE OR REPLACE PACKAGE BODY Clientes_Package AS
+   -- Procedimiento para crear clientes
+   PROCEDURE Create_Client(
+      p_CEDULA IN NUMBER,
+      p_FIRST_NAME VARCHAR2,
+      p_LAST_NAME VARCHAR2,
+      p_EMAIL VARCHAR2,
+      p_FECHA_NACIMIENTO DATE,
+      p_PROVINCIA_ID NUMBER
+   ) AS
+   BEGIN
+      INSERT INTO TB_CLIENTES(CLIENTE_ID, FIRST_NAME, LAST_NAME, EMAIL, FECHA_NACIMIENTO, PROVINCIA_ID)
+      VALUES (p_CEDULA, p_FIRST_NAME, p_LAST_NAME, p_EMAIL, p_FECHA_NACIMIENTO, p_PROVINCIA_ID);
+   END Create_Client;
+
+   -- Procedimiento para modificar clientes
+   PROCEDURE Update_Client(
+      P_CLIENTE_ID NUMBER,
+      P_FIRST_NAME VARCHAR2,
+      P_LAST_NAME VARCHAR2,
+      P_EMAIL VARCHAR2,
+      P_FECHA_NACIMIENTO DATE,
+      P_PROVINCIA_ID NUMBER,
+      P_ESTADO_CLIENTE NUMBER
+   ) AS
+   BEGIN
+      UPDATE TB_CLIENTES
+      SET
+         FIRST_NAME = P_FIRST_NAME,
+         LAST_NAME = P_LAST_NAME,
+         EMAIL = P_EMAIL,
+         FECHA_NACIMIENTO = P_FECHA_NACIMIENTO,
+         PROVINCIA_ID = P_PROVINCIA_ID,
+         ESTADO_CLIENTE = P_ESTADO_CLIENTE
+      WHERE CLIENTE_ID = P_CLIENTE_ID;
+   END Update_Client;
+
+   -- Procedimiento para inactivar clientes
+   PROCEDURE Inactivar_Client(
+      P_CLIENTE_ID NUMBER,
+      P_NUEVO_ESTADO NUMBER
+   ) AS
+   BEGIN
+      UPDATE TB_CLIENTES
+      SET ESTADO_CLIENTE = P_NUEVO_ESTADO
+      WHERE CLIENTE_ID = P_CLIENTE_ID;
+   END Inactivar_Client;
+END Clientes_Package;
+
+
+
+
+
+
+
+
+--PAQUETE ESPECIALISTAS
+
+CREATE OR REPLACE PACKAGE Especialistas_Package AS
+   -- Procedimiento para crear especialistas
+   PROCEDURE Create_Especialista(
+      P_ESPECIALISTA_ID INT,
+      P_NOMBRE VARCHAR2,
+      P_ESPECIALIDAD VARCHAR2
+   );
+
+   -- Procedimiento para modificar especialistas
+   PROCEDURE Update_Especialistas(
+      P_ESPECIALISTA_ID INT,
+      P_NOMBRE VARCHAR2,
+      P_ESPECIALIDAD VARCHAR2,
+      P_NUEVO_ESTADO INT
+   );
+
+   -- Procedimiento para inactivar especialistas
+   PROCEDURE Inactivar_Especialista(
+      P_ESPECIALISTA_ID INT,
+      P_NUEVO_ESTADO INT
+   );
+END Especialistas_Package;
+
+
+CREATE OR REPLACE PACKAGE BODY Especialistas_Package AS
+   -- Procedimiento para crear especialistas
+   PROCEDURE Create_Especialista(
+      P_ESPECIALISTA_ID INT,
+      P_NOMBRE VARCHAR2,
+      P_ESPECIALIDAD VARCHAR2
+   ) AS
+   BEGIN
+      INSERT INTO TB_ESPECIALISTAS (ESPECIALISTA_ID, NOMBRE, ESPECIALIDAD)
+      VALUES (P_ESPECIALISTA_ID, P_NOMBRE, P_ESPECIALIDAD);
+   END Create_Especialista;
+
+   -- Procedimiento para modificar especialistas
+   PROCEDURE Update_Especialistas(
+      P_ESPECIALISTA_ID INT,
+      P_NOMBRE VARCHAR2,
+      P_ESPECIALIDAD VARCHAR2,
+      P_NUEVO_ESTADO INT
+   ) AS
+   BEGIN
+      UPDATE TB_ESPECIALISTAS
+      SET
+         NOMBRE = P_NOMBRE,
+         ESPECIALIDAD = P_ESPECIALIDAD,
+         ESTADO_ESPECIALISTA = P_NUEVO_ESTADO
+      WHERE ESPECIALISTA_ID = P_ESPECIALISTA_ID;
+   END Update_Especialistas;
+
+   -- Procedimiento para inactivar especialistas
+   PROCEDURE Inactivar_Especialista(
+      P_ESPECIALISTA_ID INT,
+      P_NUEVO_ESTADO INT
+   ) AS
+   BEGIN
+      UPDATE TB_ESPECIALISTAS
+      SET ESTADO_ESPECIALISTA = P_NUEVO_ESTADO
+      WHERE ESPECIALISTA_ID = P_ESPECIALISTA_ID;
+   END Inactivar_Especialista;
+END Especialistas_Package;
+
+
+--------------------------------------------------------------------------------
 /*                           INSERCION DE DATOS                               */
 --------------------------------------------------------------------------------
 
