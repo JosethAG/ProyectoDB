@@ -2,25 +2,13 @@ package View;
 
 import Controller.CitasController;
 import Model.Conexion;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser; // Añadido para soporte de fecha
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -45,8 +33,6 @@ public class JFCitas extends javax.swing.JFrame {
         return btnModificar;
     }
 
-    
-
     public JButton getBtnGuardar() {
         return btnGuardar;
     }
@@ -59,15 +45,11 @@ public class JFCitas extends javax.swing.JFrame {
         return Integer.parseInt( lblCliente.getText());
     }
     
-    public String getLblApellidos() {
-        return lblEspecialista.getText();
-    }
     
     public String getJfecha() {
         String fecha =((JTextField)jfecha.getDateEditor().getUiComponent()).getText();
         return fecha;
     }
-    
     
     public String getLblhora() {
         return lblhora.getText();
@@ -84,10 +66,6 @@ public class JFCitas extends javax.swing.JFrame {
      public String getCbxEstado() {
         return  cbxEstado.getSelectedItem().toString();
     }
-
-    
-    
-    
 
     public void setLblCitas(JTextField lblCitas) {
         this.lblCitas = lblCitas;
@@ -364,6 +342,11 @@ public class JFCitas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCitasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCitas);
 
         txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -498,8 +481,13 @@ public class JFCitas extends javax.swing.JFrame {
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
-         JFAuditoria abrir = new JFAuditoria();
-        abrir.setVisible(true);
+         JFAuditoria abrir;
+        try {
+            abrir = new JFAuditoria();
+            abrir.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFCitas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);  
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
@@ -537,15 +525,13 @@ public class JFCitas extends javax.swing.JFrame {
         this.setVisible(false);  
     }//GEN-LAST:event_btnEspecialistasActionPerformed
 
-    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {                                         
+    private void tblCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCitasMouseClicked
         // TODO add your handling code here:
         lblCitas.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 0).toString());
         lblCliente.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 1).toString());
-        lblEspecialista.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 2).toString());
-        lblhora.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 2).toString());
-        lblSucursal.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 2).toString());
-        
-    }                                        
+        lblEspecialista.setText(tblCitas.getValueAt(tblCitas.getSelectedRow(), 3).toString());
+    }//GEN-LAST:event_tblCitasMouseClicked
+                                     
  
     /**
      * @param args the command line arguments

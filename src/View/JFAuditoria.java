@@ -1,21 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
-/**
- *
- * @author araya
- */
+import Controller.AuditoriaController;
+import java.awt.Button;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class JFAuditoria extends javax.swing.JFrame {
 
+    private AuditoriaController auditoriaController;
     /**
      * Creates new form JFAuditoria
      */
-    public JFAuditoria() {
+    public JFAuditoria() throws SQLException {
         initComponents();
+        auditoriaController = new AuditoriaController(this);
     }
+
+    public Button getExportar() {
+        return Exportar;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +76,11 @@ public class JFAuditoria extends javax.swing.JFrame {
         btnEspecialistas.setText("ESPECIALISTAS");
         btnEspecialistas.setBorder(null);
         btnEspecialistas.setContentAreaFilled(false);
+        btnEspecialistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEspecialistasActionPerformed(evt);
+            }
+        });
 
         btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
         btnAuditoria.setText("CITAS");
@@ -154,6 +165,11 @@ public class JFAuditoria extends javax.swing.JFrame {
 
         Exportar.setActionCommand("Exportar");
         Exportar.setLabel("Exportar");
+        Exportar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExportarMouseClicked(evt);
+            }
+        });
         Exportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExportarActionPerformed(evt);
@@ -172,7 +188,7 @@ public class JFAuditoria extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProvincia1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -180,9 +196,9 @@ public class JFAuditoria extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jfecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProvincia2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48))
+                .addGap(64, 64, 64))
             .addGroup(layout.createSequentialGroup()
-                .addGap(223, 223, 223)
+                .addGap(225, 225, 225)
                 .addComponent(Exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -190,7 +206,7 @@ public class JFAuditoria extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(144, 144, 144)
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProvincia1)
                     .addComponent(txtProvincia2))
@@ -198,22 +214,26 @@ public class JFAuditoria extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jfecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
                 .addComponent(Exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
-
-        Exportar.getAccessibleContext().setAccessibleName("Exportar");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
+        JFHome abrir = new JFHome();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void bntCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCitaActionPerformed
         // TODO add your handling code here:
+        JFCitas abrir = new JFCitas();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
@@ -221,20 +241,39 @@ public class JFAuditoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        JFUsuarios abrir = new JFUsuarios();
+        abrir.setVisible(true);
+        this.setVisible(false);  
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         // TODO add your handling code here:
+        JFClientes abrir = new JFClientes();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void ExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ExportarActionPerformed
+
+    private void ExportarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExportarMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_ExportarMouseClicked
+
+    private void btnEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialistasActionPerformed
+        // TODO add your handling code here:
+        JFEspecialistas abrir = new JFEspecialistas();
+        abrir.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnEspecialistasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,7 +305,11 @@ public class JFAuditoria extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFAuditoria().setVisible(true);
+                try {
+                    new JFAuditoria().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JFAuditoria.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

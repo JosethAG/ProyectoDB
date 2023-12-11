@@ -69,7 +69,7 @@ public class EspecialistasController {
         int pEstado = jfEspecialitas.getCbEstado();
 
         try {
-            String sql = "{call UPATE_CLIENT(?, ?, ?, ?)}";
+            String sql = "{call Update_Especialistas(?, ?, ?, ?)}";
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, id);
                 stmt.setString(2, pNombre);

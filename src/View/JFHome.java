@@ -30,55 +30,16 @@ public class JFHome extends javax.swing.JFrame {
         }
     }
     
-    
-    
-
-    public int getcodigoCita() {
-        return Integer.parseInt(lblCitas.getText());
-    }
-
     public int getclienteId() {
         return Integer.parseInt(lblCliente.getText());
     }
     
-
-    public String getFechadesde() {
-        String fecha =((JTextField)fechadesde.getDateEditor().getUiComponent()).getText();
-        return fecha;
-    }
-
-    public String getFechahasta() {
-        String fecha =((JTextField)fechahasta.getDateEditor().getUiComponent()).getText();
-        return fecha;
-    }
-    
-    
-    public int getSucursal() {
-        return Integer.parseInt(lblSucursal.getText());
-    }
-    
-    public int gettipocita() {
-        return tipocita.getSelectedIndex();
-    }
-    
-    
-
-    public String getEstado() {
-        return cbxEstado.getSelectedItem().toString();
-    }
-
     public JButton getBtnGuardar() {
         return btnBuscar;
     }
 
     public void limpiarCampos() {
-        lblCitas.setText("");
         lblCliente.setText("");
-        fechadesde.cleanup();
-        fechahasta.cleanup();
-        lblSucursal.setText("");
-        tipocita.setSelectedIndex(0); 
-        cbxEstado.setSelectedItem(0); 
         
     }
 
@@ -110,38 +71,6 @@ public class JFHome extends javax.swing.JFrame {
         tblHome.setModel(dtm);
 }
     
-//    public void mostrarDatos() throws SQLException{
-//        Conexion conection = new Conexion();
-//        DefaultTableModel dtm = new DefaultTableModel();
-//        dtm.addColumn("ID CITA");
-//        dtm.addColumn("ID CLIENTE");
-//        dtm.addColumn("FECHA");
-//        dtm.addColumn("ID SUCURSAL");
-//        dtm.addColumn("ID TIPO CITA");
-//        dtm.addColumn("ID ESTADO");
-//        
-//        String sql = "select APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID,TIPOCITA_ID,ESTADO from TB_APPOINTMENTS";
-////        String sql = "SELECT APPOINTMENT_ID, CLIENTE_ID, FECHA, SUCURSAL_ID  FROM TB_APPOINTMENTS";
-//
-//        String datos[] = new String[6];
-////        String datos[] = new String[3];
-//
-//        Statement st = conection.getConexion().createStatement();
-//        ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
-//        
-//        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
-//            datos[0] = String.valueOf(rs.getInt(1));
-//            datos[1] = String.valueOf(rs.getInt(2));
-//            datos[2] = rs.getString(3);
-//            datos[3] = String.valueOf(rs.getInt(4));
-//            datos[4] = String.valueOf(rs.getInt(5));
-//            datos[5] = String.valueOf(rs.getInt(6));
-//            dtm.addRow(datos);
-//            
-//    }
-//        tblHome.setModel(dtm);
-//}
-
     
     
     public void mostrarDatos() throws SQLException {
@@ -180,8 +109,6 @@ public class JFHome extends javax.swing.JFrame {
     private void initComponents() {
 
         btnBuscar = new javax.swing.JButton();
-        txtCodigoCita = new javax.swing.JLabel();
-        lblCitas = new javax.swing.JTextField();
         txtCliente = new javax.swing.JLabel();
         lblCliente = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -194,36 +121,18 @@ public class JFHome extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHome = new javax.swing.JTable();
-        txtProvincia1 = new javax.swing.JLabel();
-        txtSucursall = new javax.swing.JLabel();
-        lblSucursal = new javax.swing.JTextField();
-        txtTipoCita = new javax.swing.JLabel();
-        tipocita = new javax.swing.JComboBox<>();
-        txtEstado = new javax.swing.JLabel();
-        cbxEstado = new javax.swing.JComboBox<>();
-        txtProvincia2 = new javax.swing.JLabel();
-        fechadesde = new com.toedter.calendar.JDateChooser();
         btnHome1 = new javax.swing.JButton();
-        fechahasta = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setForeground(java.awt.Color.white);
+        setPreferredSize(new java.awt.Dimension(808, 650));
 
         btnBuscar.setText("BUSCAR");
         btnBuscar.setName("bntGuardar"); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
-            }
-        });
-
-        txtCodigoCita.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtCodigoCita.setText("Código Cita");
-
-        lblCitas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblCitasActionPerformed(evt);
             }
         });
 
@@ -322,9 +231,9 @@ public class JFHome extends javax.swing.JFrame {
                 .addComponent(btnEspecialistas)
                 .addGap(18, 18, 18)
                 .addComponent(btnUsuarios)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
                 .addComponent(btnSalir)
-                .addGap(16, 16, 16))
+                .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,43 +263,6 @@ public class JFHome extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblHome);
 
-        txtProvincia1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtProvincia1.setText("Fecha desde");
-
-        txtSucursall.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtSucursall.setText("Sucursal");
-
-        lblSucursal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblSucursalActionPerformed(evt);
-            }
-        });
-
-        txtTipoCita.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTipoCita.setText("Tipo de Cita");
-
-        tipocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Virtual", "Presencial" }));
-        tipocita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipocitaActionPerformed(evt);
-            }
-        });
-
-        txtEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtEstado.setText("Estado");
-
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Programada  ", "Realizada", "Cancelada", " " }));
-        cbxEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxEstadoActionPerformed(evt);
-            }
-        });
-
-        txtProvincia2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtProvincia2.setText("Fecha hasta");
-
-        fechadesde.setDateFormatString("dd-MMM-yy");
-
         btnHome1.setBackground(new java.awt.Color(0, 0, 102));
         btnHome1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHome1.setForeground(new java.awt.Color(0, 0, 102));
@@ -403,115 +275,50 @@ public class JFHome extends javax.swing.JFrame {
                 btnHome1ActionPerformed(evt);
             }
         });
-
-        fechahasta.setDateFormatString("dd-mm-yyyy");
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCodigoCita)
-                                    .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCliente)
-                                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtProvincia1)
-                                        .addGap(133, 133, 133))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(fechadesde, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProvincia2)
-                                    .addComponent(fechahasta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSucursall)
-                                    .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tipocita, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTipoCita))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtEstado))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnHome1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(btnHome1)
+                    .addComponent(txtCliente)
+                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHome1)
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtCliente)
-                                .addComponent(txtProvincia1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fechadesde, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(txtCodigoCita)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lblCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtProvincia2)
-                        .addGap(40, 40, 40))
-                    .addComponent(fechahasta, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtTipoCita)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tipocita, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtEstado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSucursall)
+                        .addComponent(btnHome1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void lblCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblCitasActionPerformed
-        
-       
-    }//GEN-LAST:event_lblCitasActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // TODO add your handling code here:
@@ -524,8 +331,13 @@ public class JFHome extends javax.swing.JFrame {
     }//GEN-LAST:event_bntCitaActionPerformed
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
-        JFAuditoria abrir = new JFAuditoria();
-        abrir.setVisible(true);
+        JFAuditoria abrir;
+        try {
+            abrir = new JFAuditoria();
+            abrir.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);  
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
@@ -557,18 +369,6 @@ public class JFHome extends javax.swing.JFrame {
             Logger.getLogger(JFHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void lblSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblSucursalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblSucursalActionPerformed
-
-    private void tipocitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipocitaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipocitaActionPerformed
-
-    private void cbxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxEstadoActionPerformed
 
     private void btnEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecialistasActionPerformed
            JFEspecialistas abrir = new JFEspecialistas();
@@ -639,24 +439,12 @@ public class JFHome extends javax.swing.JFrame {
     private javax.swing.JButton btnHome1;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnUsuarios;
-    private javax.swing.JComboBox<String> cbxEstado;
-    private com.toedter.calendar.JDateChooser fechadesde;
-    private com.toedter.calendar.JDateChooser fechahasta;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lblCitas;
     private javax.swing.JTextField lblCliente;
-    private javax.swing.JTextField lblSucursal;
     private javax.swing.JTable tblHome;
-    private javax.swing.JComboBox<String> tipocita;
     private javax.swing.JLabel txtCliente;
-    private javax.swing.JLabel txtCodigoCita;
-    private javax.swing.JLabel txtEstado;
-    private javax.swing.JLabel txtProvincia1;
-    private javax.swing.JLabel txtProvincia2;
-    private javax.swing.JLabel txtSucursall;
-    private javax.swing.JLabel txtTipoCita;
     // End of variables declaration//GEN-END:variables
 
     

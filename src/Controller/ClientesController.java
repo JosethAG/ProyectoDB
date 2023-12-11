@@ -81,7 +81,7 @@ public class ClientesController {
         int pEstado = jfClientes.getCbEstado();
 
         try {
-            String sql = "{call UPATE_CLIENT(?, ?, ?, ?, ?, ?, ?)}";
+            String sql = "{call UPDATE_CLIENT(?, ?, ?, ?, ?, ?, ?)}";
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idCed);
                 stmt.setString(2, pNombre);
@@ -91,7 +91,7 @@ public class ClientesController {
                 stmt.setInt(6,  pProvincia);
                 stmt.setInt(7, pEstado);
                 stmt.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Se inactivo el cliente correctamente");
+                JOptionPane.showMessageDialog(null, "Se modificó el cliente correctamente");
                 // Limpiar los campos en la Vista
                 jfClientes.limpiarCampos();
                 jfClientes.mostrarDatos();

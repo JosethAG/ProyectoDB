@@ -323,8 +323,13 @@ public class JFEspecialistas extends javax.swing.JFrame {
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         // TODO add your handling code here:
-        JFAuditoria abrir = new JFAuditoria();
-        abrir.setVisible(true);
+        JFAuditoria abrir;
+        try {
+            abrir = new JFAuditoria();
+            abrir.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFEspecialistas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
 
     }//GEN-LAST:event_btnAuditoriaActionPerformed

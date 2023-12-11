@@ -39,8 +39,6 @@ public class CitasController {
                 }
             }
         });
-           
-      
 }
        
        public void SPCrearCita() throws SQLException {
@@ -54,7 +52,7 @@ public class CitasController {
         String estado = jfCitas.getCbxEstado();
 
         try {
-            String sql = "{call Crear_Cita(?, ?, ?, ?, ?, ?,?)}";
+            String sql = "{call Crear_Cita(?, ?, ?, ?, ?, ?, ?, ?)}";
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idcita);
                 stmt.setInt(2, idcliente);
@@ -65,7 +63,7 @@ public class CitasController {
                 stmt.setInt(7, tipocita);
                 stmt.setString(8, estado);
                 stmt.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
+                JOptionPane.showMessageDialog(null, "Se agregó la cita correctamente");
                 // Limpiar los campos en la Vista
                 jfCitas.limpiarCampos();
                 jfCitas.mostrarDatos();
@@ -89,7 +87,7 @@ public class CitasController {
         String estado = jfCitas.getCbxEstado();
 
         try {
-            String sql = "{call Update_Appointment(?, ?, ?, ?, ?, ?,?,?)}";
+            String sql = "{call Update_Appointment(?, ?, ?, ?, ?, ?, ?, ?)}";
             try (PreparedStatement stmt = conection.getConexion().prepareStatement(sql)) {
                 stmt.setInt(1, idcita);
                 stmt.setInt(2, idcliente);
@@ -100,7 +98,7 @@ public class CitasController {
                 stmt.setInt(7, tipocita);
                 stmt.setString(8, estado);
                 stmt.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Se agregó el cliente correctamente");
+                JOptionPane.showMessageDialog(null, "Se modificó la cita correctamente");
                 // Limpiar los campos en la Vista
                 jfCitas.limpiarCampos();
                 jfCitas.mostrarDatos();

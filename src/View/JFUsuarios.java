@@ -17,12 +17,12 @@ public class JFUsuarios extends javax.swing.JFrame {
     /**
      * Creates new form JFUsuarios
      */
-    public JFUsuarios(){
+    public JFUsuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
         usuariosController = new UsuariosController(this);
-        
-         try {
+
+        try {
             mostrarDatos();
         } catch (SQLException ex) {
             Logger.getLogger(JFUsuarios.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,28 +60,29 @@ public class JFUsuarios extends javax.swing.JFrame {
         lblContrasena.setText("");
     }
 
-    public void mostrarDatos() throws SQLException{
+    public void mostrarDatos() throws SQLException {
         Conexion conection = new Conexion();
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("ID");
         dtm.addColumn("NOMBRE");
         dtm.addColumn("CORREO");
-        
+
         String sql = "select USER_ID, NAME_USERS, EMAIL from TB_USERS";
 
         String datos[] = new String[4];
 
         Statement st = conection.getConexion().createStatement();
         ResultSet rs = st.executeQuery(sql);//Aqui ejecuta la consulta
-        
-        while(rs.next()){//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
+
+        while (rs.next()) {//Se hace el llenado de la tabla con los datos que se obtienen  de la consulta
             datos[0] = rs.getString(1);
             datos[1] = rs.getString(2);
             datos[2] = rs.getString(3);
             dtm.addRow(datos);
-    }
+        }
         tUsuarios.setModel(dtm);
-}
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -319,8 +320,13 @@ public class JFUsuarios extends javax.swing.JFrame {
 
     private void btnAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuditoriaActionPerformed
         // TODO add your handling code here:
-        JFAuditoria abrir = new JFAuditoria();
-        abrir.setVisible(true);
+        JFAuditoria abrir;
+        try {
+            abrir = new JFAuditoria();
+            abrir.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
     }//GEN-LAST:event_btnAuditoriaActionPerformed
 
@@ -353,7 +359,7 @@ public class JFUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tUsuariosMouseClicked
